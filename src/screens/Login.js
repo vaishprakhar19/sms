@@ -1,10 +1,10 @@
 
 import React,{useState,useEffect} from 'react'
 import './login.css'
-import firebase from 'firebase/compat/app';
-import {auth,provider,app} from '../firebase'
+import {auth,provider} from '../firebase'
 import "firebase/compat/auth";
 import {signInWithPopup , signOut} from "firebase/auth";
+import { json } from 'react-router-dom';
 
 
 
@@ -16,21 +16,24 @@ export default function Login() {
     signInWithPopup(auth, provider)
     .then(result => {
       const loggedInUser = result.user;
-      console.log(loggedInUser);
-      setUser(loggedInUser);
-  }).catch((error) => {
+      localStorage.setItem('user',JSON.stringify(loggedInUser))
+      window.location.reload()
+    }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       const email = error.customData.email;
-    
-    
+      
+      
     });}
+
+useEffect(() => { setUser(JSON.parse(localStorage.getItem('user')) )}, []);
 
     const handleSignOut = () => {
       signOut(auth)
           .then(result => {
               console.log(result);
               setUser(null);
+              localStorage.clear();
           })
           .catch(error => {
               console.log('error', error.message);
