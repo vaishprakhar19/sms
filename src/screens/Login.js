@@ -4,7 +4,7 @@ import './login.css'
 import firebase from 'firebase/compat/app';
 import {auth,provider,app} from '../firebase'
 import "firebase/compat/auth";
-import {signInWithPopup } from "firebase/auth";
+import {signInWithPopup , signOut} from "firebase/auth";
 
 
 
@@ -26,7 +26,16 @@ export default function Login() {
     
     });}
 
-
+    const handleSignOut = () => {
+      signOut(auth)
+          .then(result => {
+              console.log(result);
+              setUser(null);
+          })
+          .catch(error => {
+              console.log('error', error.message);
+          })
+  }
 
   return (<>
   <main>
@@ -41,9 +50,8 @@ export default function Login() {
   Continue with Google
 </button>
 </form>
-<h3>
-                    User: {user.displayName}
-                </h3>
+{user?<><h3>User: {user.displayName} </h3><button onClick={handleSignOut}>Logout</button></>:<h3>Not login</h3>}
+
   </main>
   </>
   )
