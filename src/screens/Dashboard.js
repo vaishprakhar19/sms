@@ -1,7 +1,14 @@
 import React from 'react'
 import './dashboard.css';
+import Card from '../components/Card';
+import dashdata from '../components/dashdata';
 
 function Dashboard() {
+  const cards= dashdata.map(item=>{
+    return(
+      <Card {...item}/>
+    )
+  })
   return (
     <div className='dashboard'>
       <header>
@@ -10,23 +17,10 @@ function Dashboard() {
           <p>Username</p>
         </div>
       </header>
-      <main className='dash-item-container'>
-        <div className='dash-item'>
-          <img src='/' alt='dash-item-image' />
-          <p>Dashboard Item</p>
-        </div>
-        <div className='dash-item'>
-          <img src='/' alt='dash-item-image' />
-          <p>Dashboard Item</p>
-        </div>
-        <div className='dash-item'>
-          <img src='/' alt='dash-item-image' />
-          <p>Dashboard Item</p>
-        </div>
-        <div className='dash-item'>
-          <img src='/' alt='dash-item-image' />
-          <p>Dashboard Item</p>
-        </div>
+      <main>
+        <card  className='dash-item-container'>
+        {cards}
+        </card>
       </main>
     </div>
   )
