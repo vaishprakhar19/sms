@@ -4,20 +4,21 @@ import './login.css'
 import {auth,provider} from '../firebase'
 import "firebase/compat/auth";
 import {signInWithPopup , signOut} from "firebase/auth";
-import { json } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
-export default function Login() {
-  const [user, setUser] = useState(null);
+export default function Login({user,setUser}) {
+  const navigate = useNavigate();
   const handleLogin=(e)=> {
     e.preventDefault();
     signInWithPopup(auth, provider)
     .then(result => {
       const loggedInUser = result.user;
       localStorage.setItem('user',JSON.stringify(loggedInUser))
-      window.location.reload()
+      // window.location.reload()
+      navigate("/dashboard")
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -31,7 +32,6 @@ useEffect(() => { setUser(JSON.parse(localStorage.getItem('user')) )}, []);
     const handleSignOut = () => {
       signOut(auth)
           .then(result => {
-              console.log(result);
               setUser(null);
               localStorage.clear();
           })

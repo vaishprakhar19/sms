@@ -3,7 +3,7 @@ import './dashboard.css';
 import Card from '../components/Card';
 import dashdata from '../components/dashdata';
 
-function Dashboard() {
+function Dashboard({user}) {
   const cards= dashdata.map(item=>{
     return(
       <Card {...item}/>
@@ -13,7 +13,7 @@ function Dashboard() {
     <div className='dashboard'>
       <header>
         <div className='user-profile'>
-          <img className='user-profile-image' src='/' alt='profile-image' />
+          <img className='user-profile-image' src='' alt='profile-image' />
           <p>Username</p>
         </div>
       </header>
