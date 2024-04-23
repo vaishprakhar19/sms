@@ -4,7 +4,7 @@ import './login.css'
 import {auth,provider} from '../firebase'
 import "firebase/compat/auth";
 import {signInWithPopup , signOut} from "firebase/auth";
-import { json } from 'react-router-dom';
+
 
 
 
@@ -19,9 +19,8 @@ export default function Login() {
       localStorage.setItem('user',JSON.stringify(loggedInUser))
       window.location.reload()
     }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.customData.email;
+      console.log(error)
+    
       
       
     });}

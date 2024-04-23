@@ -10,9 +10,18 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    user-select:none;
+
 }
 
 .shadow {
     box-shadow: 0 0 0 2px rgb(190, 190, 190),
         0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+.card:active{
+    background-color: rgb(233, 233, 233);
+    box-shadow: none;
+}
+.card img{
+    -webkit-user-drag: none;
 }
