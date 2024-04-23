@@ -2,11 +2,20 @@ import React from 'react'
 import './dashboard.css';
 import Card from '../components/Card';
 import dashdata from '../components/dashdata';
+import Notices from '../components/Notices';
+import notidata from '../components/notidata';
 
 function Dashboard() {
   const cards= dashdata.map(item=>{
     return(
       <Card {...item}/>
+    )
+  })
+  const notices = notidata.map(item=>{
+    return(
+      <Notices
+      {...item}
+      />
     )
   })
   return (
@@ -22,6 +31,9 @@ function Dashboard() {
         {cards}
         </card>
       </main>
+      <notice>
+        {notices}
+        </notice>
     </div>
   )
 }
