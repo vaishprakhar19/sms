@@ -6,7 +6,6 @@ import Login from './screens/Login';
 function App() {
   return (
     <div className="App">
-      hello
       <Router>
         <Routes>
           <Route path="/login" Component={Login}></Route>
