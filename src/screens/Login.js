@@ -16,7 +16,7 @@ export default function Login({user,setUser}) {
       const loggedInUser = result.user;
       localStorage.setItem('user',JSON.stringify(loggedInUser))
       // window.location.reload()
-      navigate("/dashboard")
+      // navigate("/dashboard")
     }).catch((error) => {
       console.log(error)
     
