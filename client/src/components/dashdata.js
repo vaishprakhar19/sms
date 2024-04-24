@@ -1,8 +1,9 @@
-export default[
+export default [
     {
         link:"/result",
         img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
-        title: "Result"
+        title: "Mess timing",
+        href: "/mess_timing"
     },
     {
         link:"/messmenu",
