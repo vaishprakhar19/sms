@@ -12,8 +12,17 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/dashboard" element={<Dashboard user={user}/>}></Route>
+          {user?
+          <>
+          <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>}></Route>
+          <Route path="*" element={<Navigate to="/dashboard"/>}></Route>
+          </>
+          :
+          <>
           <Route path="/login" element={<Login user={user} setUser={setUser}/>}></Route>
+          <Route path="*" element={<Navigate to="/login"/>}></Route>
+          </>
+}
         </Routes> 
       </Router>
     </div>

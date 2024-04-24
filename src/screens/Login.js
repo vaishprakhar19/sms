@@ -1,12 +1,10 @@
 
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 import './login.css'
 import {auth,provider} from '../firebase'
 import "firebase/compat/auth";
-import {signInWithPopup , signOut} from "firebase/auth";
+import {signInWithPopup} from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
-
-
 
 
 export default function Login({user,setUser}) {
@@ -29,16 +27,6 @@ export default function Login({user,setUser}) {
 
 useEffect(() => { setUser(JSON.parse(localStorage.getItem('user')) )}, []);
 
-    const handleSignOut = () => {
-      signOut(auth)
-          .then(result => {
-              setUser(null);
-              localStorage.clear();
-          })
-          .catch(error => {
-              console.log('error', error.message);
-          })
-  }
 
   return (<>
   <main>
@@ -53,7 +41,7 @@ useEffect(() => { setUser(JSON.parse(localStorage.getItem('user')) )}, []);
   Continue with Google
 </button>
 </form>
-{user?<><h3>User: {user.displayName} </h3><button onClick={handleSignOut}>Logout</button></>:<h3>Not login</h3>}
+{user?<><h3>User: {user.displayName} </h3><button>Logout</button></>:<h3>Not login</h3>}
 
   </main>
   </>
