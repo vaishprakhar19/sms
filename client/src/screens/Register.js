@@ -6,7 +6,7 @@ const Register = () => {
   return (
     <div className='register'>
         <div className="container">
-  <div className="heading">SignIn to your account</div>
+  <div className="heading">Enter Your Information</div>
   <form className="form" action="">
     <div className="input-field">
       <input
@@ -25,7 +25,7 @@ const Register = () => {
         autocomplete="off"
         type="text"
         inputMode='numeric'
-        pattern="[0-9]*"
+        pattern="[^A-Za-z]*"
         name="number"
         id="email"
         placeholder=''
@@ -48,12 +48,26 @@ const Register = () => {
       <input
         required="on"
         autocomplete="off"
-        type="password"
+        type="text"
+        inputMode='numeric'
+        pattern="[0-9]*"
         name="text"
         id="password"
         placeholder=''
       />
-      <label for="username">Password</label>
+      <label for="username">Batch</label>
+    </div>
+  
+    <div className='radio-inputs'> 
+  
+    <label className="radio male">
+    <input type="radio" name="radio" />
+    <span className="name">Male</span>
+  </label>
+  <label className="radio female">
+    <input type="radio" name="radio"/>
+    <span className="name">Female</span>
+  </label>
     </div>
     <div className="radio-inputs">
   <label className="radio">
