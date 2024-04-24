@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth";
 import { auth } from '../firebase'
 import Notices from '../components/Notices';
 import notidata from '../components/notidata';
+import Navbar from '../components/Navbar';
 
 
 
@@ -57,6 +58,9 @@ function Dashboard({ user, setUser }) {
       <notice>
         {notices}
       </notice>
+      <footer>
+        <Navbar/>
+      </footer>
 
 
 

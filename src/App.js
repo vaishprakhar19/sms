@@ -3,7 +3,7 @@ import './App.css';
 import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
 import Register from "./screens/Register"
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import Result from './screens/Result';
 import TimeTable from './screens/TimeTable';
 import MessMenu from './screens/MessMenu';
@@ -11,18 +11,30 @@ import MessTiming from './screens/MessTiming';
 import Syllabus from './screens/Syllabus';
 import Holidays from './screens/Holidays';
 import PYQ from './screens/PYQ';
+import { doc, getDoc } from "firebase/firestore";
+import { db } from './firebase';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [isRegistered, setIsRegistered] = useState(false);
   // console.log(user);
+  console.log(db.collection('user').doc(user.uid).get());
+
+useEffect(async ()=>{
+  const docRef = doc(db, "user",user.uid);
+  const docSnap = await getDoc(docRef);
+  console.log(docSnap.data());
+})
+  
+  
+
   return (
     <div className="App">
       <Router>
         <Routes>
-        <Route path="/register" element={<Register/>}></Route>
+        <Route path="/register" element={<Register isRegistered={isRegistered} setIsRegistered={setIsRegistered} />}></Route>
           {user?
           <>
-         
           <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>}></Route>
           <Route path="/result" element={<Result/>}></Route>
           <Route path="/timetable" element={<TimeTable/>}></Route>
