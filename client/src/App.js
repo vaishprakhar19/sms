@@ -2,6 +2,7 @@ import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-d
 import './App.css';
 import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
+
 import Register from "./screens/Register"
 import React,{useEffect, useState} from 'react';
 import Result from './screens/Result';
@@ -13,6 +14,7 @@ import Holidays from './screens/Holidays';
 import PYQ from './screens/PYQ';
 import { doc, getDoc } from "firebase/firestore";
 import { db } from './firebase';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,6 +38,7 @@ useEffect(async ()=>{
           {user?
           <>
           <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>}></Route>
+
           <Route path="/result" element={<Result/>}></Route>
           <Route path="/timetable" element={<TimeTable/>}></Route>
           <Route path="/messmenu" element={<MessMenu/>}></Route>
@@ -43,7 +46,10 @@ useEffect(async ()=>{
           <Route path="/syllabus" element={<Syllabus/>}></Route>
           <Route path="/holidays" element={<Holidays/>}></Route>
           <Route path="/pyq" element={<PYQ/>}></Route>
+          <Route path="/mess_timing" element={<MessTiming />} ></Route>
+
           <Route path="*" element={<Navigate to="/dashboard"/>}></Route>
+          
           </>
           :
           <>

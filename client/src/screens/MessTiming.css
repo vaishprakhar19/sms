@@ -1,0 +1,61 @@
+/* MessTiming.css */
+.mess-timing-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.gender-filter {
+    margin-bottom: 10px;
+}
+
+.mess-timing-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mess-timing-table th,
+.mess-timing-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.mess-timing-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.mess-timing-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.mess-timing-table tr:hover {
+    background-color: #ddd;
+}
+
+/* Style the radio buttons */
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:focus {
+    outline: none;
+}
