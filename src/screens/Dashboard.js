@@ -27,7 +27,7 @@ function Dashboard({ user, setUser }) {
         console.log('error', error.message);
       })
   }
-
+console.log(user)
   const notices = notidata.map(item => {
     return (
       <Notices
