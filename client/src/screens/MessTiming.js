@@ -1,3 +1,14 @@
+<<<<<<< HEAD:src/screens/MessTiming.js
+import React from 'react'
+
+const MessTiming = () => {
+  return (
+    <div>MessTiming</div>
+  )
+}
+
+export default MessTiming
+=======
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./MessTiming.css"; 
@@ -88,3 +99,4 @@ const MessTiming = () => {
 };
 
 export default MessTiming;
+>>>>>>> 8872c4f8174782e0a1eedd998b001117bee31470:client/src/screens/MessTiming.js

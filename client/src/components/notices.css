@@ -19,7 +19,7 @@
     overflow: hidden;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 16px;
-    --gradient: linear-gradient(to bottom, #2eadff, #3d83ff, #7e61ff);
+    --gradient: linear-gradient(to bottom, var(--purple1), var(--purple2), var(--purple3));
     --color: #107ed2;
     margin-top: 15px;
   }
@@ -49,7 +49,7 @@
   }
   
   .notititle {
-    color: var(--color);
+    color: var(--purple1);
     padding: 0.65rem 0.25rem 0.4rem 1.25rem;
     font-weight: 500;
     font-size: 1.1rem;
