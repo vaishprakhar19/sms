@@ -18,9 +18,8 @@ export default function Login({user,setUser}) {
       // window.location.reload()
       navigate("/dashboard")
     }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.customData.email;
+      console.log(error)
+    
       
       
     });}

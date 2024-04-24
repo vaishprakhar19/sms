@@ -4,6 +4,8 @@ import Card from '../components/Card';
 import dashdata from '../components/dashdata';
 import {signOut} from "firebase/auth";
 import {auth} from '../firebase'
+import Notices from '../components/Notices';
+import notidata from '../components/notidata';
 
 function Dashboard({user, setUser}) {
   console.log(user);
@@ -24,6 +26,14 @@ function Dashboard({user, setUser}) {
         })
     }
 
+  const notices = notidata.map(item=>{
+    return(
+      <Notices
+      {...item}
+      />
+    )
+  })
+
   return (
     <div className='dashboard'>
       <header>
@@ -37,6 +47,9 @@ function Dashboard({user, setUser}) {
         {cards}
         </card>
       </main>
+      <notice>
+        {notices}
+        </notice>
       <button onClick={handleSignOut}>Logout</button>
     </div>
   )
