@@ -78,7 +78,6 @@
     background-color: var(--af-white);
   }
   
-  /* plus sign */
   .sign {
     width: 100%;
     transition-duration: .3s;
