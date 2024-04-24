@@ -2,6 +2,7 @@ import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-d
 import './App.css';
 import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
+import Register from "./screens/Register"
 import React,{useState} from 'react';
 import Result from './screens/Result';
 import TimeTable from './screens/TimeTable';
@@ -18,8 +19,10 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+        <Route path="/register" element={<Register/>}></Route>
           {user?
           <>
+         
           <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>}></Route>
           <Route path="/result" element={<Result/>}></Route>
           <Route path="/timetable" element={<TimeTable/>}></Route>
