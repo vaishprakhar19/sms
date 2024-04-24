@@ -1,13 +1,17 @@
-import React from 'react'
-import './card.css'
-import data from '../components/dashdata'
+import React from "react";
+import "./card.css";
+import data from "../components/dashdata";
+import { Link } from "react-router-dom";
 
 export default function Card(props) {
-    
   return (
-    <div className='card shadow'>
-        <img width='150px' src={props.img} alt='dash-item-image' />
+    <>
+      <Link to={props.link}>
+        <div className="card shadow">
+          <img src={props.img} alt="dash-item" />
           <p>{props.title}</p>
-    </div>
-  )
+        </div>
+      </Link>
+    </>
+  );
 }
