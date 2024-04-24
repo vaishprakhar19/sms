@@ -3,6 +3,7 @@ import './App.css';
 import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
 import React,{useState} from 'react'
+import MessTiming from './screens/MessTiming';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -14,7 +15,9 @@ function App() {
           {user?
           <>
           <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>}></Route>
+          <Route path="/mess_timing" element={<MessTiming />} ></Route>
           <Route path="*" element={<Navigate to="/dashboard"/>}></Route>
+          
           </>
           :
           <>

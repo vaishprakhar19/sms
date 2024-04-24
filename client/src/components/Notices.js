@@ -14,4 +14,4 @@ const Notices = (props) => {
   )
 }
 
-export default Notices
+export default Notices  
