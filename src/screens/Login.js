@@ -1,23 +1,22 @@
 
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 import './login.css'
 import {auth,provider} from '../firebase'
 import "firebase/compat/auth";
-import {signInWithPopup , signOut} from "firebase/auth";
+import {signInWithPopup} from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 
-
-
-
-export default function Login() {
-  const [user, setUser] = useState(null);
+export default function Login({user,setUser}) {
+  const navigate = useNavigate();
   const handleLogin=(e)=> {
     e.preventDefault();
     signInWithPopup(auth, provider)
     .then(result => {
       const loggedInUser = result.user;
       localStorage.setItem('user',JSON.stringify(loggedInUser))
-      window.location.reload()
+      // window.location.reload()
+      navigate("/dashboard")
     }).catch((error) => {
       console.log(error)
     
@@ -27,17 +26,6 @@ export default function Login() {
 
 useEffect(() => { setUser(JSON.parse(localStorage.getItem('user')) )}, []);
 
-    const handleSignOut = () => {
-      signOut(auth)
-          .then(result => {
-              console.log(result);
-              setUser(null);
-              localStorage.clear();
-          })
-          .catch(error => {
-              console.log('error', error.message);
-          })
-  }
 
   return (<>
   <main>
@@ -52,7 +40,7 @@ useEffect(() => { setUser(JSON.parse(localStorage.getItem('user')) )}, []);
   Continue with Google
 </button>
 </form>
-{user?<><h3>User: {user.displayName} </h3><button onClick={handleSignOut}>Logout</button></>:<h3>Not login</h3>}
+{user?<><h3>User: {user.displayName} </h3><button>Logout</button></>:<h3>Not login</h3>}
 
   </main>
   </>

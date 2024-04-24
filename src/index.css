@@ -19,3 +19,8 @@ body{
   height: 100vh;
 }
 
+:root{
+  --purple1:#5F00AA;
+  --purple2:#6122C4;
+  --purplel:#7F0FEA;
+}
