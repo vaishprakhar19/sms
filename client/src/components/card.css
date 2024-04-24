@@ -27,7 +27,7 @@
    text-wrap:nowrap;
    text-align: center;
    text-decoration: none;
-   color: black;
+   color: var(--black);
    
 }
 .card img{
