@@ -4,7 +4,6 @@ import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
 import React,{useState} from 'react'
 
-
 function App() {
   const [user, setUser] = useState(null);
   // console.log(user);

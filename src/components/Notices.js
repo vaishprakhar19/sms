@@ -4,11 +4,11 @@ import "./notices.css"
 const Notices = (props) => {
   return (
     <div className="notices">
-    <div class="notification">
-    <div class="notiglow"></div>
-    <div class="notiborderglow"></div>
-    <div class="notititle">{props.notiTitle}</div>
-    <div class="notibody">{props.notiBody}</div>
+    <div className="notification">
+    <div className="notiglow"></div>
+    <div className="notiborderglow"></div>
+    <div className="notititle">{props.notiTitle}</div>
+    <div className="notibody">{props.notiBody}</div>
   </div>
   </div>
   )
