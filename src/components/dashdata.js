@@ -5,24 +5,29 @@ export default[
         title: "Result"
     },
     {
-        link:"",
+        link:"/messmenu",
         img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
         title: "Mess Menu"
     },
     {
-        link:"",
+        link:"/timetable",
         img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
         title: "Time Table"
     },
     {
-        link:"",
+        link:"/holidays",
         img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
         title: "Holidays"
     },
     {
-        link:"",
+        link:"/pyq",
         img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
         title: "PYQ"
+    },
+    {
+        link:"/syllabus",
+        img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
+        title: "Syllabus"
     }
 
 ]
