@@ -41,10 +41,6 @@ const Register = () => {
 
     <div className="btn-container">
       <button className="btn">Submit</button>
-      <div className="acc-text">
-        New here ?
-        <span style={{color :" #0000ff"}}>Create Account</span>
-      </div>
     </div>
   </form>
 </div>
