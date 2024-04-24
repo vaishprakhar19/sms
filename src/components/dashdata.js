@@ -1,19 +1,28 @@
 export default[
     {
+        link:"/result",
         img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
         title: "Result"
     },
     {
+        link:"",
         img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
-        title: "Result"
+        title: "Mess Menu"
     },
     {
+        link:"",
         img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
-        title: "timetable"
+        title: "Time Table"
     },
     {
+        link:"",
         img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
-        title: "Result"
+        title: "Holidays"
+    },
+    {
+        link:"",
+        img:"https://cdn-icons-png.flaticon.com/512/9913/9913579.png",
+        title: "PYQ"
     }
 
 ]
