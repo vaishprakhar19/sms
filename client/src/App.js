@@ -23,30 +23,27 @@ function App() {
   // console.log(user);
   // console.log(db.collection('user').doc(user.uid).get());
 
-// onAuthStateChanged(auth,(user)=>{
+// useEffect(()=>{
+//   const unnsubscribe = onAuthStateChanged(auth,(user)=>{
 //   if(user){
 //     setUser(user);
+//     localStorage.setItem('user', JSON.stringify(user))
 //   } else{
 //     setUser(null);
+//     localStorage.removeItem('user');
 //   }
-// })
-
-//     const getUser = async ()=>{
-//       const docRef = doc(db, "user",user.uid);
-//       const docSnap = await getDoc(docRef);
-//       console.log(docSnap.data());
-//     }
-//   useEffect(()=>{
-//     getUser();
-//   },[user])
-
-
+// });
+// const storedUser=JSON.parse(localStorage.getItem('user'));
+// if(storedUser){
+//   setUser(storedUser);
+// }
+// return()=>unsubscribe();
+// },[]);
 
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/register" element={<Register user={user} setIsRegistered={setIsRegistered} />}></Route>
           {user && isRegistered ?
             <>
               <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />}></Route>
@@ -62,7 +59,8 @@ function App() {
             </>
             :
             <>
-              <Route path="/login" element={<Login user={user} setUser={setUser} isRegistered={isRegistered}/>}></Route>
+               <Route path="/register" element={<Register user={user} setIsRegistered={setIsRegistered} />}></Route>
+              <Route path="/login" element={<Login user={user} setUser={setUser} isRegistered={isRegistered} setIsRegistered={setIsRegistered}/>}></Route>
               <Route path="*" element={<Navigate to="/login" />}></Route>
             </>
           }

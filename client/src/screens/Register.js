@@ -9,12 +9,14 @@ import { useNavigate } from 'react-router-dom'
 const Register = ({ user, setIsRegistered }) => {
 
   const navigate = useNavigate();
-
+  
   const setReg = async () => {
+if(user){
     await setDoc(doc(db, "user", user.uid), {
       isRegistered: true
     });
   }
+}
   const handleRegister = () => {
     setReg();
     setIsRegistered(true);
