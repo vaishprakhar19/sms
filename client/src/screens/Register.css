@@ -4,6 +4,9 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 background-attachment: fixed;
 background-size: cover;
 height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 .container {
 
@@ -14,6 +17,7 @@ height: 100vh;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+  
   }
   
   .container .heading {
@@ -88,7 +92,8 @@ height: 100vh;
     border: 1px solid red; /* Apply red border */
   }
   
-  input:invalid:not(:placeholder-shown) ~ label {
+  input:invalid:not(:placeholder-shown) ~ label,
+  input:invalid:not(:placeholder-shown):focus ~ label {
     transform: translateY(-51%) translateX(-10px) scale(0.8);
     background-color: #fff;
     padding: 0px 5px;
@@ -98,6 +103,7 @@ height: 100vh;
     border: none;
     border-radius: 100px;
   }
+
   .input-field input:focus ~ label,
   .input-field input:valid ~ label
   {
@@ -127,7 +133,7 @@ height: 100vh;
     display: flex;
     flex-wrap: wrap;
     border-radius: 0.5rem;
-    background-color: #EEE;
+    background-color: var(--gray);
     box-sizing: border-box;
     box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
     padding: 0.25rem;
@@ -157,6 +163,17 @@ height: 100vh;
   }
   
   .radio-inputs .radio input:checked + .name {
-    background-color: #fff;
+    background-color: var(--purple3);
     font-weight: 600;
+    color: #fff;
   }
+  .radio-inputs .male input:checked + .name {
+  background-color: rgb(67, 249, 249);
+  font-weight: 600;
+  color: black;
+  }
+  .radio-inputs .female input:checked + .name {
+    background-color: pink;
+    font-weight: 600;
+    color: black;
+    }
