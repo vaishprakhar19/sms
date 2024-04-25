@@ -61,7 +61,6 @@ export default function Login({ user, setUser, isRegistered, setIsRegistered }) 
 
 
   return (<>
-    </main>
   <main className='login-page'>
 <form className='login-form' onSubmit={handleLogin}>
   <img src='../../assets/image.png'/>
