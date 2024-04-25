@@ -3,7 +3,7 @@ import "./login.css";
 import { auth, db, provider } from "../firebase";
 import "firebase/compat/auth";
 
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, signInWithRedirect} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -47,7 +47,7 @@ export default function Login({
 
   const handleLogin = (e) => {
     e.preventDefault();
-    signInWithPopup(auth, provider)
+   signInWithPopup(auth, provider)
       .then((result) => {
         // No need to handle user state here, it's handled in onAuthStateChanged
       })
@@ -61,9 +61,8 @@ export default function Login({
     <>
       <main className="login-page">
         <form className="login-form" onSubmit={handleLogin}>
-          <img src="../../assets/image.png" />
+          <img src="../../assets/image.png"  alt="birla"/>
           <h2>Welcome To Student Portal BIAS</h2>
-          <h3>Register/Login</h3>
           <button className="google-login">
             <svg
               xmlns="http://www.w3.org/2000/svg"
