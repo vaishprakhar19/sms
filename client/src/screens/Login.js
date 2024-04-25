@@ -1,31 +1,67 @@
 
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import './login.css'
-import {auth,provider} from '../firebase'
+import { auth, db, provider } from '../firebase'
 import "firebase/compat/auth";
-import {signInWithPopup} from "firebase/auth";
+
+import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+import { doc, getDoc,setDoc} from 'firebase/firestore';
 
 
-export default function Login({user,setUser}) {
-  const handleLogin=(e)=> {
+export default function Login({ user, setUser, isRegistered, setIsRegistered }) {
+  const navigate = useNavigate();
+  const handleLogin = (e) => {
+
     e.preventDefault();
     signInWithPopup(auth, provider)
-    .then(result => {
-      const loggedInUser = result.user;
-      localStorage.setItem('user',JSON.stringify(loggedInUser))
-      // window.location.reload()
-      // navigate("/dashboard")
-    }).catch((error) => {
-      console.log(error)
-    
-      
-      
-    });}
+      .then(result => {
+        const loggedInUser = result.user;
+        localStorage.setItem('user', JSON.stringify(loggedInUser))
+        // window.location.reload()
+        if(user){
+          const getUser = ()=>{
+            getDoc(doc(db, "user",user.uid)).then((docSnap)=>{
+              if(docSnap.exists()){
+                setIsRegistered(docSnap.data().isRegistered);
+                localStorage.setItem('isRegistered', docSnap.data().isRegistered);
+                console.log(docSnap.data().isRegistered);
+                isRegistered ? navigate("/dashboard") : navigate("/register")
+              }else{
+                setDoc(doc(db, "user", user.uid), {
+                  isRegistered: false
+                });
+                isRegistered ? navigate("/dashboard") : navigate("/register")
+              }
+            })
+          }
+          getUser();
+        }
+      }).catch((error) => {
+        console.log(error)
+      });
+  }
 
-useEffect(() => { setUser(JSON.parse(localStorage.getItem('user')) )}, []);
+  useEffect(() => { 
+    setUser(JSON.parse(localStorage.getItem('user')))
+  setIsRegistered(JSON.parse(localStorage.getItem('isRegistered'))) 
+}, []);
+
+// useEffect(() => { 
+//   const storedUser = JSON.parse(localStorage.getItem('user'));
+//   const storedIsRegistered = JSON.parse(localStorage.getItem('isRegistered'));
+//   const delay = 2000; 
+//   const timeoutId = setTimeout(() => {
+//       setUser(storedUser);
+//       setIsRegistered(storedIsRegistered);
+//   }, delay);
+//   return () => clearTimeout(timeoutId);
+// }, []);
+
 
 
   return (<>
+    </main>
   <main className='login-page'>
 <form className='login-form' onSubmit={handleLogin}>
   <img src='../../assets/image.png'/>
@@ -42,6 +78,7 @@ useEffect(() => { setUser(JSON.parse(localStorage.getItem('user')) )}, []);
 </button>
 </form>
   </main>
+
   </>
   )
 }

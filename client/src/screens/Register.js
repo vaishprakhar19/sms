@@ -1,8 +1,28 @@
 
 import React from 'react'
 import "./Register.css"
+import { setDoc, doc } from 'firebase/firestore'
+import { db } from '../firebase'
+import { useNavigate } from 'react-router-dom'
 
-const Register = () => {
+
+const Register = ({ user, setIsRegistered }) => {
+
+  const navigate = useNavigate();
+  
+  const setReg = async () => {
+if(user){
+    await setDoc(doc(db, "user", user.uid), {
+      isRegistered: true
+    });
+  }
+}
+  const handleRegister = () => {
+    setReg();
+    setIsRegistered(true);
+    navigate('/dashboard');
+  }
+
   return (
     <div className='register'>
         <div className="container">
@@ -84,12 +104,17 @@ const Register = () => {
     <span className="name">MCA</span>
   </label>
 </div>
+            <label className="radio">
+              <input type="radio" name="radio" />
+              <span className="name">MCA</span>
+            </label>
+          </div>
 
-    <div className="btn-container">
-      <button className="btn">Submit</button>
-    </div>
-  </form>
-</div>
+          <div className="btn-container">
+            <button className="btn">Submit</button>
+          </div>
+        </form>
+      </div>
 
     </div>
   )
