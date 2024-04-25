@@ -14,6 +14,7 @@ const Register = ({ user, setIsRegistered }) => {
       });
     }
   };
+
   const handleRegister = () => {
     setReg();
     setIsRegistered(true);
@@ -25,6 +26,7 @@ const Register = ({ user, setIsRegistered }) => {
       <div className="container">
         <div className="heading">Enter Your Information</div>
         <form className="form" onSubmit={handleRegister}>
+
           <div className="input-field">
             <input
               required="on"
@@ -32,7 +34,9 @@ const Register = ({ user, setIsRegistered }) => {
               type="text"
               name="text"
               id="username"
+
               placeholder=""
+
             />
             <label for="username">Name</label>
           </div>
@@ -53,11 +57,13 @@ const Register = ({ user, setIsRegistered }) => {
             <input
               required="on"
               type="text"
+
               inputMode="numeric"
               pattern="[0-9]*"
               name="number"
               id="password"
               placeholder=""
+
             />
             <label for="username">Roll No.</label>
           </div>
@@ -66,16 +72,19 @@ const Register = ({ user, setIsRegistered }) => {
               required="on"
               autocomplete="off"
               type="text"
+
               inputMode="numeric"
               pattern="[0-9]*"
               name="text"
               id="password"
               placeholder=""
+
             />
             <label for="username">Batch</label>
           </div>
 
-          <div className="radio-inputs">
+        <div className="radio-inputs">
+
             <label className="radio male">
               <input type="radio" name="radio" />
               <span className="name">Male</span>
@@ -109,5 +118,6 @@ const Register = ({ user, setIsRegistered }) => {
     </div>
   );
 };
+
 
 export default Register;
