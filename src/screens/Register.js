@@ -2,13 +2,9 @@
 import React from 'react'
 import "./Register.css"
 
-const Register = ({user}) => {
+const Register = () => {
 
-  handleRegister=async ()=>{
-    await setDoc(doc(db, "user",user.uid), {
-      isRegistered : true
-    });
-  }
+  
 
   return (
     <div>
