@@ -4,7 +4,8 @@ import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
-const Register = ({ user, setIsRegistered }) => {
+
+const Register = ({ user, setIsRegistered,setLoading }) => {
   const navigate = useNavigate();
 
   const setReg = async () => {
@@ -15,9 +16,10 @@ const Register = ({ user, setIsRegistered }) => {
     }
   };
 
-  const handleRegister = () => {
-    setReg();
+  const handleRegister = async (e) => {
+    e.preventDefault();
     setIsRegistered(true);
+    await setReg(); // Wait for setReg to complete before navigating
     navigate("/dashboard");
   };
 
