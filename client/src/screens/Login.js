@@ -3,7 +3,7 @@ import "./login.css";
 import { auth, db, provider } from "../firebase";
 import "firebase/compat/auth";
 
-import { signInWithRedirect} from "firebase/auth";
+import { signInWithRedirect } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -12,56 +12,61 @@ export default function Login({
   setUser,
   isRegistered,
   setIsRegistered,
+  setLoading,
 }) {
   const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
+        setLoading(true);
         setUser(authUser);
         localStorage.setItem("user", JSON.stringify(authUser));
 
         // Check if the user is registered
         getDoc(doc(db, "user", authUser.uid)).then((docSnap) => {
           if (docSnap.exists()) {
+          
             setIsRegistered(docSnap.data().isRegistered);
-            localStorage.setItem("isRegistered", docSnap.data().isRegistered);
-            isRegistered ? navigate("/dashboard") : navigate("/register");
+
+            setLoading(true);
+            localStorage.setItem('loading', 'true');
           } else {
-            setDoc(doc(db, "user", authUser.uid), { isRegistered: false });
-            isRegistered ? navigate("/dashboard") : navigate("/register");
+            setDoc(doc(db, "user", authUser.uid), { isRegistered: true });
           }
+          isRegistered ? navigate("/dashboard") : navigate("/register");
+          setLoading(false);
+          localStorage.setItem('loading', 'false');
         });
       } else {
         // User is signed out
         setUser(null);
         localStorage.removeItem("user");
-        setIsRegistered(false);
+
         localStorage.removeItem("isRegistered");
       }
     });
 
     // Cleanup function
     return () => unsubscribe();
-  }, [setUser, setIsRegistered, navigate, isRegistered]);
+  }, [setUser, setIsRegistered, navigate, isRegistered,setLoading]);
 
   const handleLogin = (e) => {
+    setLoading(true)
+    localStorage.setItem('loading', 'true');
     e.preventDefault();
-   signInWithRedirect(auth, provider)
-      .then((result) => {
-        // No need to handle user state here, it's handled in onAuthStateChanged
-      })
+    signInWithRedirect(auth, provider)
+      .then((result) => {})
       .catch((error) => {
         console.log(error);
       });
   };
 
-
   return (
     <>
       <main className="login-page">
         <form className="login-form" onSubmit={handleLogin}>
-          <img src="../../assets/image.png"  alt="birla"/>
+          <img src="../../assets/image.png" alt="birla" />
           <h2>Welcome To Student Portal BIAS</h2>
           <button className="google-login">
             <svg
