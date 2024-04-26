@@ -4,7 +4,7 @@ import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
 
 import Register from "./screens/Register"
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Result from './screens/Result';
 import TimeTable from './screens/TimeTable';
 import MessMenu from './screens/MessMenu';
@@ -12,9 +12,7 @@ import MessTiming from './screens/MessTiming';
 import Syllabus from './screens/Syllabus';
 import Holidays from './screens/Holidays';
 import PYQ from './screens/PYQ';
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from './firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+;
 
 
 function App() {
