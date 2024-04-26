@@ -10,7 +10,7 @@ export default [
         title: "Mess Menu"
     },
     {
-        link:"/timetable",
+        href:"/timetable",
         img:"https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/table.png?alt=media&token=e7e54522-30d6-4e78-ae0b-b31dcaa3197c",
         title: "Time Table"
     },

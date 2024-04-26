@@ -3,7 +3,7 @@ import "./login.css";
 import { auth, db, provider } from "../firebase";
 import "firebase/compat/auth";
 
-import { signInWithPopup, signInWithRedirect} from "firebase/auth";
+import { signInWithRedirect} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -47,7 +47,7 @@ export default function Login({
 
   const handleLogin = (e) => {
     e.preventDefault();
-   signInWithPopup(auth, provider)
+   signInWithRedirect(auth, provider)
       .then((result) => {
         // No need to handle user state here, it's handled in onAuthStateChanged
       })
