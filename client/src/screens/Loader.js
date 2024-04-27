@@ -5,7 +5,8 @@ const Loader = ({loading}) => {
   return (<>
     {loading?
     <div className='loader'>Loading.......</div>
-    :<></>
+    :<>
+    </>
     }
   </>
   )
