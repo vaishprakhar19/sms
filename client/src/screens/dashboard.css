@@ -53,6 +53,28 @@
         width:10vw;
         height: 10vw;
     }
+
+    .Logout-Btn:hover {
+      width: 125px;
+      border-radius: 5px;
+      /* transition-duration: .3s; */
+  
+    }
+    
+    .Logout-Btn:hover .sign {
+      width: 30%;
+      /* transition-duration: .3s; */
+      padding-left: 20px;
+  
+    }
+    /* hover effect button's text */
+    .Logout-Btn:hover .text {
+      opacity: 1;
+      width: 70%;
+      /* transition-duration: .3s; */
+      padding-right: 10px;
+  
+    }
 }
 .Logout-Btn {
     --black: #000000;
@@ -105,21 +127,21 @@
     transition-duration: .3s;
   }
   /* hover effect on button width */
-  .Btn:hover {
+  .Logout-Btn:hover {
     width: 125px;
     border-radius: 5px;
     /* transition-duration: .3s; */
 
   }
   
-  .Btn:hover .sign {
+  .Logout-Btn:hover .sign {
     width: 30%;
     /* transition-duration: .3s; */
     padding-left: 20px;
 
   }
   /* hover effect button's text */
-  .Btn:hover .text {
+  .Logout-Btn:hover .text {
     opacity: 1;
     width: 70%;
     /* transition-duration: .3s; */
