@@ -17,8 +17,8 @@ import Loader from './screens/Loader';
 
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [user, setUser] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(null);
   const [loading, setLoading] = useState(() => {
     // Initialize loading state from localStorage or default to true
     return localStorage.getItem('loading') === 'true' ? true : false;

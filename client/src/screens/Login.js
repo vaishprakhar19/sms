@@ -36,7 +36,7 @@ export default function Login({
           }
           isRegistered ? navigate("/dashboard") : navigate("/register");
           setLoading(false);
-          localStorage.setItem('loading', 'false');
+          // localStorage.setItem('loading', 'false');
         });
       } else {
         // User is signed out
