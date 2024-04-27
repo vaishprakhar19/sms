@@ -2,9 +2,9 @@ import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-d
 import './App.css';
 import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
-import { auth, db, provider } from "./firebase";
+// import { auth, db, provider } from "./firebase";
 import Register from "./screens/Register"
-import React, {useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import Result from './screens/Result';
 import TimeTable from './screens/TimeTable';
 import MessMenu from './screens/MessMenu';
