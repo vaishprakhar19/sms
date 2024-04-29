@@ -2,9 +2,9 @@ import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-d
 import './App.css';
 import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
-import { auth, db, provider } from "./firebase";
+// import { auth, db, provider } from "./firebase";
 import Register from "./screens/Register"
-import React, {useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import Result from './screens/Result';
 import TimeTable from './screens/TimeTable';
 import MessMenu from './screens/MessMenu';
@@ -13,22 +13,26 @@ import Syllabus from './screens/Syllabus';
 import Holidays from './screens/Holidays';
 import PYQ from './screens/PYQ';
 import Loader from './screens/Loader';
-;
+import Internal from './screens/Internal';
+
+
 
 
 function App() {
   const [user, setUser] = useState(null);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(null);
   const [loading, setLoading] = useState(() => {
+    
     // Initialize loading state from localStorage or default to true
     return localStorage.getItem('loading') === 'true' ? true : false;
   });
 return (
     
     <div className="App">
-      <Loader loading={loading}/>
+      {/* <Loader loading={loading}/> */}
       <Router>
         <Routes>
+          <Route path="/internal" element={<Internal/>}></Route>
           {user && isRegistered ?
             <>
               <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />}></Route>

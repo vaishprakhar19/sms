@@ -5,7 +5,7 @@ import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 
-const Register = ({ user, setIsRegistered,setLoading }) => {
+const Register = ({ user, setIsRegistered}) => {
   const navigate = useNavigate();
 
   const setReg = async () => {
