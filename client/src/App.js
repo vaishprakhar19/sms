@@ -13,7 +13,9 @@ import Syllabus from './screens/Syllabus';
 import Holidays from './screens/Holidays';
 import PYQ from './screens/PYQ';
 import Loader from './screens/Loader';
-;
+import Internal from './screens/Internal';
+
+
 
 
 function App() {
@@ -27,9 +29,10 @@ function App() {
 return (
     
     <div className="App">
-      <Loader loading={loading}/>
+      {/* <Loader loading={loading}/> */}
       <Router>
         <Routes>
+          <Route path="/internal" element={<Internal/>}></Route>
           {user && isRegistered ?
             <>
               <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />}></Route>
