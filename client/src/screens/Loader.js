@@ -3,7 +3,7 @@ import "./loader.css"
 
 const Loader = ({loading}) => {
   return (<>
-    {!loading?
+    {loading?
       <div className='dashboard loaderpos'>
       <header>
         <div className='user-profile loader-prof'>
