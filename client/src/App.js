@@ -29,7 +29,7 @@ function App() {
 return (
     
     <div className="App">
-      {/* <Loader loading={loading}/> */}
+      <Loader loading={loading}/>
       <Router>
         <Routes>
           <Route path="/internal" element={<Internal/>}></Route>
