@@ -14,6 +14,7 @@ import Holidays from './screens/Holidays';
 import PYQ from './screens/PYQ';
 import Loader from './screens/Loader';
 import Internal from './screens/Internal';
+import AdminLogin from './screens/AdminLogin';
 
 
 
@@ -48,6 +49,7 @@ return (
             </>
             :
             <>
+               <Route path="/adminlogin" element={<AdminLogin setUser={setUser} setIsRegistered={setIsRegistered} user={user} setLoading={setLoading}/>}></Route>
                <Route path="/login" element={<Login user={user} setUser={setUser} isRegistered={isRegistered} setIsRegistered={setIsRegistered} setLoading={setLoading}/>}></Route>
                <Route path="/register" element={<Register user={user} setIsRegistered={setIsRegistered} />}></Route>
                <Route path="*" element={<Navigate to="/login" />}></Route>

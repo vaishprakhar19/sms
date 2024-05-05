@@ -16,6 +16,10 @@ export default function Login({
 }) {
   const navigate = useNavigate();
 
+  const handleAdminLoginButton = () => {
+    navigate("/adminlogin");
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -26,13 +30,11 @@ export default function Login({
         // Check if the user is registered
         getDoc(doc(db, "user", authUser.uid)).then((docSnap) => {
           if (docSnap.exists()) {
-          
             setIsRegistered(docSnap.data().isRegistered);
-
             setLoading(true);
-            localStorage.setItem('loading', 'true');
+            localStorage.setItem("loading", "true");
           } else {
-            setDoc(doc(db, "user", authUser.uid), { isRegistered: true });
+            setDoc(doc(db, "user", authUser.uid), { isRegistered: false });
           }
           isRegistered ? navigate("/dashboard") : navigate("/register");
           setLoading(false);
@@ -42,18 +44,19 @@ export default function Login({
         // User is signed out
         setUser(null);
         localStorage.removeItem("user");
-
+        setLoading(false);
+        localStorage.setItem("loading", false);
         localStorage.removeItem("isRegistered");
       }
     });
 
     // Cleanup function
     return () => unsubscribe();
-  }, [setUser, setIsRegistered, navigate, isRegistered,setLoading]);
+  }, [setUser, setIsRegistered, navigate, isRegistered, setLoading]);
 
   const handleLogin = (e) => {
-    setLoading(true)
-    localStorage.setItem('loading', 'true');
+    setLoading(true);
+    localStorage.setItem("loading", "true");
     e.preventDefault();
     signInWithRedirect(auth, provider)
       .then((result) => {})
@@ -92,6 +95,10 @@ export default function Login({
               ></path>
             </svg>
             Continue with Google
+          </button>
+          <button className="adminbtn" onClick={handleAdminLoginButton}>
+            <img src="https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/icons8-user-shield-64.png?alt=media&token=036d77e9-0cfa-4bb9-81b7-7a2a40ad8eb1" />
+            Admin Login
           </button>
         </form>
       </main>
