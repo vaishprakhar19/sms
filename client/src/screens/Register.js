@@ -4,7 +4,6 @@ import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
-
 const Register = ({ user, setIsRegistered }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -29,19 +28,18 @@ const Register = ({ user, setIsRegistered }) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
- 
     }));
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsRegistered(true);
-// const uid = user?.uid || '';
+    // const uid = user?.uid || '';
     // Include UID in form data
     const userData = {
       uid: user.uid,
       ...formData,
     };
-
     // Send form data including UID to your SQL backend
     try {
       const response = await fetch("/api/register", {
@@ -53,7 +51,8 @@ const Register = ({ user, setIsRegistered }) => {
       });
       if (!response.ok) {
         await setDoc(doc(db, "user", user.uid), {
-          isRegistered: false, });
+          isRegistered: false,
+        });
         throw new Error("Failed to register user");
       }
       // Update Firestore to mark user as registered
@@ -62,14 +61,10 @@ const Register = ({ user, setIsRegistered }) => {
     } catch (error) {
       console.error("Error registering user:", error);
       await setDoc(doc(db, "user", user.uid), {
-        isRegistered: false, });
-
+        isRegistered: false,
+      });
     }
   };
-  if (!user) {
-    // If user is null or undefined, return null or render a loading indicator
-    return null; // or return a loading indicator JSX
-  }
 
   return (
     <div className="register">
