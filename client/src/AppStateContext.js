@@ -11,13 +11,13 @@ export const AppStateProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
-    if (user && user.isAdmin) {
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user && user.isAdmin) {
+  //     setIsAdmin(true);
+  //   } else {
+  //     setIsAdmin(false);
+  //   }
+  // }, [user]);
   return (
     <AppStateContext.Provider value={{ loading, setLoading, user, setUser, isRegistered, setIsRegistered, isAdmin, setIsAdmin }}>
       {children}

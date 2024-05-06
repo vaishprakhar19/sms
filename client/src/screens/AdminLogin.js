@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {  signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "./adminLogin.css";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -26,15 +26,21 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin ,is
         localStorage.setItem("user", JSON.stringify(authUser));
         getDoc(doc(db, "user", authUser.uid)).then((docSnap) => {
           if (docSnap.exists()) {
-            setIsAdmin(docSnap.data().isAdmin);
+            // console.log(docSnap.data());
+            var ad_ = docSnap.data() ;
+            setIsAdmin(ad_.isAdmin);
+            console.log(ad_,ad_.isAdmin) ;
+            console.log(isAdmin) ;
             setIsRegistered(true);
+            setLoading(false)
           } else {
             setDoc(doc(db, "user", authUser.uid), { isAdmin: true, isRegistered: true });
             setIsRegistered(true);
             setIsAdmin(true)
+            setLoading(false)
           }
           setLoading(true);
-          localStorage.setItem("loading", true)
+          // localStorage.setItem("loading", true)
           navigate("/dashboard");
           setLoading(false)
     console.log(isAdmin);
@@ -44,6 +50,7 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin ,is
         // User is signed out
         setUser(null);
         localStorage.removeItem("user");
+        setLoading(false)
         localStorage.setItem("loading", false)
         localStorage.removeItem("isRegistered");
       }
@@ -51,7 +58,7 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin ,is
 
     // Cleanup function
     return () => unsubscribe();
-  }, [setUser, setIsRegistered, navigate, setLoading, setIsAdmin]);
+  }, [setUser, setIsRegistered, navigate, setLoading, setIsAdmin, isAdmin]);
 
 
 
