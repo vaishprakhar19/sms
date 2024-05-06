@@ -40,12 +40,13 @@
 /* Style the radio buttons */
 input[type="radio"] {
     margin-right: 5px;
+    accent-color : var(--purple1)
 }
 
  .mess-btn{
     margin-top: 10px;
     padding: 8px 16px;
-    background-color: #007bff;
+    background-color: var(--purple1);
     color: white;
     border: none;
     border-radius: 4px;
