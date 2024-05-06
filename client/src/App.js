@@ -4,7 +4,7 @@ import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
 // import { auth, db, provider } from "./firebase";
 import Register from "./screens/Register"
-import React, {useState } from 'react';
+import React, {useState} from 'react';
 import Result from './screens/Result';
 import TimeTable from './screens/TimeTable';
 import MessMenu from './screens/MessMenu';
@@ -16,19 +16,17 @@ import Loader from './screens/Loader';
 import Internal from './screens/Internal';
 import AdminLogin from './screens/AdminLogin';
 import Notice from './screens/Notice';
+import { useAppState } from './AppStateContext';
+import { logDOM } from '@testing-library/react';
+
 
 
 
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [isRegistered, setIsRegistered] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(null);
-  const [loading, setLoading] = useState(() => {
-    
-    // Initialize loading state from localStorage or default to true
-    return localStorage.getItem('loading') === 'true' ? true : false;
-  });
+  const { loading, setLoading, user, setUser, isRegistered, setIsRegistered, isAdmin, setIsAdmin } = useAppState();
+
+console.log(isAdmin);
 return (
     
     <div className="App">
@@ -36,10 +34,10 @@ return (
       <Router>
         <Routes>
           <Route path="/internal" element={<Internal/>}></Route>
-          <Route path="/notice" element={<Notice />}></Route>
           {user && isRegistered ?
             <>
               <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />}></Route>
+              <Route path="/notice" element={isAdmin ? <Notice /> : <Navigate to="/dashboard" />}></Route>
               <Route path="/result" element={<Result />}></Route>
               <Route path="/messmenu" element={<MessMenu />}></Route>
               <Route path="/messtiming" element={<MessTiming />}></Route>

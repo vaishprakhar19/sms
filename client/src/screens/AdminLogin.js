@@ -5,7 +5,7 @@ import "./adminLogin.css";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
-const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) => {
+const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin ,isAdmin}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -22,6 +22,7 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
+
         localStorage.setItem("user", JSON.stringify(authUser));
         getDoc(doc(db, "user", authUser.uid)).then((docSnap) => {
           if (docSnap.exists()) {
@@ -36,6 +37,7 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
           localStorage.setItem("loading", true)
           navigate("/dashboard");
           setLoading(false)
+    console.log(isAdmin);
 
         });
       } else {
@@ -57,6 +59,7 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
 
   const handleAdminLogin = (e) => {
     e.preventDefault();
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -65,6 +68,10 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
         const errorCode = error.code;
         console.log(errorCode);
       });
+
+    
+        // Check if user is admin and set isAdmin state
+
   };
 
   return (
