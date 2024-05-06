@@ -6,7 +6,7 @@ const Navbar = () => {
     <>
     <nav className="navbar">
   <label title="home" htmlFor="home" className="nav-label">
-    <input id="home" name="page" type="radio" />
+    <input id="home" defaultChecked name="page" type="radio" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 21 20"
