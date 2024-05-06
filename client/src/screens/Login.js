@@ -96,7 +96,7 @@ export default function Login({
             Continue with Google
           </button>
           <button className="adminbtn" onClick={handleAdminLoginButton}>
-            <img src="https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/icons8-user-shield-64.png?alt=media&token=036d77e9-0cfa-4bb9-81b7-7a2a40ad8eb1" />
+            <img src="https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/icons8-user-shield-64.png?alt=media&token=036d77e9-0cfa-4bb9-81b7-7a2a40ad8eb1" alt=""/>
             Admin Login
           </button>
         </form>
