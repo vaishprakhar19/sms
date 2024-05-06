@@ -1,24 +1,22 @@
-body{
-  padding: 25px;
-}
 .title {
-    color: #5C6AC4;
+  color: #5C6AC4;
 }
 .table{
   width: 100%;
   height: 150%;
+  margin: 25px;
 
  
 
 }
-th,td{
+.table th,td{
   height: 3rem;
   width: 1rem;
   min-width: fit-content;
   padding: 5px;
 }
-th {
+.table th {
   background-color: var(--purple1);
   color: white;
 }
-tr:nth-child(even){background-color: var(--gray)}
+.table tr:nth-child(even){background-color: var(--gray)}
