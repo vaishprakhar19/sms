@@ -15,7 +15,6 @@ export default function Login({
   setLoading,
 }) {
   const navigate = useNavigate();
-
   const handleAdminLoginButton = () => {
     navigate("/adminlogin");
   };

@@ -15,6 +15,7 @@ import PYQ from './screens/PYQ';
 import Loader from './screens/Loader';
 import Internal from './screens/Internal';
 import AdminLogin from './screens/AdminLogin';
+import Notice from './screens/Notice';
 
 
 
@@ -22,6 +23,7 @@ import AdminLogin from './screens/AdminLogin';
 function App() {
   const [user, setUser] = useState(null);
   const [isRegistered, setIsRegistered] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
   const [loading, setLoading] = useState(() => {
     
     // Initialize loading state from localStorage or default to true
@@ -34,6 +36,7 @@ return (
       <Router>
         <Routes>
           <Route path="/internal" element={<Internal/>}></Route>
+          <Route path="/notice" element={<Notice />}></Route>
           {user && isRegistered ?
             <>
               <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />}></Route>
@@ -49,7 +52,7 @@ return (
             </>
             :
             <>
-               <Route path="/adminlogin" element={<AdminLogin setUser={setUser} setIsRegistered={setIsRegistered} user={user} setLoading={setLoading}/>}></Route>
+               <Route path="/adminlogin" element={<AdminLogin setUser={setUser} setIsRegistered={setIsRegistered} user={user} setLoading={setLoading} setIsAdmin={setIsAdmin} />}></Route>
                <Route path="/login" element={<Login user={user} setUser={setUser} isRegistered={isRegistered} setIsRegistered={setIsRegistered} setLoading={setLoading}/>}></Route>
                <Route path="/register" element={<Register user={user} setIsRegistered={setIsRegistered} />}></Route>
                <Route path="*" element={<Navigate to="/login" />}></Route>
