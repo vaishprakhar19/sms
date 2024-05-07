@@ -82,7 +82,7 @@ console.log(isAdmin);
   return (
  
     <div className="App">
-      {/* <Loader loading={loading} /> */}
+      <Loader loading={loading} />
       <Router>
         <Routes>
       <Route path="/todo" element={<Todo />}></Route>
