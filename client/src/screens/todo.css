@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
   }
-  body {
+ .todo {
     background-image: linear-gradient(120deg, #d4262093 0%, #15dd90cc 100%);
     color: rgb(216, 216, 221);
     font-family: "Poppins", sans-serif;
