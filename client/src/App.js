@@ -26,6 +26,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 import 'firebase/firestore';
+import Todo from "./screens/Todo";
 function App() {
   const {
     loading,
@@ -84,6 +85,7 @@ console.log(isAdmin);
       <Loader loading={loading} />
       <Router>
         <Routes>
+      <Route path="/todo" element={<Todo />}></Route>
           <Route path="/internal" element={<Internal />}></Route>
           {user && isRegistered ? (
             <>

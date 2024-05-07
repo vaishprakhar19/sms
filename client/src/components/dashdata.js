@@ -8,7 +8,7 @@ export default [
     },
     {
         id:2,
-        link:"/messmenu",
+        href:"/messmenu",
         img:"https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/diet.png?alt=media&token=cbb28b5b-b617-4f04-a879-403ecbdd4b19",
         title: "Mess Menu"
     },
