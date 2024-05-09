@@ -4,7 +4,6 @@
   "private": true,
   "proxy": "http://localhost:5000/",
   "dependencies": {
-    "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
     "@tabler/icons-react": "^3.3.0",
     "@testing-library/jest-dom": "^5.17.0",

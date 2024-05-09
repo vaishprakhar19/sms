@@ -14,10 +14,11 @@ const Todo = ({ text, todos, setTodos, todo }) => {
             completed: !item.completed,
           };
         }
-        return todo;
+        return item;
       })
     );
   };
+
   return (
     <div className="todo">
       <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
