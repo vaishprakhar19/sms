@@ -80,7 +80,6 @@ console.log(isAdmin);
 
 
   return (
- 
     <div className="App">
       <Loader loading={loading} />
       <Router>
