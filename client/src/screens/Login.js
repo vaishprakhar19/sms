@@ -13,6 +13,7 @@ export default function Login({
   isRegistered,
   setIsRegistered,
   setLoading,
+  setIsAdmin
 }) {
   const navigate = useNavigate();
   const handleAdminLoginButton = () => {
@@ -30,11 +31,11 @@ export default function Login({
         getDoc(doc(db, "user", authUser.uid)).then((docSnap) => {
           if (docSnap.exists()) {
             setIsRegistered(docSnap.data().isRegistered);
+            setIsAdmin(docSnap.data().isAdmin);
             setLoading(true);
             localStorage.setItem("loading", "true");
-          } else {
-            setDoc(doc(db, "user", authUser.uid), { isRegistered: false });
-          }
+          }else{
+          setDoc(doc(db, "user", authUser.uid), { isRegistered: false, isAdmin: false });}
           isRegistered ? navigate("/dashboard") : navigate("/register");
           setLoading(false);
           // localStorage.setItem('loading', 'false');
