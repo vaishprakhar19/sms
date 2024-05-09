@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {  signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "./adminLogin.css";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
-const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) => {
+const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin ,isAdmin}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -22,26 +22,35 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
+
         localStorage.setItem("user", JSON.stringify(authUser));
         getDoc(doc(db, "user", authUser.uid)).then((docSnap) => {
           if (docSnap.exists()) {
-            setIsAdmin(docSnap.data().isAdmin);
+            // console.log(docSnap.data());
+            var ad_ = docSnap.data() ;
+            setIsAdmin(ad_.isAdmin);
+            console.log(ad_,ad_.isAdmin) ;
+            console.log(isAdmin) ;
             setIsRegistered(true);
+            setLoading(false)
           } else {
             setDoc(doc(db, "user", authUser.uid), { isAdmin: true, isRegistered: true });
             setIsRegistered(true);
             setIsAdmin(true)
+            setLoading(false)
           }
           setLoading(true);
-          localStorage.setItem("loading", true)
+          // localStorage.setItem("loading", true)
           navigate("/dashboard");
           setLoading(false)
+    console.log(isAdmin);
 
         });
       } else {
         // User is signed out
         setUser(null);
         localStorage.removeItem("user");
+        setLoading(false)
         localStorage.setItem("loading", false)
         localStorage.removeItem("isRegistered");
       }
@@ -49,7 +58,7 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
 
     // Cleanup function
     return () => unsubscribe();
-  }, [setUser, setIsRegistered, navigate, setLoading, setIsAdmin]);
+  }, [setUser, setIsRegistered, navigate, setLoading, setIsAdmin, isAdmin]);
 
 
 
@@ -57,6 +66,7 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
 
   const handleAdminLogin = (e) => {
     e.preventDefault();
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -65,6 +75,10 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
         const errorCode = error.code;
         console.log(errorCode);
       });
+
+    
+        // Check if user is admin and set isAdmin state
+
   };
 
   return (

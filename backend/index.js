@@ -5,6 +5,7 @@ const app = express();
 // const server = require("./server.js");
 const port = process.env.PORT || 5000;
 
+
 const db = mysql.createConnection({
   host: 'mysql-3a77e907-smsbias.d.aivencloud.com',
   port: '18571',
@@ -34,7 +35,17 @@ app.get("/api/mess/timing", (req, res) => {
     res.json(results);
   });
 });
-
+app.get('/api/mess_menu', (req, res) => {
+  const query = `SELECT * FROM mess_menu`;
+db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching mess menu:', error);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    res.json(results);
+  });
+});
 app.get("/", (req, res) => {
   res.send("Backend API is working");
 });

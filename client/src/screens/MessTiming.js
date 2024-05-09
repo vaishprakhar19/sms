@@ -58,7 +58,7 @@ const MessTiming = () => {
                 </label>
             </div>
             <button className="mess-btn" onClick={() => setGenderFilter("Boys")}>Reset Filter</button>
-            <table className="mess-timing-table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Meal Type</th>

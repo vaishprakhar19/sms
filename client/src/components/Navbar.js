@@ -4,15 +4,15 @@ import './navbar.css'
 const Navbar = () => {
   return (
     <>
-    <nav class="navbar">
-  <label title="home" for="home" class="nav-label">
-    <input id="home" name="page" type="radio" />
+    <nav className="navbar">
+  <label title="home" htmlFor="home" className="nav-label">
+    <input id="home" defaultChecked name="page" type="radio" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 21 20"
       height="20"
       width="21"
-      class="icon home"
+      className="icon home"
     >
       <path
         fill="inherit"
@@ -20,7 +20,7 @@ const Navbar = () => {
       ></path>
     </svg>
   </label>
-  <label title="cart" for="cart" class="nav-label">
+  <label title="cart" htmlFor="cart" className="nav-label">
     <input id="cart" name="page" type="radio" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@ const Navbar = () => {
       viewBox="0 0 18 20"
       height="20"
       width="18"
-      class="icon cart"
+      className="icon cart"
     >
       <path
         fill="inherit"
@@ -36,7 +36,7 @@ const Navbar = () => {
       ></path>
     </svg>
   </label>
-  <label title="favorite" for="favorite" class="nav-label">
+  <label title="favorite" htmlFor="favorite" className="nav-label">
     <input id="favorite" name="page" type="radio" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ const Navbar = () => {
       viewBox="0 0 20 18"
       height="18"
       width="20"
-      class="icon favorite"
+      className="icon favorite"
     >
       <path
         fill="inherit"
@@ -52,7 +52,7 @@ const Navbar = () => {
       ></path>
     </svg>
   </label>
-  <label title="notifications" for="notifications" class="nav-label">
+  <label title="notifications" htmlFor="notifications" className="nav-label">
     <input id="notifications" name="page" type="radio" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ const Navbar = () => {
       viewBox="0 0 16 20"
       height="20"
       width="16"
-      class="icon history"
+      className="icon history"
     >
       <path
         fill="inherit"

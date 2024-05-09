@@ -13,7 +13,7 @@ import Navbar from '../components/Navbar';
 function Dashboard({ user, setUser }) {
   const cards = dashdata.map(item => {
     return (
-      <Card {...item} />
+      <Card key={item.id} {...item} />
     )
   })
 
@@ -30,9 +30,7 @@ function Dashboard({ user, setUser }) {
 
   const notices = notidata.map(item => {
     return (
-      <Notices
-        {...item}
-      />
+      <Notices key={item.id} {...item} />
     )
   })
 
@@ -50,13 +48,13 @@ function Dashboard({ user, setUser }) {
         </div>
       </header>
       <main>
-        <card className='dash-item-container'>
+        <div className='dash-item-container'>
           {cards}
-        </card>
+        </div>
       </main>
-      <notice>
+      <div>
         {notices}
-      </notice>
+      </div>
       <footer>
         <Navbar/>
       </footer>
