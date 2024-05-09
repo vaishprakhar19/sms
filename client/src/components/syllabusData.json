@@ -1,0 +1,35 @@
+[
+  {
+    "semester": "Semester-6",
+    "subjects": [
+      {
+        "name": "Compiler Design",
+        "code": "CS602",
+        "units": [
+          {
+            "name": "Unit-I Introduction to compiling & Lexical Analysis",
+            "topics": "Introduction of Compiler, Major data Structure in compiler, types of Compiler, Front-end and Backend of compiler, Compiler structure: analysis-synthesis model of compilation, various phases of a compiler, Lexical analysis: Input buffering , Specification & Recognition of Tokens,Design of a Lexical Analyzer Generator, LEX."
+          },
+          {
+            "name": "Unit-II Syntax Analysis &Syntax Directed Translation",
+            "topics": "Syntax analysis: CFGs, Top down parsing, Brute force approach, recursive descent parsing, transformation on the grammars, predictive parsing, bottom up parsing, operator precedence parsing, LR parsers (SLR,LALR, LR),Parser generation. Syntax directed definitions: Construction of Syntax  trees, Bottom up evaluation of S-attributed definition, L-attribute definition, Top down translation, Bottom Up evaluation of inherited attributes Recursive Evaluation, Analysis of Syntax directed definition"
+          }
+        ]
+      },
+      {
+        "name":"Graph theory",
+        "code": "CS603",
+        "units": [
+          {
+            "name": "Unit-I",
+            "topics": "Graphs, Sub graphs, some basic properties, various example of graphs & their sub graphs, walks,trails, path & circuits, connected graphs, disconnected graphs and component, various operation on graphs, Euler graphs, Hamiltonian paths and circuits, the traveling salesman problem, directed graphs, some types of directed graphs, directed paths and connectedness, Hamiltonian and Euler digraphs."
+          },
+          {
+            "name": "Unit-II ",
+            "topics": "Trees and fundamental circuits, distance diameters, radius and pendent vertices, rooted and binary trees, on counting trees, spanning trees, fundamental circuits, finding all spanning trees of a graph and a weighted graph, trees with directed edges, fundamental circuits in digraph, algorithms of Prim, Kruskal and Dijkstra."
+          }
+        ]
+      }
+    ]
+  }
+]
