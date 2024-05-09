@@ -1,6 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
-const bodyParser = require("body-parser");
+
 
 const app = express();
 // app.use("/api", server);
@@ -23,32 +23,10 @@ const db = mysql.createConnection({
 });
 
 // Connect to MySQL database
-db.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL database:", err);
-    process.exit(1); // Exit the process if unable to connect
-  }
-  console.log("Connected to MySQL database");
-});
+
 
 // API endpoint to handle user registration
-app.post("/api/register", (req, res) => {
-  const { uid, name, mobile, rollNo, batch, gender, department } = req.body;
 
-  const sql = "INSERT INTO users (uid, name, mobile, rollNo, batch, gender, department) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  const values = [uid, name, mobile, rollNo, batch, gender, department];
-
-  // Execute the SQL query
-  db.query(sql, values, (err, result) => {
-    if (err) {
-      console.error("Error saving user data:", err);
-      res.status(500).json({ error: "An error occurred while saving user data" });
-    } else {
-      console.log("User data saved successfully");
-      res.status(200).json({ message: "User registered successfully" });
-    }
-  });
-});
 
 // Close the database connection when the server is shut down
 process.on('SIGINT', () => {

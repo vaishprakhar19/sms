@@ -22,43 +22,38 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin ,is
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-
         localStorage.setItem("user", JSON.stringify(authUser));
         getDoc(doc(db, "user", authUser.uid)).then((docSnap) => {
           if (docSnap.exists()) {
-            // console.log(docSnap.data());
-            var ad_ = docSnap.data() ;
+            var ad_ = docSnap.data();
             setIsAdmin(ad_.isAdmin);
-            console.log(ad_,ad_.isAdmin) ;
-            console.log(isAdmin) ;
             setIsRegistered(true);
-            setLoading(false)
+            setLoading(false);
           } else {
             setDoc(doc(db, "user", authUser.uid), { isAdmin: true, isRegistered: true });
             setIsRegistered(true);
-            setIsAdmin(true)
-            setLoading(false)
+            setIsAdmin(true);
+            setLoading(false);
           }
-          setLoading(true);
-          // localStorage.setItem("loading", true)
           navigate("/dashboard");
-          setLoading(false)
-    console.log(isAdmin);
-
+        }).catch((error) => {
+          console.error("Error getting document:", error);
+          setLoading(false);
         });
       } else {
         // User is signed out
         setUser(null);
         localStorage.removeItem("user");
-        setLoading(false)
-        localStorage.setItem("loading", false)
+        setLoading(false);
+        localStorage.setItem("loading", false);
         localStorage.removeItem("isRegistered");
       }
     });
-
+  
     // Cleanup function
     return () => unsubscribe();
-  }, [setUser, setIsRegistered, navigate, setLoading, setIsAdmin, isAdmin]);
+  }, [setUser, setIsRegistered, navigate, setLoading, setIsAdmin]);
+  
 
 
 
