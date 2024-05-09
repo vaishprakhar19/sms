@@ -1,9 +1,11 @@
 const express = require('express');
 const mysql = require('mysql');
-
+const bodyParser = require("body-parser");
 const app = express();
 // const server = require("./server.js");
 const port = process.env.PORT || 5000;
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const db = mysql.createConnection({
@@ -21,7 +23,23 @@ db.connect((err) => {
   }
   console.log('Connected to MySQL database');
 });
+app.post("/api/register", (req, res) => {
+  const { uid, name, mobile, rollNo, batch, gender, department } = req.body;
 
+  const sql = "INSERT INTO users (uid, name, mobile, rollNo, batch, gender, department) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  const values = [uid, name, mobile, rollNo, batch, gender, department];
+
+  // Execute the SQL query
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error saving user data:", err);
+      res.status(500).json({ error: "An error occurred while saving user data" });
+    } else {
+      console.log("User data saved successfully");
+      res.status(200).json({ message: "User registered successfully" });
+    }
+  });
+});
 // Route to fetch mess timings
 app.get("/api/mess/timing", (req, res) => {
   const query = "SELECT * FROM mess_timing";
@@ -46,6 +64,7 @@ db.query(query, (error, results) => {
     res.json(results);
   });
 });
+
 app.get("/", (req, res) => {
   res.send("Backend API is working");
 });

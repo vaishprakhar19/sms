@@ -93,10 +93,24 @@ console.log(isAdmin);
                 path="/dashboard"
                 element={<Dashboard user={user} setUser={setUser} />}
               ></Route>
-          <Route
-                path="/notice"
-                element={isAdmin ? <Notice /> : <Navigate to="/dashboard" />}
-              ></Route>
+{isAdmin ? (
+  <Route path="/notice" element={<Notice />} />
+) : (
+  <Route
+  path="/adminlogin"
+  element={
+    <AdminLogin
+      setUser={setUser}
+      setIsRegistered={setIsRegistered}
+      user={user}
+      setLoading={setLoading}
+      setIsAdmin={setIsAdmin}
+      isAdmin={isAdmin}
+    />
+  }
+></Route>
+)}
+          
               <Route path="/result" element={<Result />}></Route>
               <Route path="/messmenu" element={<MessMenu />}></Route>
               <Route path="/messtiming" element={<MessTiming />}></Route>
