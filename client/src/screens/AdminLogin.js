@@ -33,11 +33,9 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
     .then((userCredential) => {
       setIsAdmin(true);
       setIsRegistered(true);
-      setLoading(true);
       setDoc(doc(db, "user", userCredential.user.uid), { isAdmin: true, isRegistered: true })
       .then(() => {
         navigate("/dashboard");
-        setLoading(false)
         })
         .catch((error) => {
             console.error("Error setting document:", error);
