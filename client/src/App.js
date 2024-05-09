@@ -4,7 +4,7 @@ import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
 // import { auth, db, provider } from "./firebase";
 import Register from "./screens/Register"
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import Result from './screens/Result';
 import TimeTable from './screens/TimeTable';
 import MessMenu from './screens/MessMenu';
@@ -25,17 +25,17 @@ function App() {
   const [isRegistered, setIsRegistered] = useState(null);
   const [isAdmin, setIsAdmin] = useState(null);
   const [loading, setLoading] = useState(() => {
-    
+
     // Initialize loading state from localStorage or default to true
     return localStorage.getItem('loading') === 'true' ? true : false;
   });
-return (
-    
+  return (
+
     <div className="App">
-      <Loader loading={loading}/>
+      <Loader loading={loading} />
       <Router>
         <Routes>
-          <Route path="/internal" element={<Internal/>}></Route>
+          <Route path="/internal" element={<Internal />}></Route>
           <Route path="/notice" element={<Notice />}></Route>
           {user && isRegistered ?
             <>
@@ -52,10 +52,10 @@ return (
             </>
             :
             <>
-               <Route path="/adminlogin" element={<AdminLogin setUser={setUser} setIsRegistered={setIsRegistered} user={user} setLoading={setLoading} setIsAdmin={setIsAdmin} />}></Route>
-               <Route path="/login" element={<Login user={user} setUser={setUser} isRegistered={isRegistered} setIsRegistered={setIsRegistered} setLoading={setLoading}/>}></Route>
-               <Route path="/register" element={<Register user={user} setIsRegistered={setIsRegistered} />}></Route>
-               <Route path="*" element={<Navigate to="/login" />}></Route>
+              <Route path="/adminlogin" element={<AdminLogin setUser={setUser} setIsRegistered={setIsRegistered} user={user} setLoading={setLoading} setIsAdmin={setIsAdmin} />}></Route>
+              <Route path="/login" element={<Login user={user} setUser={setUser} isRegistered={isRegistered} setIsRegistered={setIsRegistered} setLoading={setLoading} />}></Route>
+              <Route path="/register" element={<Register user={user} setIsRegistered={setIsRegistered} />}></Route>
+              <Route path="*" element={<Navigate to="/login" />}></Route>
             </>
           }
         </Routes>
