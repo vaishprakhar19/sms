@@ -32,7 +32,7 @@ export default [
     },
     {
         id:6,
-        link:"/syllabus",
+        href:"/syllabus",
         img:"https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/checklist.png?alt=media&token=c2dabb28-c8f1-4ae8-99ca-d5dcacc108f8",
         title: "Syllabus"
     },

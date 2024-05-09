@@ -65,6 +65,7 @@ db.query(query, (error, results) => {
   });
 });
 
+
 app.get("/", (req, res) => {
   res.send("Backend API is working");
 });
