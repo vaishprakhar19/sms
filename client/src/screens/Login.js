@@ -58,7 +58,7 @@ export default function Login({
     localStorage.setItem("loading", "true");
     e.preventDefault();
     signInWithRedirect(auth, provider)
-      .then((result) => {})
+      .then((result) => { })
       .catch((error) => {
         console.log(error);
       });
