@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {  signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "./adminLogin.css";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
-const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin ,isAdmin}) => {
+const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -18,63 +18,25 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin ,is
     setPassword(e.target.value);
   };
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        setUser(authUser);
-        localStorage.setItem("user", JSON.stringify(authUser));
-        getDoc(doc(db, "user", authUser.uid)).then((docSnap) => {
-          if (docSnap.exists()) {
-            var ad_ = docSnap.data();
-            setIsAdmin(ad_.isAdmin);
-            setIsRegistered(true);
-            setLoading(false);
-          } else {
-            setDoc(doc(db, "user", authUser.uid), { isAdmin: true, isRegistered: true });
-            setIsRegistered(true);
-            setIsAdmin(true);
-            setLoading(false);
-          }
-          navigate("/dashboard");
-        }).catch((error) => {
-          console.error("Error getting document:", error);
-          setLoading(false);
-        });
-      } else {
-        // User is signed out
-        setUser(null);
-        localStorage.removeItem("user");
-        setLoading(false);
-        localStorage.setItem("loading", false);
-        localStorage.removeItem("isRegistered");
-      }
-    });
-  
-    // Cleanup function
-    return () => unsubscribe();
-  }, [setUser, setIsRegistered, navigate, setLoading, setIsAdmin]);
-  
-
-
-
-
-
   const handleAdminLogin = (e) => {
     e.preventDefault();
-
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        console.log(errorCode);
-      });
+    .then((userCredential) => {
+      setIsAdmin(true);
+      setIsRegistered(true);
+      setDoc(doc(db, "user", userCredential.user.uid), { isAdmin: true, isRegistered: true })
+      .then(() => {
+        navigate("/dashboard");
+        })
+        .catch((error) => {
+            console.error("Error setting document:", error);
+        });
+    })
+    .catch((error) => {
+        console.error("Error signing in:", error);
+    });
+};
 
-    
-        // Check if user is admin and set isAdmin state
-
-  };
 
   return (
     <div>

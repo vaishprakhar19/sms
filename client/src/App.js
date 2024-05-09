@@ -39,58 +39,37 @@ function App() {
     setIsAdmin,
   } = useAppState();
 
-//   useEffect(() => {
-//     const fetchStates = async () => {
-
-//       const userLocal = JSON.parse(localStorage.getItem('userInfo'));
-//       if (userLocal) {
-//         setUser(userLocal);
-
-//         const userDocRef = doc(db, "user", userLocal.uid);
-//         const docSnap = await getDoc(userDocRef);
-//         if (docSnap.exists()) {
-//           const userData = docSnap.data();
-//           setIsAdmin(userData.isAdmin);
-//           setIsRegistered(true);
-//         } else {
-//           console.log("User not found");
-//         }
-//       }
-//     };
-    
-//     fetchStates();
-//   }, [user, setUser, setIsAdmin, setIsRegistered]);
-
-// console.log(isAdmin);
-
-
-
-
-
-  // const firestore = useFirestore();
   // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const querySnapshot = await firestore.collection('yourCollection').get();
-  //       const fetchedData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  //       setUser(fetchedData);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
+  //   const fetchStates = async () => {
+  //     const userLocal = JSON.parse(localStorage.getItem('user'));
+  //     if (userLocal) {
+  //       setUser(userLocal);
+  //       const userDocRef = doc(db, "user", userLocal.uid);
+  //       const docSnap = await getDoc(userDocRef);
+  //       if (docSnap.exists()) {
+  //         const userData = docSnap.data();
+  //         setIsAdmin(userData.isAdmin);
+  //         setIsRegistered(true);
+  //       } else {
+  //         console.log("User not found");
+  //       }
   //     }
   //   };
 
-  //   fetchData();
-  // }, [firestore, setLoading, setUser]);
+  //   fetchStates();
+  // }, []);
 
+  // console.log("user",user);
+  // console.log("isAdmin",isAdmin);
+  // console.log("isRegistered",isRegistered);
 
 
   return (
     <div className="App">
-      {/* <Loader loading={loading} /> */}
+      <Loader loading={loading} />
       <Router>
         <Routes>
-      <Route path="/todo" element={<Todo />}></Route>
+          <Route path="/todo" element={<Todo />}></Route>
           <Route path="/internal" element={<Internal />}></Route>
           {user && isRegistered ? (
             <>
@@ -98,24 +77,10 @@ function App() {
                 path="/dashboard"
                 element={<Dashboard user={user} setUser={setUser} />}
               ></Route>
-{isAdmin ? (
-  <Route path="/notice" element={<Notice />} />
-) : (
-  <Route
-  path="/adminlogin"
-  element={
-    <AdminLogin
-      setUser={setUser}
-      setIsRegistered={setIsRegistered}
-      user={user}
-      setLoading={setLoading}
-      setIsAdmin={setIsAdmin}
-      isAdmin={isAdmin}
-    />
-  }
-></Route>
-)}
-          
+              <Route
+                path="/notice"
+                element={isAdmin ? <Notice /> : <Navigate to="/dashboard" />}
+              ></Route>
               <Route path="/result" element={<Result />}></Route>
               <Route path="/messmenu" element={<MessMenu />}></Route>
               <Route path="/messtiming" element={<MessTiming />}></Route>
@@ -150,6 +115,7 @@ function App() {
                     isRegistered={isRegistered}
                     setIsRegistered={setIsRegistered}
                     setLoading={setLoading}
+                    setIsAdmin={setIsAdmin}
                   />
                 }
               ></Route>
