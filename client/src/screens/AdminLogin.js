@@ -18,17 +18,8 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
     setPassword(e.target.value);
   };
 
-
   const handleAdminLogin = (e) => {
     e.preventDefault();
-
-    // Assuming these variables are defined elsewhere in your code
-    // If not, make sure to define and initialize them properly
-    // For example:
-    // const auth = getAuth();
-    // const db = getFirestore();
-    // const navigate = yourNavigateFunction;
-
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       setIsAdmin(true);
