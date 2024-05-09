@@ -15,14 +15,18 @@ function Todo() {
   const [filteredTodos, setFilteredTodos] = useState([]);
  
   useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem('todos'))
-    if (storedTodos) setTodos(storedTodos)
-  }, [])
-  //useEffect for filterHandler
-  useEffect(() => {
-    filterHandler();
-        localStorage.setItem('todos', JSON.stringify(todos))
-  }, [todos, status]);
+    const storedTodos = JSON.parse(localStorage.getItem('todos'));
+    if (storedTodos && storedTodos.length > 0) {
+        setTodos(storedTodos);
+    }
+}, []);
+
+useEffect(() => {
+    filterHandler(); // Filter todos based on status
+    localStorage.setItem('todos', JSON.stringify(todos)); // Update local storage with filtered todos
+}, [todos, status]);
+
+
 
   //filterHandler
   const filterHandler = () => {

@@ -39,28 +39,34 @@ function App() {
     setIsAdmin,
   } = useAppState();
 
-  useEffect(() => {
-    const fetchStates = async () => {
+//   useEffect(() => {
+//     const fetchStates = async () => {
 
-      const userLocal = JSON.parse(localStorage.getItem('userInfo'));
-      if (userLocal) {
-        setUser(userLocal);
+//       const userLocal = JSON.parse(localStorage.getItem('userInfo'));
+//       if (userLocal) {
+//         setUser(userLocal);
 
-        const userDocRef = doc(db, "user", userLocal.uid);
-        const docSnap = await getDoc(userDocRef);
-        if (docSnap.exists()) {
-          const userData = docSnap.data();
-          setIsAdmin(userData.isAdmin);
-          setIsRegistered(true);
-        } else {
-          console.log("User not found");
-        }
-      }
-    };
+//         const userDocRef = doc(db, "user", userLocal.uid);
+//         const docSnap = await getDoc(userDocRef);
+//         if (docSnap.exists()) {
+//           const userData = docSnap.data();
+//           setIsAdmin(userData.isAdmin);
+//           setIsRegistered(true);
+//         } else {
+//           console.log("User not found");
+//         }
+//       }
+//     };
     
-    fetchStates();
-  }, [user, setUser, setIsAdmin, setIsRegistered]);
-console.log(isAdmin);
+//     fetchStates();
+//   }, [user, setUser, setIsAdmin, setIsRegistered]);
+
+// console.log(isAdmin);
+
+
+
+
+
   // const firestore = useFirestore();
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -81,7 +87,7 @@ console.log(isAdmin);
 
   return (
     <div className="App">
-      <Loader loading={loading} />
+      {/* <Loader loading={loading} /> */}
       <Router>
         <Routes>
       <Route path="/todo" element={<Todo />}></Route>
