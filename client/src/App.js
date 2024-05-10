@@ -68,17 +68,16 @@ function App() {
       } else {
         // User is signed out
         setUser(null);
-        localStorage.removeItem("user");
-        // setLoading(false);
-        // localStorage.setItem("loading", false);
-        localStorage.removeItem("isRegistered");
+        localStorage.clear();
+        setIsRegistered(null);
+        setIsAdmin(null);
         setStatesSet(true);
       }
     });
 
     // Cleanup function
     return () => unsubscribe();
-  }, [setUser, setIsRegistered, isRegistered]);
+  }, );
 
   let routes = null;
 
@@ -91,7 +90,7 @@ function App() {
           <>
             <Route
               path="/dashboard"
-              element={<Dashboard user={user} setUser={setUser} />}
+              element={<Dashboard user={user}/>}
             />
             <Route
               path="/notice"

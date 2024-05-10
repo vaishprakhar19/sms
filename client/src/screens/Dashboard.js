@@ -10,7 +10,7 @@ import Navbar from '../components/Navbar';
 
 
 
-function Dashboard({ user, setUser }) {
+function Dashboard({ user}) {
   const cards = dashdata.map(item => {
     return (
       <Card key={item.id} {...item} />
@@ -20,8 +20,6 @@ function Dashboard({ user, setUser }) {
   const handleSignOut = () => {
     signOut(auth)
       .then(result => {
-        setUser(null);
-        localStorage.clear();
       })
       .catch(error => {
         console.log('error', error.message);
