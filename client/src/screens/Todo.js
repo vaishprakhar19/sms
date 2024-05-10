@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./todo.css";
 import Forms from "./todo/Form";
 import TodoList from "./todo/TodoList";
+import Navbar from "../components/Navbar";
 
 function Todo() {
   //For input texts
@@ -45,6 +46,7 @@ useEffect(() => {
 
   return (
     <div className="Todo">
+
       <header className="Todo-header">TODO-APP</header>
       <Forms
         inputText={inputText}
@@ -59,6 +61,7 @@ useEffect(() => {
         todos={todos}
         setTodos={setTodos}
       />
+      <Navbar></Navbar>
     </div>
   );
 }
