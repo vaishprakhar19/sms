@@ -5,7 +5,6 @@ import "./notices.css"
 const Notices = ({ notices,onDeleteNotice }) => {
   const handleDelete = async (id) => {
     try {
-      
       console.log('Deleting notice with ID:', id);
       await axios.delete(`/api/notices/${id}`);
       onDeleteNotice(id);
@@ -13,6 +12,7 @@ const Notices = ({ notices,onDeleteNotice }) => {
       console.error('Error deleting notice:', error);
     }
   };
+
   return (
     <div className="notices">
          <h2>Notices</h2>
