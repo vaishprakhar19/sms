@@ -7,7 +7,7 @@
     user-select: none;
 }
 
-.user-profile{
+.user-profile, .page-header{
     color:white;
     display: flex;
     /* width: 100vw; */
@@ -24,18 +24,11 @@
     user-select: none;
 }
 
-.user-profile p{
+.user-profile p, .page-header p{
     font-size: 2vw;
 }
 
 .dash-item-container{
-    background-color: white;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-    padding: 30px;
-    padding-top: 50px;
-    margin-top:-35px;
-    
     /* height: auto; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(6em, 1fr)); /* Adjust the minimum width as needed */
