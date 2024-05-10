@@ -64,7 +64,55 @@ db.query(query, (error, results) => {
     res.json(results);
   });
 });
+db.connect(err => {
+  if (err) {
+    console.error('Error connecting to MySQL:', err);
+    return;
+  }
+  console.log('Connected to MySQL database');
+});
 
+
+// Routes
+// Get all notices
+app.get('/api/notices', (req, res) => {
+  db.query('SELECT * FROM notices', (err, results) => {
+    if (err) {
+      console.error('Error fetching notices:', err);
+      res.status(500).json({ error: 'Error fetching notices' });
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// Add a new notice
+app.post('/api/notices', (req, res) => {
+  const { title, body } = req.body;
+  if (!title || !body) {
+    res.status(400).json({ error: 'Title and body are required' });
+    return;
+  }
+db.query('INSERT INTO notices (title, body) VALUES (?, ?)', [title, body], (err, result) => {
+    if (err) {
+      console.error('Error adding notice:', err);
+      res.status(500).json({ error: 'Error adding notice' });
+      return;
+    }
+    res.json({ id: result.insertId, title, body });
+  });
+});
+app.delete('/api/notices/:id', (req, res) => {
+  const noticeId = req.params.id;
+  db.query('DELETE FROM notices WHERE id = ?', [noticeId], (err, result) => {
+    if (err) {
+      console.error('Error deleting notice:', err);
+      res.status(500).json({ error: 'Error deleting notice' });
+      return;
+    }
+    res.json({ message: 'Notice deleted successfully' });
+  });
+});
 
 app.get("/", (req, res) => {
   res.send("Backend API is working");

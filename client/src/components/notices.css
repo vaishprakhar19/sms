@@ -1,7 +1,6 @@
 .notices{
     display: flex;
     flex-direction: column;
-    color: aliceblue;
 
 
 }
@@ -21,7 +20,14 @@
     --gradient: linear-gradient(to bottom, var(--purple1), var(--purple2), var(--purple3));
     margin-top: 15px;
   }
-  
+  .notification button{
+    /* position: absolute; */
+    width: 100px;
+    z-index: 6;
+    position: absolute;
+    top: 10px;
+    left: 80vw;
+  }
   .notification:before {
     position: absolute;
     content: "";
