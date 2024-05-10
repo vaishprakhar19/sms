@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useState,useEffect}from 'react'
 import './dashboard.css';
 import Card from '../components/Card';
 import dashdata from '../components/dashdata';
@@ -7,10 +7,39 @@ import { auth } from '../firebase'
 import Notices from '../components/Notices';
 import notidata from '../components/notidata';
 import Navbar from '../components/Navbar';
+import Notice from "./Notice"
+import axios from 'axios';
+
+
 
 
 
 function Dashboard({ user}) {
+  const [notices, setNotices] = useState([]);
+
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        const response = await axios.get('/api/notices');
+        setNotices(response.data);
+      } catch (error) {
+        console.error('Error fetching notices:', error);
+      }
+    };
+  
+    fetchNotices();
+  }, []);
+  const deleteNotice = async (id) => {
+    try {
+      await axios.delete(`/api/notices/${id}`);
+      setNotices((prevNotices) => prevNotices.filter((notice) => notice.id !== id));
+    } catch (error) {
+      console.error('Error deleting notice:', error);
+    }
+  };
+  const handleAddNotice = (newNotice) => {
+    setNotices([...notices, newNotice]);
+  };
   const cards = dashdata.map(item => {
     return (
       <Card key={item.id} {...item} />
@@ -26,11 +55,6 @@ function Dashboard({ user}) {
       })
   }
 
-  const notices = notidata.map(item => {
-    return (
-      <Notices key={item.id} {...item} />
-    )
-  })
 
   return (
     <div className='dashboard'>
@@ -50,8 +74,10 @@ function Dashboard({ user}) {
           {cards}
         </div>
       </main>
+
+      <Notice onAddNotice={handleAddNotice} />
       <div>
-        {notices}
+      <Notices notices={notices} onDeleteNotice={deleteNotice} />
       </div>
       <footer>
         <Navbar/>
@@ -63,4 +89,4 @@ function Dashboard({ user}) {
   )
 }
 
-export default Dashboard
+export default Dashboard;
