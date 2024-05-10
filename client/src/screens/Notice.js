@@ -7,7 +7,7 @@ const Notice = ({ onAddNotice }) => {
   const [body, setBody] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
       await axios.post('/api/notices', { title, body });
       onAddNotice({ title, body });

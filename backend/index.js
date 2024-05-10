@@ -87,23 +87,34 @@ app.get('/api/notices', (req, res) => {
 });
 
 // Add a new notice
+// POST route to add a new notice
 app.post('/api/notices', (req, res) => {
   const { title, body } = req.body;
-  if (!title || !body) {
-    res.status(400).json({ error: 'Title and body are required' });
-    return;
-  }
-db.query('INSERT INTO notices (title, body) VALUES (?, ?)', [title, body], (err, result) => {
+  // Get the ID of the last inserted notice
+  db.query('SELECT MAX(id) AS maxId FROM notices', (err, result) => {
     if (err) {
-      console.error('Error adding notice:', err);
+      console.error('Error fetching last inserted ID:', err);
       res.status(500).json({ error: 'Error adding notice' });
       return;
     }
-    res.json({ id: result.insertId, title, body });
+    // Generate ID for the new notice (increment last inserted ID by 1)
+    const newId = result[0].maxId ? result[0].maxId + 1 : 1;
+    // Insert the new notice with the generated ID
+    db.query('INSERT INTO notices (id, title, body) VALUES (?, ?, ?)', [newId, title, body], (err, result) => {
+      if (err) {
+        console.error('Error adding notice:', err);
+        res.status(500).json({ error: 'Error adding notice' });
+        return;
+      }
+      res.json({ message: 'Notice added successfully' });
+    });
   });
 });
+
+// DELETE route to delete a notice by ID
 app.delete('/api/notices/:id', (req, res) => {
   const noticeId = req.params.id;
+  console.log('Deleting notice with ID:', noticeId);
   db.query('DELETE FROM notices WHERE id = ?', [noticeId], (err, result) => {
     if (err) {
       console.error('Error deleting notice:', err);
@@ -113,6 +124,7 @@ app.delete('/api/notices/:id', (req, res) => {
     res.json({ message: 'Notice deleted successfully' });
   });
 });
+
 
 app.get("/", (req, res) => {
   res.send("Backend API is working");
