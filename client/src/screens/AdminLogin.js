@@ -40,9 +40,8 @@ const AdminLogin = ({setIsRegistered, setIsAdmin }) => {
 
   return (
     <div>
-      AdminLogin
       <form class="form_main" onSubmit={handleAdminLogin}>
-        <p class="heading">Login</p>
+        <p class="heading">Admin Login</p>
         <div class="inputContainer">
           <svg
             viewBox="0 0 16 16"
