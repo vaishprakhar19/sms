@@ -1,17 +1,13 @@
 import React, { useEffect } from "react";
 import "./login.css";
-import { auth, db, provider } from "../firebase";
+import { auth, provider } from "../firebase";
 import "firebase/compat/auth";
-
 import { signInWithRedirect } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+
 
 export default function Login({
-  user,
-  setUser,
   isRegistered,
-  setIsRegistered,
   setLoading,
 }) {
   const navigate = useNavigate();
@@ -22,36 +18,12 @@ export default function Login({
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        setLoading(true);
-        setUser(authUser);
-        localStorage.setItem("user", JSON.stringify(authUser));
-
-        // Check if the user is registered
-        getDoc(doc(db, "user", authUser.uid)).then((docSnap) => {
-          if (docSnap.exists()) {
-            setIsRegistered(docSnap.data().isRegistered);
-            setLoading(true);
-            localStorage.setItem("loading", "true");
-          } else {
-            setDoc(doc(db, "user", authUser.uid), { isRegistered: false });
-          }
-          isRegistered ? navigate("/dashboard") : navigate("/register");
-          setLoading(false);
-          // localStorage.setItem('loading', 'false');
-        });
-      } else {
-        // User is signed out
-        setUser(null);
-        localStorage.removeItem("user");
-        setLoading(false);
-        localStorage.setItem("loading", false);
-        localStorage.removeItem("isRegistered");
+        isRegistered ? navigate("/dashboard") : navigate("/register");
       }
     });
-
     // Cleanup function
     return () => unsubscribe();
-  }, [setUser, setIsRegistered, navigate, isRegistered, setLoading]);
+  }, [isRegistered]);
 
   const handleLogin = (e) => {
     setLoading(true);
@@ -96,7 +68,7 @@ export default function Login({
             Continue with Google
           </button>
           <button className="adminbtn" onClick={handleAdminLoginButton}>
-            <img src="https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/icons8-user-shield-64.png?alt=media&token=036d77e9-0cfa-4bb9-81b7-7a2a40ad8eb1" alt=""/>
+            <img src="https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/icons8-user-shield-64.png?alt=media&token=036d77e9-0cfa-4bb9-81b7-7a2a40ad8eb1" alt="" />
             Admin Login
           </button>
         </form>

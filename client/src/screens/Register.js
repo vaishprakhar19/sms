@@ -19,6 +19,7 @@ const Register = ({ user, setIsRegistered }) => {
     if (user) {
       await setDoc(doc(db, "user", user.uid), {
         isRegistered: true,
+        isAdmin:false
       });
     }
   };
@@ -52,6 +53,7 @@ const Register = ({ user, setIsRegistered }) => {
       if (!response.ok) {
         await setDoc(doc(db, "user", user.uid), {
           isRegistered: false,
+          isAdmin: false
         });
         throw new Error("Failed to register user");
       }
@@ -62,6 +64,7 @@ const Register = ({ user, setIsRegistered }) => {
       console.error("Error registering user:", error);
       await setDoc(doc(db, "user", user.uid), {
         isRegistered: false,
+        isAdmin: false
       });
     }
   };
