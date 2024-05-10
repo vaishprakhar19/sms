@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "./adminLogin.css";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
-const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) => {
+const AdminLogin = ({setIsRegistered, setIsAdmin }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -21,21 +21,21 @@ const AdminLogin = ({ setUser, setIsRegistered, user, setLoading, setIsAdmin }) 
   const handleAdminLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      setIsAdmin(true);
-      setIsRegistered(true);
-      setDoc(doc(db, "user", userCredential.user.uid), { isAdmin: true, isRegistered: true })
-      .then(() => {
-        navigate("/dashboard");
-        })
-        .catch((error) => {
+      .then((userCredential) => {
+        setIsAdmin(true);
+        setIsRegistered(true);
+        setDoc(doc(db, "user", userCredential.user.uid), { isAdmin: true, isRegistered: true })
+          .then(() => {
+            navigate("/dashboard");
+          })
+          .catch((error) => {
             console.error("Error setting document:", error);
-        });
-    })
-    .catch((error) => {
+          });
+      })
+      .catch((error) => {
         console.error("Error signing in:", error);
-    });
-};
+      });
+  };
 
 
   return (
