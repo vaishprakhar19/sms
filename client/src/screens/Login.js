@@ -40,7 +40,7 @@ export default function Login({
     <>
       <main className="login-page">
         <form className="login-form" onSubmit={handleLogin}>
-          <img src="../../assets/image.png" alt="birla" />
+          <img src="https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/image.png?alt=media&token=32fc5bc2-462d-4499-b664-e27bf2f724fa" alt="birla" />
           <h2>Welcome To Student Portal BIAS</h2>
           <button className="google-login">
             <svg
