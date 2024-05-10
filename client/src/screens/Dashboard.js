@@ -18,8 +18,6 @@ function Dashboard({ user, setUser }) {
   const handleSignOut = () => {
     signOut(auth)
       .then(result => {
-        setUser(null);
-        localStorage.clear();
       })
       .catch(error => {
         console.log('error', error.message);
