@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./notice.css"
 
 const Notice = ({ onAddNotice }) => {
   const [title, setTitle] = useState('');
@@ -19,23 +20,25 @@ const Notice = ({ onAddNotice }) => {
   };
 
   return (
-    <div>
+    <div className='notices'>
       <h2>Add New Notice</h2>
-      <form onSubmit={handleSubmit}>
+      <form class="form_main notice-form" onSubmit={handleSubmit}>
         <input
+        class="inputField"
           type="text"
           placeholder="Notice title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-        <textarea
+        <input
+        class="inputField"
           placeholder="Notice body"
           value={body}
           onChange={(e) => setBody(e.target.value)}
           required
-        ></textarea>
-        <button type="submit">Add Notice</button>
+        ></input>
+        <button id="button" type="submit">Add Notice</button>
       </form>
     </div>
   );
