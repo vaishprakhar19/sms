@@ -40,6 +40,7 @@ app.post("/api/register", (req, res) => {
     }
   });
 });
+
 // Route to fetch mess timings
 app.get("/api/mess/timing", (req, res) => {
   const query = "SELECT * FROM mess_timing";
@@ -53,9 +54,10 @@ app.get("/api/mess/timing", (req, res) => {
     res.json(results);
   });
 });
+
 app.get('/api/mess_menu', (req, res) => {
   const query = `SELECT * FROM mess_menu`;
-db.query(query, (error, results) => {
+  db.query(query, (error, results) => {
     if (error) {
       console.error('Error fetching mess menu:', error);
       res.status(500).json({ error: 'Internal server error' });
@@ -72,6 +74,18 @@ db.connect(err => {
   console.log('Connected to MySQL database');
 });
 
+app.get("/api/timetable", (req, res) => {
+  const query = "SELECT * FROM timetable";
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching mess timings:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+    console.table(results);
+    res.json(results);
+  });
+});
 
 // Routes
 // Get all notices
