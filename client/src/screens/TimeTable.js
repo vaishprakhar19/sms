@@ -1,4 +1,6 @@
+
 import React ,{useEffect,useState}from 'react'
+
 import "./Timetable.css"
 import axios from 'axios';
 import { useAppState } from '../AppStateContext';
@@ -50,9 +52,9 @@ const TimeTable = () => {
           ))}
         </tbody>
         </table>
-      </div>
-    </div>
-  )
-}
 
-export default TimeTable
+      </div>
+    )
+  }
+
+  export default TimeTable

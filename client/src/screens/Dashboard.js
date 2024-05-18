@@ -15,7 +15,7 @@ import axios from 'axios';
 
 
 
-function Dashboard({ user}) {
+function Dashboard({ user ,isAdmin}) {
   const [notices, setNotices] = useState([]);
 
   useEffect(() => {
@@ -78,10 +78,11 @@ function Dashboard({ user}) {
         </div>
       </main>
 
-      <Notice onAddNotice={handleAddNotice} />
+      {isAdmin && <Notice onAddNotice={handleAddNotice} />}
       <div>
       <Notices notices={notices} onDeleteNotice={deleteNotice} />
-      </div>
+      </div> 
+      
       <footer>
         <Navbar />
       </footer>
