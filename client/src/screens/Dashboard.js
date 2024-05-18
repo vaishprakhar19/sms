@@ -92,5 +92,4 @@ function Dashboard({ user ,isAdmin}) {
     </div>
   )
 }
-
 export default Dashboard;

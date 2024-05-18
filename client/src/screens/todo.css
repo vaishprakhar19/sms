@@ -1,6 +1,6 @@
  .todo {
    color: rgb(216, 216, 221);
-   font-family: "Poppins", sans-serif;
+   /* font-family: "Poppins", sans-serif; */
    /* min-height: 100vh; */
  }
 
@@ -20,15 +20,16 @@
  .Todo form button {
    padding: 0.5rem;
    font-size: 2rem;
-   border: none;
-   background: white;
+border: none;
+background-color: var(--gray);
+   /* background: white; */
  }
-
  .Todo form button {
    color: var(--purple1);
-   background: #f7fffe;
+   /* background: #f7fffe; */
    cursor: pointer;
    transition: all 0.3s ease;
+   border: none;
  }
 
  .Todo form button:hover {
@@ -60,8 +61,10 @@
 
  .filter-todo {
    padding: 1rem;
- }
+   font-size: 1.2rem;
 
+
+ }
  .todo li {
    flex: 1;
  }
@@ -120,7 +123,6 @@
 
  .Todo select {
    color: var(--purple1);
-   font-family: "Poppins", sans-serif;
    cursor: pointer;
    width: 12rem;
  }
@@ -135,6 +137,7 @@
    background: var(--purple1);
    cursor: pointer;
    pointer-events: none;
+   color: #e3e3e3;
  }
 
  .Todo{
