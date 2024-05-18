@@ -1,6 +1,25 @@
-import React from 'react'
+import React ,{useEffect,useState}from 'react'
 import "./Timetable.css"
+import axios from 'axios';
+import { useAppState } from '../AppStateContext';
 const TimeTable = () => {
+  const {
+    user
+  } = useAppState();
+  const uid=user.uid;
+  const [timetable, setTimetable] = useState([]);
+
+  useEffect(() => {
+    // Fetch timetable data from backend when component mounts
+    axios.get(`/timetable/${uid}`)
+      .then(response => {
+        setTimetable(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching timetable:', error);
+      });
+  }, [uid]); 
+  console.log(timetable)
   return (
     <div>
       <div className='page-header'>
@@ -20,55 +39,16 @@ const TimeTable = () => {
             <th> fri</th>
             <th> Sat</th>
           </tr>
-          <tr>
-            <td>science</td>
-            <td>maths</td>
-            <td>science</td>
-            <td>maths</td>
-            <td>arts</td>
-            <td>arts</td>
-          </tr>
-          <tr>
-            <td>science</td>
-            <td>maths</td>
-            <td>science</td>
-            <td>maths</td>
-            <td>arts</td>
-            <td>arts</td>
-          </tr>
-          <tr>
-            <td>science</td>
-            <td>maths</td>
-            <td>science</td>
-            <td>maths</td>
-            <td>arts</td>
-            <td>arts</td>
-          </tr>
-          <tr>
-            <td>social</td>
-            <td>hindi</td>
-            <td>english</td>
-            <td>social</td>
-            <td>sports</td>
-            <td>sports</td>
-          </tr>
-          <tr>
-            <th colspan="6">lunch</th>
-          </tr>
-          <tr>
-            <td>science</td>
-            <td>maths</td>
-            <td>science</td>
-            <td>maths</td>
-            <td rowspan="1">project</td>
-          </tr>
-          <tr>
-            <td>social</td>
-            <td>hindi</td>
-            <td>english</td>
-            <td>social</td>
-            <td>social</td>
-          </tr>
+          <tbody>
+          {timetable.map((entry, index) => (
+            <tr key={index}>
+              <td>{entry.DayOfWeek}</td>
+              <td>{entry.StartTime}</td>
+              <td>{entry.EndTime}</td>
+              <td>{entry.SubjectName}</td>
+            </tr>
+          ))}
+        </tbody>
         </table>
       </div>
     </div>

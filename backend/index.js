@@ -126,6 +126,61 @@ app.delete('/api/notices/:id', (req, res) => {
 });
 
 
+
+
+
+function calculateSemester(batchYear) {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed
+  const yearsDifference = currentYear - batchYear;
+  let semester = yearsDifference * 2 + 1; // Default to the first semester of the current year
+
+  if (currentMonth > 6) { // Assume semester changes mid-year (e.g., July)
+    semester++;
+  }
+
+  return semester;
+}
+
+// API endpoint to get timetable for current user
+app.get('/timetable/:uid', (req, res) => {
+  const uid = req.params.uid;
+
+  // Query to get user batch year
+  const userQuery = 'SELECT batch, StreamID FROM users WHERE uid = ?';
+  db.query(userQuery, [uid], (error, userResults) => {
+    if (error) {
+      console.error('Error retrieving user batch:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (userResults.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const batchYear = userResults[0].batch;
+    const streamId = userResults[0].StreamID;
+    const currentSemester = calculateSemester(batchYear);
+    console.log(`Calculated semester: ${currentSemester} for batch year: ${batchYear}`);
+    // Query to retrieve timetable based on user's stream and current semester
+    const timetableQuery = `
+    SELECT Timetable.DayOfWeek, Timetable.StartTime, Timetable.EndTime, Subjects.SubjectName
+    FROM Timetable
+    JOIN Semesters ON Timetable.SemesterID = Semesters.SemesterID
+    JOIN Subjects ON Timetable.SubjectID = Subjects.SubjectID
+    WHERE Semesters.SemesterNumber = ? AND Semesters.StreamID = ?
+    `;
+    
+    db.query(timetableQuery, [currentSemester, streamId], (error, results) => {
+      if (error) {
+        console.error('Error retrieving timetable:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+      console.log(`Timetable results: ${JSON.stringify(results)}`);
+      res.json(results);
+    });
+  });
+});
 app.get("/", (req, res) => {
   res.send("Backend API is working");
 });
