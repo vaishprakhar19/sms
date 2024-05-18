@@ -62,7 +62,7 @@ function Dashboard({ user}) {
   return (
     <div className='dashboard'>
       <header>
-        <div className='user-profile'>
+        <div className='user-profile page-header'>
 
           {user.photoURL ? <img className='user-profile-image' src={user.photoURL} alt='profile' /> : <img className='user-profile-image' src='https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/profilepic.jpg?alt=media&token=e3de41ad-6340-4e18-99a3-5990e435fb1b' alt='profile' />}
           {user.displayName ? <p>{user.displayName}</p> : <p>ADMIN</p>}
@@ -73,7 +73,7 @@ function Dashboard({ user}) {
         </div>
       </header>
       <main>
-        <div className='dash-item-container'>
+        <div className='dash-item-container page-layout'>
           {cards}
         </div>
       </main>

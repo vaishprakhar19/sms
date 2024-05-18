@@ -1,7 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import "./syllabus.css"
 
 import syllabusData from '../components/syllabusData.json'
-const Syllabus= () => {
+const Syllabus = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const handleSearch = () => {
@@ -19,40 +20,45 @@ const Syllabus= () => {
           subject.name.toLowerCase().includes(query.toLowerCase())
         )
       })).filter(semester => semester.subjects.length > 0);
-  
+
       setResults(filteredResults);
     }
   };
 
-    useEffect(() => {
-      handleSearch();
-    }, [query]); 
+  useEffect(() => {
+    handleSearch();
+  }, [query]);
 
   return (
     <div>
-      <h1>Syllabus Viewer</h1>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search by subject name..."
-      />
-      {results.map(semester => (
-        <div key={semester.semester}>
-          <h2>{semester.semester}</h2>
-          {semester.subjects.map(subject => (
-            <div key={subject.code}>
-              <h3>{subject.name} ({subject.code})</h3>
-              {subject.units.map(unit => (
-              <div key={unit.name}>
-              <h4>{unit.name}</h4>
-              <div>{unit.topics}</div>
-            </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      ))}
+      <div className='page-header'>
+        <h2>Syllabus Viewer</h2>
+      </div>
+      <div className='page-layout'>
+
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search by subject name..."
+        />
+        {results.map(semester => (
+          <div key={semester.semester}>
+            <h2>{semester.semester}</h2>
+            {semester.subjects.map(subject => (
+              <div key={subject.code}>
+                <h3>{subject.name} ({subject.code})</h3>
+                {subject.units.map(unit => (
+                  <div key={unit.name}>
+                    <h4>{unit.name}</h4>
+                    <div>{unit.topics}</div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

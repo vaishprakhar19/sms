@@ -27,16 +27,16 @@ const MessTiming = () => {
 
     return (
 
-        <div className='dashboard'>
+        <div>
         <header>
-          <div className='user-profile'>
+          <div className='page-header'>
            
-            <p>Mess Timings</p>
+            <h2>Mess Timings</h2>
           </div>
         </header>
-        <main>
+        <main className="page-layout">
 
-        <div className="mess-timing-container"> 
+        <div className="mess-timing-container "> 
             <div className="gender-filter">
                 <label>
                     <input

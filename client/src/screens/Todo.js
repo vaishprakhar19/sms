@@ -47,20 +47,23 @@ useEffect(() => {
   return (
     <div className="Todo">
 
-      <header className="Todo-header">TODO-APP</header>
+      <div className="Todo-header page-header"><h2>Todo List</h2></div>
+     
+     <div className="page-layout">
       <Forms
         inputText={inputText}
         setInputText={setInputText}
         todos={todos}
         setTodos={setTodos}
         setStatus={setStatus}
-      />
+        />
       <TodoList
        
         filteredTodos={filteredTodos}
         todos={todos}
         setTodos={setTodos}
       />
+        </div> 
       <Navbar></Navbar>
     </div>
   );
