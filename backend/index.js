@@ -99,6 +99,9 @@ app.get("/api/mess/timing", (req, res) => {
   });
 });
 
+
+
+//messmenu
 app.get("/api/mess_menu", (req, res) => {
   const query = `SELECT * FROM mess_menu`;
   db.query(query, (error, results) => {
@@ -110,6 +113,52 @@ app.get("/api/mess_menu", (req, res) => {
     res.json(results);
   });
 });
+app.post("/api/update_mess_menu", (req, res) => {
+  const updatedMenuData = req.body;
+
+  // Assuming you have a function to update the database
+  updateMenuDataInDatabase(updatedMenuData)
+    .then(() => {
+      res.status(200).json({ message: "Menu data updated successfully" });
+    })
+    .catch((error) => {
+      console.error("Error updating mess menu:", error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+});
+
+function updateMenuDataInDatabase(updatedMenuData) {
+  return new Promise((resolve, reject) => {
+    const updateQueries = updatedMenuData.map(item => {
+      return new Promise((resolve, reject) => {
+        const query = `UPDATE mess_menu SET 
+                       breakfast = ?,
+                       lunch = ?,
+                       evening_snacks = ?,
+                       dinner = ?
+                       WHERE menu_id = ?`;
+        const values = [item.breakfast, item.lunch, item.evening_snacks, item.dinner, item.menu_id];
+        db.query(query, values, (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        });
+      });
+    });
+
+    Promise.all(updateQueries)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+
 
 db.connect((err) => {
   if (err) {
