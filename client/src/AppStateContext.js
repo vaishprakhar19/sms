@@ -12,9 +12,11 @@ export const AppStateProvider = ({ children }) => {
   const [isRegistered, setIsRegistered] = useState(null);
   const [isAdmin, setIsAdmin] = useState(null);
   const [statesSet, setStatesSet] = useState(false);
+  const [stream, setStream] = useState(0);
+  const [semester, setSemester] = useState(0);
 
   return (
-    <AppStateContext.Provider value={{ loading, setLoading, user, setUser, isRegistered, setIsRegistered, isAdmin, setIsAdmin, statesSet, setStatesSet }}>
+    <AppStateContext.Provider value={{ loading, setLoading, user, setUser, isRegistered, setIsRegistered, isAdmin, setIsAdmin, statesSet, setStatesSet, stream, setStream, semester, setSemester }}>
       {children}
     </AppStateContext.Provider>
   );
