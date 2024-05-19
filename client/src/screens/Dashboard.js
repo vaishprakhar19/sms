@@ -9,13 +9,19 @@ import notidata from '../components/notidata';
 import Navbar from '../components/Navbar';
 import Notice from "./Notice"
 import axios from 'axios';
+import { useAppState } from '../AppStateContext';
 
 
 
 
 
 
-function Dashboard({ user ,isAdmin}) {
+function Dashboard() {
+    const {
+      user,
+      isAdmin,
+    } = useAppState();
+  
   const [notices, setNotices] = useState([]);
 
   useEffect(() => {
@@ -30,6 +36,7 @@ function Dashboard({ user ,isAdmin}) {
   
     fetchNotices();
   }, []);
+
   const deleteNotice = async (id) => {
     try {
       await axios.delete(`/api/notices/${id}`);
