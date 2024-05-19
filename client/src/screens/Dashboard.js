@@ -10,6 +10,8 @@ import Navbar from '../components/Navbar';
 import Notice from "./Notice"
 import axios from 'axios';
 import { useAppState } from '../AppStateContext';
+import Students from './Students';
+import { Link } from 'react-router-dom';
 
 
 
@@ -90,9 +92,11 @@ function Dashboard() {
       <main>
         <div className='dash-item-container page-layout'>
           {cards}
+
         </div>
       </main>
-
+{isAdmin && <Link to='/students'>
+<button id='button'>Student Data</button></Link>}
       {isAdmin && <Notice onAddNotice={handleAddNotice} />}
       <div>
       <Notices notices={notices} onDeleteNotice={deleteNotice} />
