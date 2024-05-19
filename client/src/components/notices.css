@@ -11,7 +11,7 @@
     align-self: center;
     isolation: isolate;
     position: relative;
-    width: 90vw;
+    width: 95vw;
     height: 8rem;
     /* background: #ffffff; */
     border-radius: 1rem;
@@ -71,7 +71,11 @@
     transition: transform 300ms ease;
     z-index: 5;
   }
-  
+  .right{
+    position:absolute;
+    right:15vw;
+    top:20px;
+  }
   .notification:hover .notibody {
     transform: translateX(0.25rem)
   }
