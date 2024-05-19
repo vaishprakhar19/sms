@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
+import "./Students.css"
 
 const Students = () => {
     const [users, setUsers] = useState([]);
@@ -50,19 +51,22 @@ const Students = () => {
         <h2>User Data</h2>
         </div>
         <div className="page-layout">
+            <div className="form_main notice-form">
+
           <label>
             Batch:
-            <input type="text" name="semester" value={filters.semester} onChange={handleFilterChange} />
+            <input type="text" className="inputField" name="semester" value={filters.semester} onChange={handleFilterChange} />
           </label>
           <label>
             Department:
-            <input type="text" name="department" value={filters.department} onChange={handleFilterChange} />
+            <input type="text" className="inputField" name="department" value={filters.department} onChange={handleFilterChange} />
           </label>
           <label>
             Gender:
-            <input type="text" name="gender" value={filters.gender} onChange={handleFilterChange} />
+            <input type="text" className="inputField" name="gender" value={filters.gender} onChange={handleFilterChange} />
           </label>
           <button id="button" onClick={fetchUsers}>Filter</button>
+            </div>
         </div>
         <table className="table">
           <thead>
