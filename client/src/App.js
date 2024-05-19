@@ -90,7 +90,7 @@ function App() {
           <>
             <Route
               path="/dashboard"
-              element={<Dashboard user={user} isAdmin={isAdmin}/>}
+              element={<Dashboard/>}
             />
             <Route
               path="/notice"
