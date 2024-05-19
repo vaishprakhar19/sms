@@ -22,7 +22,6 @@ function Dashboard() {
       isAdmin,
       stream,
       semester,
-      statesSet
     } = useAppState();
   
   const [notices, setNotices] = useState([]);
@@ -31,16 +30,20 @@ function Dashboard() {
     const fetchNotices = async () => {
       try {
         // Make the API request with query parameters
-        const response = await axios.get(`/api/notices/${semester}/${stream}`);
+        const response = await axios.get(`/api/notices/${stream}/${semester}`,{isAdmin});
         setNotices(response.data);
       } catch (error) {
         console.error('Error fetching notices:', error);
       }
     };
-  if(statesSet)
-    fetchNotices();
-  }, []);
-  // console.log(notices)
+  
+    // Only call fetchNotices if semester and stream are defined
+    if (semester && stream||isAdmin) {
+      fetchNotices();
+    }
+  }, [semester, stream]); // Added semester and stream as dependencies
+  
+  console.log(notices)
 
   const deleteNotice = async (id) => {
     try {

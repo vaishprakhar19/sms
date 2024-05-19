@@ -25,10 +25,19 @@ db.connect((err) => {
 
 app.post("/api/register", (req, res) => {
   const { uid, name, mobile, rollNo, batch, gender, department } = req.body;
-
+  let StreamID = 0;
+  if (department === "CSE") {
+    StreamID = 1
+  }
+  if (department === "ECE") {
+    StreamID = 2
+  }
+  if (department === "MCA") {
+    StreamID = 3
+  }
   const sql =
-    "INSERT INTO users (uid, name, mobile, rollNo, batch, gender, department) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  const values = [uid, name, mobile, rollNo, batch, gender, department];
+    "INSERT INTO users (uid, name, mobile, rollNo, batch, gender, department, StreamID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  const values = [uid, name, mobile, rollNo, batch, gender, department, StreamID];
 
   // Execute the SQL query
   db.query(sql, values, (err, result) => {
@@ -93,13 +102,21 @@ app.get("/api/timetable", (req, res) => {
 
 // Routes
 // Get all notices
-app.get("/api/notices/:semester/:stream", (req, res) => {
-  const { semester, stream } = req.params; // Extract batch and stream from query parameters
+app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
+  const { semester, stream} = req.params; // Extract batch and stream from query parameters
+const {isAdmin}=req.body;
+  let query;
+  let queryParams;
 
-  // Modify your SQL query to filter by batch and stream
-  const batch=findBatchFromSemester(semester)
-  const query = "SELECT * FROM notices WHERE batch = ? AND streamid = ?";
-  db.query(query, [batch, stream], (err, results) => {
+  if (isAdmin) {
+    query = "SELECT * FROM notices";
+    queryParams = [];
+  } else {
+    query = "SELECT * FROM notices WHERE semester = ? AND streamid = ?";
+    queryParams = [parseInt(semester), parseInt(stream)];
+  }
+
+  db.query(query, queryParams, (err, results) => {
     if (err) {
       console.error("Error fetching notices:", err);
       res.status(500).json({ error: "Error fetching notices" });
@@ -110,14 +127,12 @@ app.get("/api/notices/:semester/:stream", (req, res) => {
 });
 
 
+
 // Add a new notice
 // POST route to add a new notice
 app.post("/api/notices/:semester/:stream", (req, res) => {
   const { title, body } = req.body;
   const { semester, stream } = req.params; // Extract semester and stream from URL parameters
-
-  // Calculate the batch year from the provided semester
-  const batchYear = findBatchFromSemester(semester);
 
   // Get the ID of the last inserted notice
   db.query("SELECT MAX(id) AS maxId FROM notices", (err, result) => {
@@ -131,8 +146,8 @@ app.post("/api/notices/:semester/:stream", (req, res) => {
 
     // Insert the new notice with the generated ID, semester, stream, and batch
     db.query(
-      "INSERT INTO notices (id, title, body, streamid, batch) VALUES (?, ?, ?, ?, ?)",
-      [newId, title, body, stream, batchYear],
+      "INSERT INTO notices (id, title, body, streamid, semester) VALUES (?, ?, ?, ?, ?)",
+      [newId, title, body, stream,semester],
       (err, result) => {
         if (err) {
           console.error("Error adding notice:", err);
@@ -175,17 +190,6 @@ function calculateSemester(batchYear) {
   return semester;
 }
 
-function findBatchFromSemester(targetSemester) {
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed
-  let batchYear = currentYear - Math.floor((targetSemester - 1) / 2);
-  // Adjust for mid-year semester change (e.g., July)
-  if (currentMonth > 6) {
-      batchYear++;
-  }
-
-  return batchYear;
-}
 
 //THIS IS A GENERIC FUNCTION TO GET SEMESTER AND STREAM FROM THE DATABASE
 function getUserDetails(uid, callback) {

@@ -55,8 +55,8 @@ function App() {
         const data = await response.json();
         await setStream(data.streamId);
         await setSemester(data.currentSemester);
-        // console.log(stream,"stream")
-        // console.log(semester,"sem")
+        console.log(stream,"stream")
+        console.log(semester,"sem")
       } catch (error) {
         console.error("Error:", error);
       }
