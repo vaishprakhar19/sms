@@ -43,6 +43,38 @@ app.post("/api/register", (req, res) => {
     }
   });
 });
+  
+
+//showing student data
+
+app.get("/api/users", (req, res) => {
+  const { semester, department, gender } = req.query;
+  let sql = "SELECT * FROM users WHERE 1=1";
+  const values = [];
+
+  if (semester) {
+    sql += " AND batch = ?";
+    values.push(semester);
+  }
+  if (department) {
+    sql += " AND department = ?";
+    values.push(department);
+  }
+  if (gender) {
+    sql += " AND gender = ?";
+    values.push(gender);
+  }
+
+  db.query(sql, values, (err, results) => {
+    if (err) {
+      console.error("Error fetching user data:", err);
+      res.status(500).json({ error: "An error occurred while fetching user data" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 
 // Route to fetch mess timings
 app.get("/api/mess/timing", (req, res) => {
