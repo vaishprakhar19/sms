@@ -73,7 +73,7 @@ const MessTiming = () => {
                             <td>{mealType}</td>
                             {days.map((day) => {
                                 const timing = filteredTimings.find((item) => item.day === day && item.meal_type === mealType);
-                                return <td key={`${day}-${mealType}`}>{timing ? timing.timing : "-"}</td>;
+                                return <td key={`${day}-${mealType}`}>{timing ? (timing.timing).toString().slice(0,5) : "-"}</td>;
                             })}
                         </tr>
                     ))}
