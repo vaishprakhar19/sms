@@ -54,7 +54,7 @@ function App() {
       try {
         const response = await fetch(`/pyq/${uid}`);
         const data = await response.json();
-        await setStream(data.streamId);
+        await setStream(data.stream);
         await setSemester(data.currentSemester);
         console.log(stream,"stream")
         console.log(semester,"sem")
