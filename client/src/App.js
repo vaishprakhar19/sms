@@ -55,8 +55,8 @@ function App() {
         const data = await response.json();
         await setStream(data.streamId);
         await setSemester(data.currentSemester);
-        // console.log(stream,"stream")
-        // console.log(semester,"sem")
+        console.log(stream,"stream")
+        console.log(semester,"sem")
       } catch (error) {
         console.error("Error:", error);
       }
@@ -80,8 +80,8 @@ function App() {
             setDoc(doc(db, "user", authUser.uid), { isRegistered: false, isAdmin: false });
           }
           // setLoading(false);
-          fetchUserDetails(authUser.uid);
           setStatesSet(true);
+          if(!isAdmin)fetchUserDetails(authUser.uid);
         });
         
       } else {
