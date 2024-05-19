@@ -16,27 +16,8 @@ const pdfLinks = {
   },
 };
 const PYQ = () => {
-  const { user } = useAppState();
-
-  const [stream, setStream] = useState(0);
-  const [semester, setSemester] = useState(0);
-  const uid = user.uid;
-
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const response = await fetch(`/pyq/${uid}`);
-        const data = await response.json();
-        // console.log(data)
-        setStream(data.streamId);
-        setSemester(data.currentSemester);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    fetchUserDetails();
-  }, [uid,semester,stream]);
-console.log(semester,stream)
+  const { stream,semester } = useAppState();
+  
   return (
     <div>
       {/* <select onChange={(e) => setStream(e.target.value)}>

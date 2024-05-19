@@ -176,7 +176,7 @@ function getUserDetails(uid, callback) {
       const batchYear = userResults[0].batch;
       const streamId = userResults[0].StreamID;
       const currentSemester = calculateSemester(batchYear);
-      console.log(`Calculated semester: ${currentSemester} for batch year: ${batchYear}`);
+      // console.log(`Calculated semester: ${currentSemester} for batch year: ${batchYear}`);
       callback(null, { batchYear, streamId, currentSemester });
     }
   });
