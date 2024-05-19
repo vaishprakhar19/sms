@@ -26,7 +26,7 @@ export default [
     },
     {
         id:5,
-        link:"/pyq",
+        href:"/pyq",
         img:"https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/exam.png?alt=media&token=39a820fe-9221-48e8-a4a0-e4500c21f562",
         title: "PYQ"
     },
