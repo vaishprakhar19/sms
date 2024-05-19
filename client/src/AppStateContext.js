@@ -12,7 +12,7 @@ export const AppStateProvider = ({ children }) => {
   const [isRegistered, setIsRegistered] = useState(null);
   const [isAdmin, setIsAdmin] = useState(null);
   const [statesSet, setStatesSet] = useState(false);
-  const [stream, setStream] = useState(0);
+  const [stream, setStream] = useState("");
   const [semester, setSemester] = useState(0);
 
   return (
