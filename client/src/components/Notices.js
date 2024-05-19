@@ -24,7 +24,9 @@ const {isAdmin} = useAppState()
     <div className="notiborderglow"></div>
           <div className="notititle">{notice.title}</div>
           <div className="notibody">{notice.body}</div>
-          {isAdmin&&<button className='adminbtn' onClick={() => handleDelete(notice.id)}>Delete</button>}
+          <div className="notibody right">{notice.stream} {notice.semester}{notice.semester===1?"st":notice.semester===2?"nd":notice.semester===3?"rd":"th"} semester</div>
+
+          {isAdmin&&<button className='adminbtn' onClick={() => handleDelete(notice.id)}>Delete</button> }
         </div>
         </div>
       ))}

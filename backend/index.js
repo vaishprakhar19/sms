@@ -130,8 +130,8 @@ app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
 
   let query;
   let queryParams;
-
-  if (isAdmin) {
+// console.log(stream,semester,isAdmin)
+  if (isAdmin==="true") {
     query = "SELECT * FROM notices";
     queryParams = [];
   } else {
