@@ -14,7 +14,10 @@ const TimeTable = () => {
       .then((response) => {
         const data = response.data;
         const groupedData = data.reduce((acc, curr) => {
-          const timeSlot = curr.StartTime.toString().slice(0, 5) + " - " + curr.EndTime.toString().slice(0, 5);
+          const timeSlot =
+            curr.StartTime.toString().slice(0, 5) +
+            " - " +
+            curr.EndTime.toString().slice(0, 5);
           if (!acc[timeSlot]) {
             acc[timeSlot] = {
               time: timeSlot,
