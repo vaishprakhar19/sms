@@ -29,11 +29,12 @@ const TimeTable = () => {
       </div>
       <div className='page-layout'>
         <table className='table'>
+         <thead>
           <tr>
-            <th colspan="8">timetable</th>
+            <th colSpan="8">timetable</th>
           </tr>
           <tr>
-            <th rowspan="8">hours</th>
+            <th rowSpan="8">hours</th>
             <th> mon</th>
             <th> tue</th>
             <th> wed</th>
@@ -41,6 +42,7 @@ const TimeTable = () => {
             <th> fri</th>
             <th> Sat</th>
           </tr>
+          </thead> 
           <tbody>
           {timetable.map((entry, index) => (
             <tr key={index}>
@@ -53,6 +55,7 @@ const TimeTable = () => {
         </tbody>
         </table>
 
+      </div>
       </div>
     )
   }
