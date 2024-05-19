@@ -52,6 +52,38 @@ app.post("/api/register", (req, res) => {
     }
   });
 });
+  
+
+//showing student data
+
+app.get("/api/users", (req, res) => {
+  const { semester, department, gender } = req.query;
+  let sql = "SELECT * FROM users WHERE 1=1";
+  const values = [];
+
+  if (semester) {
+    sql += " AND batch = ?";
+    values.push(semester);
+  }
+  if (department) {
+    sql += " AND department = ?";
+    values.push(department);
+  }
+  if (gender) {
+    sql += " AND gender = ?";
+    values.push(gender);
+  }
+
+  db.query(sql, values, (err, results) => {
+    if (err) {
+      console.error("Error fetching user data:", err);
+      res.status(500).json({ error: "An error occurred while fetching user data" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 
 // Route to fetch mess timings
 app.get("/api/mess/timing", (req, res) => {
@@ -211,32 +243,30 @@ function getUserDetails(uid, callback) {
   });
 }
 
-// API endpoint
 app.get("/timetable/:uid", (req, res) => {
   const uid = req.params.uid;
 
   getUserDetails(uid, (error, userDetails) => {
     if (error) {
-      return res.status(error.status).json({ error: error.error });
+      return res.status(500).json({ error: "Error retrieving user details" });
     }
 
-    const { batchYear, streamId, currentSemester } = userDetails;
+    const { currentSemester, streamId } = userDetails;
 
-    // Query to retrieve timetable based on user's stream and current semester
+    // Construct the timetable table name based on the user's stream and semester
+    const timetableTable = `timetable${streamId}${currentSemester}`;
+
+    // Query to retrieve timetable based on the dynamically determined table name
     const timetableQuery = `
-    SELECT Timetable.DayOfWeek, Timetable.StartTime, Timetable.EndTime, Subjects.SubjectName
-    FROM Timetable
-    JOIN Semesters ON Timetable.SemesterID = Semesters.SemesterID
-    JOIN Subjects ON Timetable.SubjectID = Subjects.SubjectID
-    WHERE Semesters.SemesterNumber = ? AND Semesters.StreamID = ?
+    SELECT DayOfWeek, StartTime, EndTime, SubjectName
+    FROM ${timetableTable}
     `;
 
-    db.query(timetableQuery, [currentSemester, streamId], (error, results) => {
+    db.query(timetableQuery, (error, results) => {
       if (error) {
         console.error("Error retrieving timetable:", error);
         return res.status(500).json({ error: "Internal server error" });
       }
-      console.log(`Timetable results: ${JSON.stringify(results)}`);
       res.json(results);
     });
   });

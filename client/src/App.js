@@ -24,6 +24,7 @@ import { useAppState } from "./AppStateContext";
 import Todo from "./screens/Todo";
 import { auth, db } from "./firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import Students from "./screens/Students";
 
 
 function App() {
@@ -125,6 +126,8 @@ function App() {
             <Route path="/holidays" element={<Holidays />} />
             <Route path="/pyq" element={<PYQ />} />
             <Route path="/mess_timing" element={<MessTiming />} />
+            <Route path="/students" element={<Students />} />
+            
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </>
         ) : (
