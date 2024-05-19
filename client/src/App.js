@@ -8,7 +8,7 @@ import "./App.css";
 import Dashboard from "./screens/Dashboard";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
-import React, { useEffect, Suspense } from "react";
+import React, { useEffect } from "react";
 import Result from "./screens/Result";
 import TimeTable from "./screens/TimeTable";
 import MessMenu from "./screens/MessMenu";

@@ -1,99 +1,58 @@
-import React, { useEffect, useState } from 'react'
+
+import React ,{useEffect,useState}from 'react'
+
 import "./Timetable.css"
+import axios from 'axios';
+import { useAppState } from '../AppStateContext';
 const TimeTable = () => {
-    const [timetableData, setTimetableData] = useState([]);
+  const {
+    user
+  } = useAppState();
+  const uid=user.uid;
+  const [timetable, setTimetable] = useState([]);
 
-    useEffect(() => {
-      // Fetch timetable data from the backend API
-      fetch('/api/timetable')
-        .then((response) => response.json())
-        .then((data) => setTimetableData(data))
-        .catch((error) => console.error('Error fetching timetable data:', error));
-    }, []);
-
-
-    return (
-      <div>
-        <div className='page-header'>
-          <h2>Time Table</h2>
-        </div>
-        <div className='page-layout'>
-          <table className='table'>
-            <tr>
-              <th colspan="8">timetable</th>
-            </tr>
-            <tr>
-              <th rowspan="8">hours</th>
-              <th>mon</th>
-              <th>tue</th>
-              <th>wed</th>
-              <th>thurs</th>
-              <th>fri</th>
-              <th>Sat</th>
-            </tr>
-            <tr>
-              <td>science</td>
-              <td>maths</td>
-              <td>science</td>
-              <td>maths</td>
-              <td>arts</td>
-              <td>arts</td>
-            </tr>
-            <tr>
-              <td>science</td>
-              <td>maths</td>
-              <td>science</td>
-              <td>maths</td>
-              <td>arts</td>
-              <td>arts</td>
-            </tr>
-            <tr>
-              <td>science</td>
-              <td>maths</td>
-              <td>science</td>
-              <td>maths</td>
-              <td>arts</td>
-              <td>arts</td>
-            </tr>
-            <tr>
-              <td>social</td>
-              <td>hindi</td>
-              <td>english</td>
-              <td>social</td>
-              <td>sports</td>
-              <td>sports</td>
-            </tr>
-            <tr>
-              <th colspan="6">lunch</th>
-            </tr>
-            <tr>
-              <td>science</td>
-              <td>maths</td>
-              <td>science</td>
-              <td>maths</td>
-              <td rowspan="1">project</td>
-            </tr>
-            <tr>
-              <td>social</td>
-              <td>hindi</td>
-              <td>english</td>
-              <td>social</td>
-              <td>social</td>
-            </tr>
-          </table>
-          {/* <table className='table'>
-        {timetableData.map((row, index) => (
-          <tr key={index}>
-            <td>{row.mon}</td>
-            <td>{row.tue}</td>
-            <td>{row.wed}</td>
-            <td>{row.thu}</td>
-            <td>{row.fri}</td>
-            <td>{row.sat}</td>
+  useEffect(() => {
+    // Fetch timetable data from backend when component mounts
+    axios.get(`/timetable/${uid}`)
+      .then(response => {
+        setTimetable(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching timetable:', error);
+      });
+  }, [uid]); 
+  console.log(timetable)
+  return (
+    <div>
+      <div className='page-header'>
+        <h2>Time Table</h2>
+      </div>
+      <div className='page-layout'>
+        <table className='table'>
+          <tr>
+            <th colspan="8">timetable</th>
           </tr>
-        ))}
-      </table> */}
-        </div>
+          <tr>
+            <th rowspan="8">hours</th>
+            <th> mon</th>
+            <th> tue</th>
+            <th> wed</th>
+            <th> thurs</th>
+            <th> fri</th>
+            <th> Sat</th>
+          </tr>
+          <tbody>
+          {timetable.map((entry, index) => (
+            <tr key={index}>
+              <td>{entry.DayOfWeek}</td>
+              <td>{entry.StartTime}</td>
+              <td>{entry.EndTime}</td>
+              <td>{entry.SubjectName}</td>
+            </tr>
+          ))}
+        </tbody>
+        </table>
+
       </div>
     )
   }
