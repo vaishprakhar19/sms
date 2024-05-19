@@ -25,19 +25,9 @@ db.connect((err) => {
 
 app.post("/api/register", (req, res) => {
   const { uid, name, mobile, rollNo, batch, gender, department } = req.body;
-  let StreamID = 0;
-  if (department === "CSE") {
-    StreamID = 1
-  }
-  if (department === "ECE") {
-    StreamID = 2
-  }
-  if (department === "MCA") {
-    StreamID = 3
-  }
   const sql =
-    "INSERT INTO users (uid, name, mobile, rollNo, batch, gender, department, StreamID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-  const values = [uid, name, mobile, rollNo, batch, gender, department, StreamID];
+    "INSERT INTO users (uid, name, mobile, rollNo, batch, gender, department) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  const values = [uid, name, mobile, rollNo, batch, gender, department];
 
   // Execute the SQL query
   db.query(sql, values, (err, result) => {
@@ -184,8 +174,9 @@ app.get("/api/timetable", (req, res) => {
 // Routes
 // Get all notices
 app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
-  const { semester, stream} = req.params; // Extract batch and stream from query parameters
-const {isAdmin}=req.body;
+  const { semester, stream ,isAdmin} = req.params; // Extract batch and stream from query parameters
+ // Assuming 'req.user' contains the authenticated user's info
+
   let query;
   let queryParams;
 
@@ -193,8 +184,8 @@ const {isAdmin}=req.body;
     query = "SELECT * FROM notices";
     queryParams = [];
   } else {
-    query = "SELECT * FROM notices WHERE semester = ? AND streamid = ?";
-    queryParams = [parseInt(semester), parseInt(stream)];
+    query = "SELECT * FROM notices WHERE semester = ? AND stream = ?";
+    queryParams = [semester, stream];
   }
 
   db.query(query, queryParams, (err, results) => {
@@ -211,7 +202,7 @@ const {isAdmin}=req.body;
 
 // Add a new notice
 // POST route to add a new notice
-app.post("/api/notices/:semester/:stream", (req, res) => {
+app.post("/api/notices/:stream/:semester", (req, res) => {
   const { title, body } = req.body;
   const { semester, stream } = req.params; // Extract semester and stream from URL parameters
 
@@ -227,7 +218,7 @@ app.post("/api/notices/:semester/:stream", (req, res) => {
 
     // Insert the new notice with the generated ID, semester, stream, and batch
     db.query(
-      "INSERT INTO notices (id, title, body, streamid, semester) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO notices (id, title, body, stream, semester) VALUES (?, ?, ?, ?, ?)",
       [newId, title, body, stream,semester],
       (err, result) => {
         if (err) {
@@ -274,7 +265,7 @@ function calculateSemester(batchYear) {
 
 //THIS IS A GENERIC FUNCTION TO GET SEMESTER AND STREAM FROM THE DATABASE
 function getUserDetails(uid, callback) {
-  const userQuery = "SELECT batch, StreamID FROM users WHERE uid = ?";
+  const userQuery = "SELECT batch, department FROM users WHERE uid = ?";
   db.query(userQuery, [uid], (error, userResults) => {
     if (error) {
       console.error("Error retrieving user batch:", error);
@@ -283,10 +274,10 @@ function getUserDetails(uid, callback) {
       callback({ status: 404, error: "User not found" });
     } else {
       const batchYear = userResults[0].batch;
-      const streamId = userResults[0].StreamID;
+      const stream = userResults[0].department;
       const currentSemester = calculateSemester(batchYear);
       // console.log(`Calculated semester: ${currentSemester} for batch year: ${batchYear}`);
-      callback(null, { batchYear, streamId, currentSemester });
+      callback(null, { batchYear, stream, currentSemester });
     }
   });
 }
@@ -299,10 +290,10 @@ app.get("/timetable/:uid", (req, res) => {
       return res.status(500).json({ error: "Error retrieving user details" });
     }
 
-    const { currentSemester, streamId } = userDetails;
+    const { currentSemester, stream } = userDetails;
 
     // Construct the timetable table name based on the user's stream and semester
-    const timetableTable = `timetable${streamId}${currentSemester}`;
+    const timetableTable = `timetable${stream}${currentSemester}`;
 
     // Query to retrieve timetable based on the dynamically determined table name
     const timetableQuery = `
@@ -328,8 +319,8 @@ app.get("/pyq/:uid", (req, res) => {
     if (error) {
       return res.status(error.status).json({ error: error.error });
     }
-    const { batchYear, streamId, currentSemester } = userDetails;
-    res.json({ batchYear, streamId, currentSemester });
+    const { batchYear, stream, currentSemester } = userDetails;
+    res.json({ batchYear, stream, currentSemester });
   });
 });
 
