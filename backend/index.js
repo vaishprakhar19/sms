@@ -103,8 +103,9 @@ app.get("/api/timetable", (req, res) => {
 // Routes
 // Get all notices
 app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
-  const { semester, stream} = req.params; // Extract batch and stream from query parameters
-const {isAdmin}=req.body;
+  const { semester, stream ,isAdmin} = req.params; // Extract batch and stream from query parameters
+ // Assuming 'req.user' contains the authenticated user's info
+
   let query;
   let queryParams;
 
