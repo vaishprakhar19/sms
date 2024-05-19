@@ -93,8 +93,13 @@ app.get("/api/timetable", (req, res) => {
 
 // Routes
 // Get all notices
-app.get("/api/notices", (req, res) => {
-  db.query("SELECT * FROM notices", (err, results) => {
+app.get("/api/notices/:semester/:stream", (req, res) => {
+  const { semester, stream } = req.params; // Extract batch and stream from query parameters
+
+  // Modify your SQL query to filter by batch and stream
+  const batch=findBatchFromSemester(semester)
+  const query = "SELECT * FROM notices WHERE batch = ? AND streamid = ?";
+  db.query(query, [batch, stream], (err, results) => {
     if (err) {
       console.error("Error fetching notices:", err);
       res.status(500).json({ error: "Error fetching notices" });
@@ -104,10 +109,16 @@ app.get("/api/notices", (req, res) => {
   });
 });
 
+
 // Add a new notice
 // POST route to add a new notice
-app.post("/api/notices", (req, res) => {
+app.post("/api/notices/:semester/:stream", (req, res) => {
   const { title, body } = req.body;
+  const { semester, stream } = req.params; // Extract semester and stream from URL parameters
+
+  // Calculate the batch year from the provided semester
+  const batchYear = findBatchFromSemester(semester);
+
   // Get the ID of the last inserted notice
   db.query("SELECT MAX(id) AS maxId FROM notices", (err, result) => {
     if (err) {
@@ -117,10 +128,11 @@ app.post("/api/notices", (req, res) => {
     }
     // Generate ID for the new notice (increment last inserted ID by 1)
     const newId = result[0].maxId ? result[0].maxId + 1 : 1;
-    // Insert the new notice with the generated ID
+
+    // Insert the new notice with the generated ID, semester, stream, and batch
     db.query(
-      "INSERT INTO notices (id, title, body) VALUES (?, ?, ?)",
-      [newId, title, body],
+      "INSERT INTO notices (id, title, body, streamid, batch) VALUES (?, ?, ?, ?, ?)",
+      [newId, title, body, stream, batchYear],
       (err, result) => {
         if (err) {
           console.error("Error adding notice:", err);
@@ -132,6 +144,8 @@ app.post("/api/notices", (req, res) => {
     );
   });
 });
+
+
 
 // DELETE route to delete a notice by ID
 app.delete("/api/notices/:id", (req, res) => {
@@ -154,13 +168,23 @@ function calculateSemester(batchYear) {
   const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed
   const yearsDifference = currentYear - batchYear;
   let semester = yearsDifference * 2 + 1; // Default to the first semester of the current year
-
   if (currentMonth > 6) {
     // Assume semester changes mid-year (e.g., July)
     semester++;
   }
-
   return semester;
+}
+
+function findBatchFromSemester(targetSemester) {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed
+  let batchYear = currentYear - Math.floor((targetSemester - 1) / 2);
+  // Adjust for mid-year semester change (e.g., July)
+  if (currentMonth > 6) {
+      batchYear++;
+  }
+
+  return batchYear;
 }
 
 //THIS IS A GENERIC FUNCTION TO GET SEMESTER AND STREAM FROM THE DATABASE

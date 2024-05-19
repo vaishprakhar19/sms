@@ -20,6 +20,9 @@ function Dashboard() {
     const {
       user,
       isAdmin,
+      stream,
+      semester,
+      statesSet
     } = useAppState();
   
   const [notices, setNotices] = useState([]);
@@ -27,15 +30,17 @@ function Dashboard() {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await axios.get('/api/notices');
+        // Make the API request with query parameters
+        const response = await axios.get(`/api/notices/${semester}/${stream}`);
         setNotices(response.data);
       } catch (error) {
         console.error('Error fetching notices:', error);
       }
     };
-  
+  if(statesSet)
     fetchNotices();
   }, []);
+  // console.log(notices)
 
   const deleteNotice = async (id) => {
     try {

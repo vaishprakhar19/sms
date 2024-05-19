@@ -80,8 +80,8 @@ function App() {
             setDoc(doc(db, "user", authUser.uid), { isRegistered: false, isAdmin: false });
           }
           // setLoading(false);
-          fetchUserDetails(authUser.uid);
           setStatesSet(true);
+          if(!isAdmin)fetchUserDetails(authUser.uid);
         });
         
       } else {
