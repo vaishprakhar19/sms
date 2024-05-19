@@ -22,6 +22,8 @@ function Dashboard() {
     const {
       user,
       isAdmin,
+      stream,
+      semester,
     } = useAppState();
   
   const [notices, setNotices] = useState([]);
@@ -29,15 +31,21 @@ function Dashboard() {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await axios.get('/api/notices');
+        // Make the API request with query parameters
+        const response = await axios.get(`/api/notices/${stream}/${semester}`,{isAdmin});
         setNotices(response.data);
       } catch (error) {
         console.error('Error fetching notices:', error);
       }
     };
   
-    fetchNotices();
-  }, []);
+    // Only call fetchNotices if semester and stream are defined
+    if (semester && stream||isAdmin) {
+      fetchNotices();
+    }
+  }, [semester, stream]); // Added semester and stream as dependencies
+  
+  console.log(notices)
 
   const deleteNotice = async (id) => {
     try {

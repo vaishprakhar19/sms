@@ -38,13 +38,30 @@ function App() {
     isAdmin,
     setIsAdmin,
     setStatesSet,
-    statesSet
+    statesSet,
+    setSemester,
+    setStream,
+    stream,
+    semester
   } = useAppState();
 
-  console.log("user", user);
-  console.log("isAdmin", isAdmin);
-  console.log("isRegistered", isRegistered);
-  console.log("statesSet", statesSet);
+  // console.log("user", user);
+  // console.log("isAdmin", isAdmin);
+  // console.log("isRegistered", isRegistered);
+  // console.log("statesSet", statesSet);
+
+    const fetchUserDetails = async (uid) => {
+      try {
+        const response = await fetch(`/pyq/${uid}`);
+        const data = await response.json();
+        await setStream(data.streamId);
+        await setSemester(data.currentSemester);
+        console.log(stream,"stream")
+        console.log(semester,"sem")
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -65,7 +82,9 @@ function App() {
           }
           // setLoading(false);
           setStatesSet(true);
+          if(!isAdmin)fetchUserDetails(authUser.uid);
         });
+        
       } else {
         // User is signed out
         setUser(null);
@@ -78,7 +97,7 @@ function App() {
 
     // Cleanup function
     return () => unsubscribe();
-  }, );
+  }, [stream,semester]);
 
   let routes = null;
 

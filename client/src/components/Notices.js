@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import "./notices.css"
+import { useAppState } from '../AppStateContext';
 
 const Notices = ({ notices,onDeleteNotice }) => {
   const handleDelete = async (id) => {
@@ -12,7 +13,7 @@ const Notices = ({ notices,onDeleteNotice }) => {
       console.error('Error deleting notice:', error);
     }
   };
-
+const {isAdmin} = useAppState()
   return (
     <div className="notices">
          <h2>Notices</h2>
@@ -23,7 +24,7 @@ const Notices = ({ notices,onDeleteNotice }) => {
     <div className="notiborderglow"></div>
           <div className="notititle">{notice.title}</div>
           <div className="notibody">{notice.body}</div>
-          <button className='adminbtn' onClick={() => handleDelete(notice.id)}>Delete</button>
+          {isAdmin&&<button className='adminbtn' onClick={() => handleDelete(notice.id)}>Delete</button>}
         </div>
         </div>
       ))}
