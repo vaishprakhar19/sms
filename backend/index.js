@@ -158,18 +158,6 @@ db.connect((err) => {
   console.log("Connected to MySQL database");
 });
 
-app.get("/api/timetable", (req, res) => {
-  const query = "SELECT * FROM timetable";
-  db.query(query, (err, results) => {
-    if (err) {
-      console.error("Error fetching mess timings:", err);
-      res.status(500).send("Internal Server Error");
-      return;
-    }
-    console.table(results);
-    res.json(results);
-  });
-});
 
 // Routes
 // Get all notices
@@ -310,6 +298,79 @@ app.get("/timetable/:uid", (req, res) => {
     });
   });
 });
+app.get("/admin/timetables", (req, res) => {
+  const getAllTablesQuery = "SHOW TABLES LIKE 'timetable%'";
+
+  db.query(getAllTablesQuery, (error, tables) => {
+    if (error) {
+      console.error("Error retrieving timetable tables:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    const tableNames = tables.map(table => Object.values(table)[0]);
+    if (tableNames.length === 0) {
+      return res.json([]);
+    }
+
+    const timetableQueries = tableNames.map(tableName => `
+      SELECT '${tableName}' AS tableName, DayOfWeek, StartTime, EndTime, SubjectName
+      FROM ${tableName}
+    `).join(' UNION ALL ');
+
+    db.query(timetableQueries, (error, results) => {
+      if (error) {
+        console.error("Error retrieving timetables:", error);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+      res.json(results);
+    });
+  });
+});
+app.post("/admin/update_timetables", (req, res) => {
+  const updatedTimetables = req.body;
+
+  console.log('Received update payload:', updatedTimetables);
+
+  const updateQueries = updatedTimetables.map(item => {
+    const { tableName, dayOfWeek, startTime, endTime, subjectName } = item;
+    const query = `
+      UPDATE ${tableName}
+      SET SubjectName = ?
+      WHERE DayOfWeek = ? AND StartTime = ? AND EndTime = ?
+    `;
+    const values = [subjectName, dayOfWeek, startTime, endTime];
+    return { query, values };
+  });
+
+  const executeUpdate = queries => {
+    return Promise.all(
+      queries.map(({ query, values }) => {
+        return new Promise((resolve, reject) => {
+          console.log('Executing query:', query, 'with values:', values);
+          db.query(query, values, (error, results) => {
+            if (error) {
+              console.error('Query execution error:', error);
+              reject(error);
+            } else {
+              console.log('Query executed successfully:', results);
+              resolve(results);
+            }
+          });
+        });
+      })
+    );
+  };
+
+  executeUpdate(updateQueries)
+    .then(() => {
+      res.status(200).json({ message: "Timetables updated successfully" });
+    })
+    .catch(error => {
+      console.error("Error updating timetables:", error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+});
+
 
 
 //USE THIS AS A MODEL WHEREVER YOU NEED TO GET THE SEM AND STREAM
