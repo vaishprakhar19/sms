@@ -42,7 +42,7 @@ app.post("/api/register", (req, res) => {
     }
   });
 });
-  
+
 
 //showing student data
 
@@ -162,13 +162,13 @@ db.connect((err) => {
 // Routes
 // Get all notices
 app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
-  const { semester, stream ,isAdmin} = req.params; // Extract batch and stream from query parameters
- // Assuming 'req.user' contains the authenticated user's info
+  const { semester, stream, isAdmin } = req.params; // Extract batch and stream from query parameters
+  // Assuming 'req.user' contains the authenticated user's info
 
   let query;
   let queryParams;
-
-  if (isAdmin) {
+  // console.log(stream,semester,isAdmin)
+  if (isAdmin === "true") {
     query = "SELECT * FROM notices";
     queryParams = [];
   } else {
@@ -207,7 +207,7 @@ app.post("/api/notices/:stream/:semester", (req, res) => {
     // Insert the new notice with the generated ID, semester, stream, and batch
     db.query(
       "INSERT INTO notices (id, title, body, stream, semester) VALUES (?, ?, ?, ?, ?)",
-      [newId, title, body, stream,semester],
+      [newId, title, body, stream, semester],
       (err, result) => {
         if (err) {
           console.error("Error adding notice:", err);
@@ -373,8 +373,29 @@ app.post("/admin/update_timetables", (req, res) => {
 
 
 
+app.get("/timetable/:stream/:year", (req, res) => {
+  const {stream,year} = req.params;
+    // Construct the timetable table name based on the user's stream and semester
+    const timetableTable = `timetable${stream}${year}`;
+
+    // Query to retrieve timetable based on the dynamically determined table name
+    const timetableQuery = `
+    SELECT DayOfWeek, StartTime, EndTime, SubjectName
+    FROM ${timetableTable}
+    `;
+
+    db.query(timetableQuery, (error, results) => {
+      if (error) {
+        console.error("Error retrieving timetable:", error);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+      res.json(results);
+    });
+});
+
+
 //USE THIS AS A MODEL WHEREVER YOU NEED TO GET THE SEM AND STREAM
-app.get("/pyq/:uid", (req, res) => {
+app.get("/userdata/:uid", (req, res) => {
   const uid = req.params.uid;
   getUserDetails(uid, (error, userDetails) => {
     if (error) {

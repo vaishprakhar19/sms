@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAppState } from "../AppStateContext";
 import "./Timetable.css"
+import { stream } from "xlsx";
+
 
 const TimeTable = () => {
   const { user, isAdmin } = useAppState();
   const uid = user.uid;
   const [timetable, setTimetable] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedDept, setSelectedDept] = useState("CSE");
-  const [selectedYear, setSelectedYear] = useState("2");
 
+
+  const [timetableYear, setTimetableYear] = useState(1);
+  const [timetableStream, setTimetableStream] = useState("CSE");
   useEffect(() => {
-    const fetchTimetable = async () => {
-      try {
-        const response = isAdmin
-          ? await axios.get('/admin/timetables')
-          : await axios.get(`/timetable/${uid}`);
+    axios
+      .get(`/timetable/${timetableStream}/${timetableYear}`)
+      .then((response) => {
         const data = response.data;
         const groupedData = data.reduce((acc, curr) => {
           const timeSlot = `${curr.StartTime.slice(0, 5)} - ${curr.EndTime.slice(0, 5)}`;
@@ -61,47 +61,102 @@ const TimeTable = () => {
           subjectName
         }));
       });
-      console.log('Payload being sent to backend:', updates);
-      await axios.post('/admin/update_timetables', updates);
-      setIsEditing(false);
-    } catch (error) {
-      console.error("Error updating timetable:", error);
-    }
-  };
-  const handleChange = (timeSlot, day, value) => {
-    setTimetable(prevTimetable => {
-      const newTimetable = [...prevTimetable];
-      const index = newTimetable.findIndex(item => item.time === timeSlot);
-      if (index !== -1) {
-        newTimetable[index].days[day] = value;
-      }
-      return newTimetable;
-    });
-  };
-  
+  }, [uid, timetableStream, timetableYear]);
+
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  const handleStreamChange = (e) => {
+    setTimetableStream(e.target.value)
+    console.log(timetableStream)
+  }
+
+  const handleSemesterChange = (e) => {
+    setTimetableYear(e.target.value)
+  }
 
   return (
     <div>
       <div className="page-header">
         <h2>Time Table</h2>
-        {isAdmin && (
-          <>
-            <select value={selectedDept} onChange={(e) => setSelectedDept(e.target.value)}>
-              <option value="CSE">CSE</option>
-              <option value="ECE">ECE</option>
-              {/* Add other departments as needed */}
-            </select>
-            <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
-              <option value="1">Year 1</option>
-              <option value="2">Year 2</option>
-              {/* Add other Years as needed */}
-            </select>
-            <button onClick={handleEdit}>{isEditing ? "Cancel" : "Edit"}</button>
-            {isEditing && <button onClick={handleSave}>Save</button>}
-          </>
-        )}
+
+
+        {isAdmin && (<>
+          <div className="radio-inputs">
+            <label className="radio">
+              <input
+                type="radio"
+                name="department"
+                value="CSE"
+                defaultChecked
+                onChange={handleStreamChange}
+              />
+              <span className="name">CSE</span>
+            </label>
+            <label className="radio">
+              <input
+                type="radio"
+                name="department"
+                value="ECE"
+                onChange={handleStreamChange}
+              />
+              <span className="name">ECE</span>
+            </label>
+
+            <label className="radio">
+              <input
+                type="radio"
+                name="department"
+                value="MCA"
+                onChange={handleStreamChange}
+              />
+              <span className="name">MCA</span>
+            </label>
+          </div>
+
+          <div className="radio-inputs">
+            <label className="radio">
+              <input
+                type="radio"
+                name="year"
+                value={1}
+                defaultChecked
+                onChange={handleSemesterChange}
+              />
+              <span className="name">1</span>
+            </label>
+            <label className="radio">
+              <input
+                type="radio"
+                name="year"
+                value={2}
+                onChange={handleSemesterChange}
+              />
+              <span className="name">2</span>
+            </label>
+
+            <label className="radio">
+              <input
+                type="radio"
+                name="year"
+                value={3}
+                onChange={handleSemesterChange}
+              />
+              <span className="name">3</span>
+            </label>
+            <label className="radio">
+              <input
+                type="radio"
+                name="year"
+                value={4}
+                onChange={handleSemesterChange}
+              />
+              <span className="name">4</span>
+            </label>
+          </div>
+        </>)}
+
+
       </div>
       <div className="page-layout">
         <table className="table">
@@ -119,17 +174,12 @@ const TimeTable = () => {
           <tbody>
             {timetable.map((item, index) => (
               <tr key={index}>
-                <td>{item.time}</td>
-                {days.map(day => (
-                  <td
-  key={`${day}-${index}`}
-  contentEditable={isEditing}
-  suppressContentEditableWarning={true}
-  onBlur={(e) => handleChange(item.time, day, e.target.innerText)}
->
-  {item.days[day]}
-</td>
-                ))}
+
+                <td >{item.time}</td>
+                {days.map((day) => {
+                  return <td key={`${day}-${index}`}>{item.days[day]}</td>;
+                })}
+
               </tr>
             ))}
           </tbody>

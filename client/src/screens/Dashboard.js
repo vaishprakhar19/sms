@@ -5,17 +5,12 @@ import dashdata from '../components/dashdata';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase'
 import Notices from '../components/Notices';
-import notidata from '../components/notidata';
 import Navbar from '../components/Navbar';
 import Notice from "./Notice"
 import axios from 'axios';
 import { useAppState } from '../AppStateContext';
 import Students from './Students';
 import { Link } from 'react-router-dom';
-
-
-
-
 
 
 function Dashboard() {
@@ -80,7 +75,6 @@ function Dashboard() {
     <div className='dashboard'>
       <header>
         <div className='user-profile page-header'>
-
           {user.photoURL ? <img className='user-profile-image' src={user.photoURL} alt='profile' /> : <img className='user-profile-image' src='https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/profilepic.jpg?alt=media&token=e3de41ad-6340-4e18-99a3-5990e435fb1b' alt='profile' />}
           {user.displayName ? <p>{user.displayName}</p> : <p>ADMIN</p>}
           <button className="Logout-Btn" onClick={handleSignOut}>
