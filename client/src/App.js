@@ -52,7 +52,7 @@ function App() {
 
     const fetchUserDetails = async (uid) => {
       try {
-        const response = await fetch(`/pyq/${uid}`);
+        const response = await fetch(`/userdata/${uid}`);
         const data = await response.json();
         await setStream(data.stream);
         await setSemester(data.currentSemester);

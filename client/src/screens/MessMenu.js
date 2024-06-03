@@ -40,12 +40,12 @@ const MessMenu = () => {
       <div className='page-header'>
         <h2>Mess Menu</h2>
         {isAdmin && (
-          <button onClick={handleEdit}>
+          <button className="adminbtn" onClick={handleEdit}>
             {isEditing ? 'Cancel' : 'Edit'}
           </button>
         )}
         {isEditing && (
-          <button onClick={handleSave}>Save</button>
+          <button className="adminbtn" onClick={handleSave}>Save</button>
         )}
       </div>
       <div className='page-layout'>
