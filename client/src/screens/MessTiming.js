@@ -37,28 +37,28 @@ const MessTiming = () => {
         <main className="page-layout">
 
         <div className="mess-timing-container "> 
-            <div className="gender-filter">
-                <label>
+            <div className="radio-inputs">
+                <label className="radio">
                     <input
                         type="radio"
                         value="Boys"
                         checked={genderFilter === "Boys"}
                         onChange={handleGenderChange}
                     />
-                    Boys
+                    <span className="name">Boys</span>
                 </label>
-                <label>
+                <label className="radio">
                     <input
                         type="radio"
                         value="Girls"
                         checked={genderFilter === "Girls"}
                         onChange={handleGenderChange}
                     />
-                    Girls
+                  <span className="name">Girls</span>
                 </label>
             </div>
-            <button className="mess-btn" onClick={() => setGenderFilter("Boys")}>Reset Filter</button>
-            <table className="table">
+            
+            <table className="table timing">
                 <thead>
                     <tr>
                         <th>Meal Type</th>
