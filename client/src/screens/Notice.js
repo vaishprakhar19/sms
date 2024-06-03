@@ -25,7 +25,7 @@ const Notice = ({ onAddNotice }) => {
   };
 
   return (
-    <div className='notices'>
+    <div className='notices '>
       <h2>Add New Notice</h2>
       <form className="form_main notice-form" onSubmit={handleSubmit}>
         <input
@@ -44,20 +44,74 @@ const Notice = ({ onAddNotice }) => {
           required
         />
         {/* Add input fields for stream and semester */}
-        <input
-          className="inputField"
-          placeholder="Stream"
-          value={noticeStream}
-          onChange={(e) => setNoticeStream(e.target.value)}
-          required
-        />
-        <input
-          className="inputField"
-          placeholder="Semester"
-          value={noticeSemester}
-          onChange={(e) => setNoticeSemester(e.target.value)}
-          required
-        />
+  <div className='radio-inputs notice-radio'>
+    <label  className='radio'>  <input
+    type="radio"
+    name="stream"
+    value="CSE"
+    checked={noticeStream === "CSE"}
+    onChange={(e) => {
+      setNoticeStream(e.target.value);
+      setNoticeSemester(''); // Reset SemsetNoticeSemester value when changing stream
+    }}
+  />
+   <span className="name">CSE</span></label>
+
+
+<label className='radio'> <input
+    type="radio"
+    id="ece"
+    name="stream"
+    value="ECE"
+    checked={noticeStream === "ECE"}
+    onChange={(e) => {
+      setNoticeStream(e.target.value);
+      setNoticeSemester(''); // Reset SemsetNoticeSemester value when changing stream
+    }}
+  />
+  <span className="name">ECE</span></label> 
+  <label className='radio'> <input
+    type="radio"
+    name="stream"
+    value="MCA"
+    checked={noticeStream === "MCA"}
+    onChange={(e) => {
+      setNoticeStream(e.target.value);
+      setNoticeSemester(''); // Reset SemsetNoticeSemester value when changing stream
+    }}
+  />
+  <span className="name">MCA</span></label> 
+ 
+</div>
+
+<select
+  className="inputField"
+  value={noticeSemester}
+  onChange={(e) => setNoticeSemester(e.target.value)}
+  required
+>
+  <option value="">Select Semester</option>
+  {noticeStream === "MCA" ? (
+    <>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </>
+  ) : (
+    <>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </>
+  )}
+</select>
+
         <button id="button" type="submit">Add Notice</button>
       </form>
     </div>
