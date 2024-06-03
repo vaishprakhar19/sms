@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
+import "./Timetable.css";
 import axios from "axios";
 import { useAppState } from "../AppStateContext";
-import "./Timetable.css"
 import { stream } from "xlsx";
-
 
 const TimeTable = () => {
   const { user, isAdmin } = useAppState();
   const uid = user.uid;
   const [timetable, setTimetable] = useState([]);
-
-
   const [timetableYear, setTimetableYear] = useState(1);
   const [timetableStream, setTimetableStream] = useState("CSE");
   useEffect(() => {
@@ -19,7 +16,10 @@ const TimeTable = () => {
       .then((response) => {
         const data = response.data;
         const groupedData = data.reduce((acc, curr) => {
-          const timeSlot = `${curr.StartTime.slice(0, 5)} - ${curr.EndTime.slice(0, 5)}`;
+          const timeSlot =
+            curr.StartTime.toString().slice(0, 5) +
+            " - " +
+            curr.EndTime.toString().slice(0, 5);
           if (!acc[timeSlot]) {
             acc[timeSlot] = {
               time: timeSlot,
@@ -31,40 +31,26 @@ const TimeTable = () => {
                 Friday: "-",
                 Saturday: "-",
               },
-              tableName: curr.tableName
             };
           }
           acc[timeSlot].days[curr.DayOfWeek] = curr.SubjectName;
           return acc;
         }, {});
         setTimetable(Object.values(groupedData));
-      } catch (error) {
+      })
+      .catch((error) => {
         console.error("Error fetching timetable:", error);
-      }
-    };
-
-    fetchTimetable();
-  }, [uid, isAdmin, selectedDept, selectedYear]);
-
-  const handleEdit = () => {
-    setIsEditing(!isEditing);
-  };
-
-  const handleSave = async () => {
-    try {
-      const updates = timetable.flatMap(item => {
-        return Object.entries(item.days).map(([day, subjectName]) => ({
-          tableName: item.tableName,
-          dayOfWeek: day,
-          startTime: item.time.split(' - ')[0],
-          endTime: item.time.split(' - ')[1],
-          subjectName
-        }));
       });
   }, [uid, timetableStream, timetableYear]);
 
-
-  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   const handleStreamChange = (e) => {
     setTimetableStream(e.target.value)
@@ -79,7 +65,6 @@ const TimeTable = () => {
     <div>
       <div className="page-header">
         <h2>Time Table</h2>
-
 
         {isAdmin && (<>
           <div className="radio-inputs">
@@ -156,7 +141,6 @@ const TimeTable = () => {
           </div>
         </>)}
 
-
       </div>
       <div className="page-layout">
         <table className="table">
@@ -166,7 +150,7 @@ const TimeTable = () => {
             </tr>
             <tr>
               <th rowSpan="8">Hours</th>
-              {days.map(day => (
+              {days.map((day) => (
                 <th key={day}>{day}</th>
               ))}
             </tr>
@@ -174,12 +158,10 @@ const TimeTable = () => {
           <tbody>
             {timetable.map((item, index) => (
               <tr key={index}>
-
                 <td >{item.time}</td>
                 {days.map((day) => {
                   return <td key={`${day}-${index}`}>{item.days[day]}</td>;
                 })}
-
               </tr>
             ))}
           </tbody>
