@@ -5,11 +5,12 @@
     max-width: 800px;
     /* background-color: #f4f4f4; */
     border-radius: 8px;
+
     /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
 }
 
-.gender-filter {
-    margin-bottom: 10px;
+.timing{
+    margin-top: 20px;
 }
 
 .mess-timing-table {
