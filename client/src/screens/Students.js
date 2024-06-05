@@ -53,18 +53,75 @@ const Students = () => {
         <div className="page-layout">
             <div className="form_main notice-form">
 
-          <label>
-            Batch:
-            <input type="text" className="inputField" name="semester" value={filters.semester} onChange={handleFilterChange} />
-          </label>
-          <label>
-            Department:
-            <input type="text" className="inputField" name="department" value={filters.department} onChange={handleFilterChange} />
-          </label>
-          <label>
-            Gender:
-            <input type="text" className="inputField" name="gender" value={filters.gender} onChange={handleFilterChange} />
-          </label>
+          
+            
+            <input type="text" placeholder="Batch" className="inputField" name="semester" value={filters.semester} onChange={handleFilterChange} />
+          
+          <div className="radio-inputs">
+   
+    <div className="radio">
+      <label className="radio">
+        <input
+          type="radio"
+          name="department"
+          value="cse"
+          checked={filters.department === "cse"}
+          onChange={handleFilterChange}
+        />
+        <span className="name">CSE</span>
+      </label>
+      <label className="radio">
+        <input
+          type="radio"
+          name="department"
+          value="ece"
+          checked={filters.department === "ece"}
+          onChange={handleFilterChange}
+        />
+        <span className="name">ECE</span>
+      </label>
+      <label className="radio">
+        <input
+          type="radio"
+          name="department"
+          value="mca"
+          checked={filters.department === "mca"}
+          onChange={handleFilterChange}
+        />
+        <span className="name">MCA</span>
+      </label>
+    </div>
+  
+</div>
+
+<div className="radio-inputs">
+
+   
+    <div className="radio">
+      <label className="radio">
+        <input
+          type="radio"
+          name="gender"
+          value="male"
+          checked={filters.gender === "male"}
+          onChange={handleFilterChange}
+        />
+        <span className="name">Male</span>
+      </label>
+      <label className="radio">
+        <input
+          type="radio"
+          name="gender"
+          value="female"
+          checked={filters.gender === "female"}
+          onChange={handleFilterChange}
+        />
+        <span className="name">Female</span>
+      </label>
+    </div>
+  
+</div>
+
           <button id="button" onClick={fetchUsers}>Filter</button>
             </div>
         </div>
