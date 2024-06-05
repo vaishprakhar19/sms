@@ -20,7 +20,7 @@ export default [
     },
     {
         id:4,
-        link:"/holidays",
+        href:"/holidays",
         img:"https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/schedule.png?alt=media&token=6f4cd235-df31-475c-b69a-56cdb7c59350",
         title: "Holidays"
     },
@@ -35,12 +35,12 @@ export default [
         href:"/syllabus",
         img:"https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/checklist.png?alt=media&token=c2dabb28-c8f1-4ae8-99ca-d5dcacc108f8",
         title: "Syllabus"
-    },
-    {
-        id:7,
-        link:"/",
-        img:"https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/score.png?alt=media&token=ac32c60c-db26-420b-a58e-6a373926983c",
-        title: "Result"
     }
+    // {
+    //     id:7,
+    //     link:"/",
+    //     img:"https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/score.png?alt=media&token=ac32c60c-db26-420b-a58e-6a373926983c",
+    //     title: "Result"
+    // }
 
 ]

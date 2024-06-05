@@ -103,6 +103,7 @@ app.get("/api/mess_menu", (req, res) => {
     res.json(results);
   });
 });
+
 app.post("/api/update_mess_menu", (req, res) => {
   const updatedMenuData = req.body;
 
@@ -361,8 +362,17 @@ app.post("/update-timetable", (req, res) => {
     });
 });
 
-
-
+app.get("/api/holidays", (req, res) => {
+  const query = `SELECT * FROM holidays`;
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error("Error fetching holidays:", error);
+      res.status(500).json({ error: "Internal server error" });
+      return;
+    }
+    res.json(results);
+  });
+});
 
 
 
