@@ -58,11 +58,13 @@ const TimeTable = () => {
 
   const handleStreamChange = (e) => {
     setTimetableStream(e.target.value);
+    setTimetableYear(1); 
   };
 
   const handleSemesterChange = (e) => {
-    setTimetableYear(e.target.value);
+    setTimetableYear(parseInt(e.target.value));
   };
+
 
   const handleContentChange = (e, timeSlot, day) => {
     const value = e.target.innerText;
@@ -109,7 +111,7 @@ const TimeTable = () => {
 
         {isAdmin && (
           <>
-            <div className="radio-inputs">
+             <div className="radio-inputs">
               <label className="radio">
                 <input
                   type="radio"
@@ -170,6 +172,7 @@ const TimeTable = () => {
                   value={3}
                   checked={timetableYear === 3}
                   onChange={handleSemesterChange}
+                  disabled={timetableStream === "MCA"}
                 />
                 <span className="name">3</span>
               </label>
@@ -180,6 +183,7 @@ const TimeTable = () => {
                   value={4}
                   checked={timetableYear === 4}
                   onChange={handleSemesterChange}
+                  disabled={timetableStream === "MCA"}
                 />
                 <span className="name">4</span>
               </label>
