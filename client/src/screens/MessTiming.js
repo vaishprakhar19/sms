@@ -36,7 +36,7 @@ const MessTiming = () => {
         </header>
         <main className="page-layout">
 
-        <div className="mess-timing-container "> 
+        <div className="table-container "> 
             <div className="radio-inputs">
                 <label className="radio">
                     <input
