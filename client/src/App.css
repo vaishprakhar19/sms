@@ -14,13 +14,11 @@
   padding: 30px;
   padding-top: 50px;
   margin-top:-35px;
-  overflow-x: scroll;
   width: 100vw;
+  overflow: hidden;
 }
 
-.page-layout::-webkit-scrollbar { 
-  display: none; 
-}
+
 
 .page-header{
   color:white;

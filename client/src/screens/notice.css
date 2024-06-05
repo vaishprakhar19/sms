@@ -4,16 +4,24 @@
 .notice-form{
     margin:20px;
     gap:20px;
+    width:95% !important;
 }
 .notice-radio{
     flex-wrap: nowrap;
+    width:150% !important;
     flex-direction: row;
 }
 
+
 @media screen and (max-width:768px){
     .notice-form{
-        margin:20px;
         flex-direction: column;
+        width:95% !important;
+        margin:10px;
+        gap:10px;
     }
-    
+    .notice-radio{
+        width:100% !important;
+    }
+
 }
