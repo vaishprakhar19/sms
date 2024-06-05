@@ -184,54 +184,55 @@ const TimeTable = () => {
                 <span className="name">4</span>
               </label>
             </div>
-           
-            
-          <button className="adminbtn" onClick={handleEditClick}>
-            {isEditing ? 'Cancel' : 'Edit'}
-          </button>
-    
-        {isEditing && (
-          <button className="adminbtn" onClick={handleSaveChanges}>Save</button>
-        )}
-       
+
+
+            <button className="adminbtn" onClick={handleEditClick}>
+              {isEditing ? 'Cancel' : 'Edit'}
+            </button>
+
+            {isEditing && (
+              <button className="adminbtn" onClick={handleSaveChanges}>Save</button>
+            )}
+
           </>
         )}
 
       </div>
 
       <div className="page-layout">
-        <table className="table">
-          <thead>
-            <tr>
-              <th colSpan="7">Timetable</th>
-            </tr>
-            <tr>
-              <th>Hours</th>
-              {days.map((day) => (
-                <th key={day}>{day}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {editableTimetable.map((item, index) => (
-              <tr key={index}>
-                <td>{item.time}</td>
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th colSpan="7">Timetable</th>
+              </tr>
+              <tr>
+                <th>Hours</th>
                 {days.map((day) => (
-                  <td
-                    key={`${day}-${index}`}
-                    contentEditable={isEditing}
-                    suppressContentEditableWarning={true}
-                    onBlur={(e) => handleContentChange(e, item.time, day)}
-                  >
-                    {item.days[day]}
-                  </td>
+                  <th key={day}>{day}</th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {editableTimetable.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.time}</td>
+                  {days.map((day) => (
+                    <td
+                      key={`${day}-${index}`}
+                      contentEditable={isEditing}
+                      suppressContentEditableWarning={true}
+                      onBlur={(e) => handleContentChange(e, item.time, day)}
+                    >
+                      {item.days[day]}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      
     </div>
   );
 };
