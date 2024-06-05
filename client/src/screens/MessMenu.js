@@ -5,7 +5,7 @@ import "./messmenu.css"
 
 const MessMenu = () => {
   const [menuData, setMenuData] = useState([]);
- const {isAdmin}=useAppState()
+  const { isAdmin } = useAppState()
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -49,36 +49,38 @@ const MessMenu = () => {
         )}
       </div>
       <div className='page-layout'>
-        <table className='table'>
-          <thead>
-            <tr>
-              <th>Day</th>
-              <th>Breakfast</th>
-              <th>Lunch</th>
-              <th>Evening Snacks</th>
-              <th>Dinner</th>
-            </tr>
-          </thead>
-          <tbody>
-            {menuData.map((item, index) => (
-              <tr key={item.menu_id}>
-                <td>{item.day_of_week}</td>
-                <td contentEditable={isEditing} onBlur={(e) => {
-                  menuData[index].breakfast = e.target.innerText;
-                }}>{item.breakfast}</td>
-                <td contentEditable={isEditing} onBlur={(e) => {
-                  menuData[index].lunch = e.target.innerText;
-                }}>{item.lunch}</td>
-                <td contentEditable={isEditing} onBlur={(e) => {
-                  menuData[index].evening_snacks = e.target.innerText;
-                }}>{item.evening_snacks}</td>
-                <td contentEditable={isEditing} onBlur={(e) => {
-                  menuData[index].dinner = e.target.innerText;
-                }}>{item.dinner}</td>
+        <div className='table-container'>
+          <table className='table'>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Breakfast</th>
+                <th>Lunch</th>
+                <th>Evening Snacks</th>
+                <th>Dinner</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {menuData.map((item, index) => (
+                <tr key={item.menu_id}>
+                  <td>{item.day_of_week}</td>
+                  <td contentEditable={isEditing} onBlur={(e) => {
+                    menuData[index].breakfast = e.target.innerText;
+                  }}>{item.breakfast}</td>
+                  <td contentEditable={isEditing} onBlur={(e) => {
+                    menuData[index].lunch = e.target.innerText;
+                  }}>{item.lunch}</td>
+                  <td contentEditable={isEditing} onBlur={(e) => {
+                    menuData[index].evening_snacks = e.target.innerText;
+                  }}>{item.evening_snacks}</td>
+                  <td contentEditable={isEditing} onBlur={(e) => {
+                    menuData[index].dinner = e.target.innerText;
+                  }}>{item.dinner}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

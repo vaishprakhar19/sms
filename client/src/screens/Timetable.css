@@ -37,3 +37,8 @@ td {
   overflow: scroll;
 }
 
+
+.table-container::-webkit-scrollbar { 
+  display: none; 
+}
+
