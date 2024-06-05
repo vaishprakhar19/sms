@@ -113,6 +113,7 @@ const TimeTable = () => {
     setIsEditing(!isEditing);
   };
 
+  const tableName = `Timetable ${timetableStream}${timetableYear}`;
   return (
     <div>
       <div className="page-header">
@@ -214,7 +215,7 @@ const TimeTable = () => {
           <table className="table">
             <thead>
               <tr>
-                <th colSpan="7">Timetable</th>
+                <th colSpan="7">{tableName}</th>
               </tr>
               <tr>
                 <th>Hours</th>
