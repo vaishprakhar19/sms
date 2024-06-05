@@ -1,24 +1,39 @@
 .title {
   color: #5C6AC4;
 }
-.table{
+
+.table {
   width: 100%;
   height: 150%;
 
 }
-.table th,td{
+
+.table th,
+td {
   height: 3rem;
   width: 1rem;
   min-width: fit-content;
   padding: 5px;
   /* border-radius:10px ; */
 }
+
 .table th {
   background-color: var(--purple1);
   color: white;
- 
+
 }
+
 .table tr:nth-child(even){background-color: var(--gray)}
 .radio input[type="radio"]:disabled + .name {
   color: var(--gray);
 }
+
+
+.table tr:nth-child(even) {
+  background-color: var(--gray)
+}
+
+.table-container{
+  overflow: scroll;
+}
+

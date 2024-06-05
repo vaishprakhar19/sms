@@ -50,6 +50,7 @@
     font-weight: 500;
     box-sizing: border-box;
     padding-left: 30px;
+    padding-right: 10px;
   }
   
   .inputField:focus {
@@ -63,10 +64,14 @@
     font-weight: 500;
   }
   
+.form_main select{
+  appearance: none;
+}
+
   #button {
     font-family: "Montserrat", sans-serif;
     position: relative;
-    width: 100%;
+    width: 94%;
     border: 2px solid var(--purple3);
     background-color: var(--purple3);
     height: 40px;
