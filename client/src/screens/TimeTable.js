@@ -65,7 +65,6 @@ const TimeTable = () => {
     setTimetableYear(parseInt(e.target.value));
   };
 
-
   const handleContentChange = (e, timeSlot, day) => {
     const value = e.target.innerText;
     const updatedTimetable = editableTimetable.map((item) => {
@@ -80,6 +79,16 @@ const TimeTable = () => {
       }
       return item;
     });
+    setEditableTimetable(updatedTimetable);
+  };
+
+  const handleTimeSlotChange = (e, index) => {
+    const value = e.target.innerText;
+    const updatedTimetable = [...editableTimetable];
+    updatedTimetable[index] = {
+      ...updatedTimetable[index],
+      time: value,
+    };
     setEditableTimetable(updatedTimetable);
   };
 
@@ -111,7 +120,7 @@ const TimeTable = () => {
 
         {isAdmin && (
           <>
-             <div className="radio-inputs">
+            <div className="radio-inputs">
               <label className="radio">
                 <input
                   type="radio"
@@ -189,7 +198,6 @@ const TimeTable = () => {
               </label>
             </div>
 
-
             <button className="adminbtn" onClick={handleEditClick}>
               {isEditing ? 'Cancel' : 'Edit'}
             </button>
@@ -197,10 +205,8 @@ const TimeTable = () => {
             {isEditing && (
               <button className="adminbtn" onClick={handleSaveChanges}>Save</button>
             )}
-
           </>
         )}
-
       </div>
 
       <div className="page-layout">
@@ -220,7 +226,13 @@ const TimeTable = () => {
             <tbody>
               {editableTimetable.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.time}</td>
+                  <td
+                    contentEditable={isEditing}
+                    suppressContentEditableWarning={true}
+                    onBlur={(e) => handleTimeSlotChange(e, index)}
+                  >
+                    {item.time}
+                  </td>
                   {days.map((day) => (
                     <td
                       key={`${day}-${index}`}
