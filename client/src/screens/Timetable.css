@@ -23,6 +23,12 @@ td {
 
 }
 
+.table tr:nth-child(even){background-color: var(--gray)}
+.radio input[type="radio"]:disabled + .name {
+  color: var(--gray);
+}
+
+
 .table tr:nth-child(even) {
   background-color: var(--gray)
 }
@@ -31,6 +37,8 @@ td {
   overflow: scroll;
 }
 
+
 .table-container::-webkit-scrollbar { 
   display: none; 
 }
+

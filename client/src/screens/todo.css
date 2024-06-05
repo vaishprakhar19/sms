@@ -109,7 +109,7 @@ background-color: var(--gray);
    -ms-appearance: none;
    appearance: none;
    outline: 0;
-   box-shadow: none;
+   box-shadow: none;  
    border: 0 !important;
    background-image: none;
  }
