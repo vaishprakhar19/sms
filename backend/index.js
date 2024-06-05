@@ -320,6 +320,51 @@ app.get("/timetable/:stream/:year", (req, res) => {
     });
 });
 
+app.post("/update-timetable", (req, res) => {
+  const { timetable, stream, year } = req.body;
+  const timetableTable = `timetable${stream}${year}`;
+
+  const updateQueries = timetable.map((item) => {
+    const times = item.time.split(" - ");
+    const startTime = times[0];
+    const endTime = times[1];
+    return Object.keys(item.days).map((day) => {
+      const subject = item.days[day] === "-" ? "" : item.days[day];
+      return `
+        INSERT INTO ${timetableTable} (DayOfWeek, StartTime, EndTime, SubjectName)
+        VALUES ('${day}', '${startTime}', '${endTime}', '${subject}')
+        ON DUPLICATE KEY UPDATE
+        SubjectName = VALUES(SubjectName);
+      `;
+    });
+  }).flat();
+
+  let promises = updateQueries.map(query => {
+    return new Promise((resolve, reject) => {
+      db.query(query, (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  });
+
+  Promise.all(promises)
+    .then(() => {
+      res.json({ message: "Timetable updated successfully" });
+    })
+    .catch((error) => {
+      console.error("Error updating timetable:", error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+});
+
+
+
+
+
 
 //USE THIS AS A MODEL WHEREVER YOU NEED TO GET THE SEM AND STREAM
 app.get("/userdata/:uid", (req, res) => {
