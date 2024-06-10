@@ -50,18 +50,18 @@ function App() {
   // console.log("isRegistered", isRegistered);
   // console.log("statesSet", statesSet);
 
-    const fetchUserDetails = async (uid) => {
-      try {
-        const response = await fetch(`/userdata/${uid}`);
-        const data = await response.json();
-        await setStream(data.stream);
-        await setSemester(data.currentSemester);
-        console.log(stream,"stream")
-        console.log(semester,"sem")
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
+  const fetchUserDetails = async (uid) => {
+    try {
+      const response = await fetch(`/userdata/${uid}`);
+      const data = await response.json();
+      await setStream(data.stream);
+      await setSemester(data.currentSemester);
+      console.log(stream, "stream")
+      console.log(semester, "sem")
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -82,9 +82,9 @@ function App() {
           }
           // setLoading(false);
           setStatesSet(true);
-          if(!isAdmin)fetchUserDetails(authUser.uid);
+          if (!isAdmin) fetchUserDetails(authUser.uid);
         });
-        
+
       } else {
         // User is signed out
         setUser(null);
@@ -97,20 +97,18 @@ function App() {
 
     // Cleanup function
     return () => unsubscribe();
-  }, [stream,semester]);
+  }, [stream, semester]);
 
   let routes = null;
 
   if (statesSet) {
     routes = (
       <>
-        <Route path="/todo" element={<Todo />} />
-        <Route path="/internal" element={<Internal />} />
         {user && isRegistered ? (
           <>
             <Route
               path="/dashboard"
-              element={<Dashboard/>}
+              element={<Dashboard />}
             />
             <Route
               path="/notice"
@@ -118,6 +116,7 @@ function App() {
                 isAdmin ? <Notice /> : <Navigate to="/dashboard" replace />
               }
             />
+            <Route path="/todo" element={<Todo />} />
             <Route path="/result" element={<Result />} />
             <Route path="/messmenu" element={<MessMenu />} />
             <Route path="/messtiming" element={<MessTiming />} />
@@ -127,7 +126,7 @@ function App() {
             <Route path="/pyq" element={<PYQ />} />
             <Route path="/mess_timing" element={<MessTiming />} />
             <Route path="/students" element={<Students />} />
-            
+
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </>
         ) : (
