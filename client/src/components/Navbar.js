@@ -18,6 +18,9 @@ const Navbar = () => {
       case 'todo':
         navigate("/todo")
         break;
+      case 'events':
+        navigate("/events")
+        break;
       // Add more cases for additional options if needed
       default:
         // Handle default case
@@ -44,20 +47,8 @@ const Navbar = () => {
           </svg>
         </label>
         <label title="favorite" htmlFor="favorite" className="nav-label">
-          <input id="favorite" name="page" type="radio" value="" onChange={handleOptionChange} checked={location.pathname === ""} />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="inherit"
-            viewBox="0 0 20 18"
-            height="18"
-            width="20"
-            className="icon favorite"
-          >
-            <path
-              fill="inherit"
-              d="M14.44 0C12.63 0 11.01 0.88 10 2.23C9.48413 1.53881 8.81426 0.977391 8.04353 0.590295C7.27281 0.203198 6.42247 0.00108555 5.56 0C2.49 0 0 2.5 0 5.59C0 6.78 0.19 7.88 0.52 8.9C2.1 13.9 6.97 16.89 9.38 17.71C9.72 17.83 10.28 17.83 10.62 17.71C13.03 16.89 17.9 13.9 19.48 8.9C19.81 7.88 20 6.78 20 5.59C20 2.5 17.51 0 14.44 0Z"
-            ></path>
-          </svg>
+          <input id="favorite" name="page" type="radio" value="events" onChange={handleOptionChange} checked={location.pathname === "/events"} />
+          <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-camera"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 3a2 2 0 0 1 1.995 1.85l.005 .15a1 1 0 0 0 .883 .993l.117 .007h1a3 3 0 0 1 2.995 2.824l.005 .176v9a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-9a3 3 0 0 1 2.824 -2.995l.176 -.005h1a1 1 0 0 0 1 -1a2 2 0 0 1 1.85 -1.995l.15 -.005h6zm-3 7a3 3 0 0 0 -2.985 2.698l-.011 .152l-.004 .15l.004 .15a3 3 0 1 0 2.996 -3.15z" /></svg>
         </label>
         <label title="notifications" htmlFor="notifications" className="nav-label">
           <input id="notifications" value="todo" name="page" type="radio" onChange={handleOptionChange} checked={location.pathname === "/todo"} />
