@@ -34,19 +34,20 @@ const Syllabus = () => {
       <div className='page-header'>
         <h2>Syllabus Viewer</h2>
       </div>
-      <div className='page-layout'>
+      <div className='page-layout syllabus'>
 
         <input
           type="text"
+          className='inputField syllabusIn'
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by subject name..."
         />
         {results.map(semester => (
-          <div key={semester.semester}>
+          <div className='syllabusView' key={semester.semester}>
             <h2>{semester.semester}</h2>
             {semester.subjects.map(subject => (
-              <div key={subject.code}>
+              <div  key={subject.code}>
                 <h3>{subject.name} ({subject.code})</h3>
                 {subject.units.map(unit => (
                   <div key={unit.name}>
