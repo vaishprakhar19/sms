@@ -17,9 +17,10 @@ import Syllabus from "./screens/Syllabus";
 import Holidays from "./screens/Holidays";
 import PYQ from "./screens/PYQ";
 import Loader from "./screens/Loader";
-import Internal from "./screens/Internal";
+// import Internal from "./screens/Internal";
 import AdminLogin from "./screens/AdminLogin";
 import Notice from "./screens/Notice";
+import Events from "./screens/Events";
 import { useAppState } from "./AppStateContext";
 import Todo from "./screens/Todo";
 import { auth, db } from "./firebase";
@@ -117,6 +118,7 @@ function App() {
               }
             />
             <Route path="/todo" element={<Todo />} />
+            <Route path="/events" element={<Events />} />
             <Route path="/result" element={<Result />} />
             <Route path="/messmenu" element={<MessMenu />} />
             <Route path="/messtiming" element={<MessTiming />} />
