@@ -63,7 +63,7 @@ const MessMenu = () => {
             <tbody>
               {menuData.map((item, index) => (
                 <tr key={item.menu_id}>
-                  <td>{item.day_of_week}</td>
+                  <td >{item.day_of_week}</td>
                   <td contentEditable={isEditing} onBlur={(e) => {
                     menuData[index].breakfast = e.target.innerText;
                   }}>{item.breakfast}</td>
