@@ -1,27 +1,48 @@
-.notices{
+.notice,.notices{
     padding: 30px;
-}
-.notice-form{
-    margin:20px;
-    gap:20px;
-    width:95% !important;
-}
-.notice-radio{
-    flex-wrap: nowrap;
-    width:150% !important;
-    flex-direction: row;
+
+  }
+  
+  .notice-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 700px;
+    border-radius: 10px;
+    padding: 10px;
+background-color: var(--gray);
+  }
+  
+  .input-container {
+    width: 100%;
+  }
+  
+
+  
+  .textareaField {
+    padding: 10px;
+    height: 150px !important; /* Adjust height of textarea */
+    resize:none;
+  }
+  
+  .notice-radio {
+    display: flex;
+    /* gap: 10px; Adjust spacing between radio buttons */
+    margin: 10px 0;
+    border-radius: 30px !important;
+    background-color: white !important;
+  }
+  .notice-radio .radio input:checked + .name {
+ border-radius: 30px; 
 }
 
-
-@media screen and (max-width:768px){
-    .notice-form{
-        flex-direction: column;
-        width:95% !important;
-        margin:10px;
-        gap:10px;
+.input-container select{
+    width: 300px;
+}
+  
+  @media screen and (max-width: 768px) {
+    .notice-form {
+      grid-template-columns: 1fr; /* Change to single column layout on smaller screens */
     }
-    .notice-radio{
-        width:100% !important;
-    }
-
-}
+  }
+  
