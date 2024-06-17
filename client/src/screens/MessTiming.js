@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./MessTiming.css"; 
-
+import { Link } from "react-router-dom";
 const MessTiming = () => {
     const [messTimings, setMessTimings] = useState([]);
     const [genderFilter, setGenderFilter] = useState("Boys");
@@ -30,8 +30,9 @@ const MessTiming = () => {
         <div>
         <header>
           <div className='page-header'>
-           
+          <Link to="/dashboard">
             <h2>Mess Timings</h2>
+            </Link>
           </div>
         </header>
         <main className="page-layout">
