@@ -8,11 +8,11 @@ const Events = () => {
   const { isAdmin } = useAppState();
   const [events, setEvents] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [newEvent, setNewEvent] = useState({
     thumbnailImage: '',
     category: '',
     heading: '',
-    author: '',
     date: '',
     driveLink: ''
   });
@@ -38,7 +38,7 @@ const Events = () => {
 
   const transformDriveUrl = (url) => {
     const match = url.match(/file\/d\/([^/]+)\//);
-    return match ? `https://drive.google.com/uc?export=view&id=${match[1]}` : url;
+    return match ? `https://drive.google.com/thumbnail?id=${match[1]}` : url;
   };
 
   const handleAddEvent = (e) => {
@@ -54,7 +54,6 @@ const Events = () => {
           thumbnailImage: '',
           category: '',
           heading: '',
-          author: '',
           date: '',
           driveLink: ''
         });
@@ -65,39 +64,76 @@ const Events = () => {
       });
   };
 
+  const handleDeleteEvent = (eventId) => {
+    axios.delete(`/api/events/${eventId}`)
+      .then(() => {
+        setEvents(events.filter(event => event.id !== eventId));
+        setIsDeleteMode(false)
+      })
+      .catch(error => {
+        console.error("Error deleting event:", error);
+      });
+  };
+
   return (
     <div>
       <div className="page-header">
         <h2>Events</h2>
-        {isAdmin && (
+        {isAdmin && (<>
           <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
-            {isFormVisible ? "Hide Form" : "Add Event"}
+            {isFormVisible ? "Cancel" : "Add Event"}
           </button>
+          <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
+            {isDeleteMode ? "Cancel" : "Delete Event"}
+          </button>
+        </>
         )}
       </div>
       <div className="page-layout">
-        {isFormVisible && (
+        {isFormVisible && isAdmin && (
           <form onSubmit={handleAddEvent} className="event-form">
+            <input type="text" className="inputField" name="driveLink" placeholder="Drive Link" value={newEvent.driveLink} onChange={handleInputChange} required />
             <input type="text" className="inputField" name="thumbnailImage" placeholder="Thumbnail Image URL" value={newEvent.thumbnailImage} onChange={handleInputChange} required />
             <input type="text" className="inputField" name="category" placeholder="Category" value={newEvent.category} onChange={handleInputChange} required />
             <input type="text" className="inputField" name="heading" placeholder="Heading" value={newEvent.heading} onChange={handleInputChange} required />
-            <input type="text" className="inputField" name="author" placeholder="Author" value={newEvent.author} onChange={handleInputChange} required />
             <input type="date" className="inputField" name="date" placeholder="Date" value={newEvent.date} onChange={handleInputChange} required />
-            <input type="text" className="inputField" name="driveLink" placeholder="Drive Link" value={newEvent.driveLink} onChange={handleInputChange} required />
             <button type="submit" className="adminbtn">Add Event</button>
           </form>
         )}
         <div className="event-card-container">
           {events.map(event => (
             <div key={event.id} className="event-card">
+              {isDeleteMode && isAdmin && (
+                <button className="adminbtn" onClick={() => handleDeleteEvent(event.id)}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 7l16 0" />
+                    <path d="M10 11l0 6" />
+                    <path d="M14 11l0 6" />
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                  </svg>
+                </button>
+              )}
               <a href={event.driveLink}>
-                <div className="event-card-image" style={{backgroundImage:`url(${event.thumbnailImage})`}}>
-                  
+                <div className="event-card-image" style={{ backgroundImage: `url(${event.thumbnailImage})` }}>
+
                 </div>
                 <div className="event-card-category">{event.category}</div>
                 <div className="event-card-heading">
                   {event.heading}
-                  <div className="event-card-date">{event.date}</div>
+                  <div className="event-card-date">{new Date(event.date).toUTCString().slice(0, 16)}</div>
                 </div>
                 <div className="card__arrow">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
