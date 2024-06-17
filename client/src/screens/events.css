@@ -13,6 +13,11 @@
   border-radius: 6px;
   box-shadow: 0 5px 15px 0 #00000026;
   position: relative;
+  transition: 0.02s;
+}
+
+.event-card:active {
+  transform: scale(0.98);
 }
 
 .event-card-image {
