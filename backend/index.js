@@ -86,8 +86,35 @@ app.get("/api/mess/timing", (req, res) => {
       res.status(500).send("Internal Server Error");
       return;
     }
-    console.table(results);
+    // console.table(results);
     res.json(results);
+  });
+});
+app.post("/api/mess/timing/update", (req, res) => {
+  const updatedTimings = req.body.updatedTimings;
+  
+  // Here you should add code to update your database with the new timings
+  // For simplicity, let's assume you're using MySQL and the table name is 'mess_timing'
+
+  updatedTimings.forEach((timing) => {
+      const query = "UPDATE mess_timing SET timing = ? WHERE day = ? AND meal_type = ? AND gender = ?";
+      db.query(query, [timing.timing, timing.day, timing.meal_type, timing.gender], (err, results) => {
+          if (err) {
+              console.error("Error updating mess timings:", err);
+              res.status(500).send("Internal Server Error");
+              return;
+          }
+      });
+  });
+
+  // After all updates, fetch the updated timings to return to the client
+  db.query("SELECT * FROM mess_timing", (err, results) => {
+      if (err) {
+          console.error("Error fetching updated mess timings:", err);
+          res.status(500).send("Internal Server Error");
+          return;
+      }
+      res.json(results);
   });
 });
 
