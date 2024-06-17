@@ -112,10 +112,33 @@
   flex-wrap: wrap;
   gap: 30px;
   margin-bottom: 40px;
+  align-items: center;
 }
 
 .event-form input {
   width: auto;
+}
+.event-form input:not(:placeholder-shown):invalid{
+  border: none;
+  border-bottom: 2px solid rgb(173, 173, 173);
+}
+
+.event-form button {
+  height: 50%;
+}
+
+.password-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.password-form input{
+  background-color: white;
+  width:50%;
+}
+.password-form button{
+  height:80%;
 }
 
 @media screen and (max-width:660px) {

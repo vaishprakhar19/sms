@@ -86,6 +86,7 @@ const Events = () => {
     e.preventDefault();
     if (password === "123456") {
       setIsEditMode(true);
+      setIsEditFormVisible(false);
     } else {
       alert("Incorrect password.");
     }
@@ -98,32 +99,32 @@ const Events = () => {
         <button className="adminbtn" onClick={() => setIsEditFormVisible(!isEditFormVisible)}>
           Edit
         </button>
+        {isEditFormVisible && (
+          <form onSubmit={handleEditSubmit} className="password-form">
+            <input
+              type="password"
+              className="inputField"
+              placeholder="Enter password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+            <button type="submit" className="adminbtn">Submit</button>
+          </form>
+        )}
+        {isEditMode && (
+          <>
+            <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
+              {isFormVisible ? "Cancel" : "Add Event"}
+            </button>
+            <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
+              {isDeleteMode ? "Cancel" : "Delete Event"}
+            </button>
+          </>
+        )}
       </div>
-      {isEditFormVisible && (
-        <form onSubmit={handleEditSubmit} className="password-form">
-          <input 
-            type="password" 
-            className="inputField" 
-            placeholder="Enter password" 
-            value={password} 
-            onChange={handlePasswordChange} 
-            required 
-          />
-          <button type="submit" className="adminbtn">Submit</button>
-        </form>
-      )}
-      {isEditMode && (
-        <div>
-          <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
-            {isFormVisible ? "Cancel" : "Add Event"}
-          </button>
-          <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
-            {isDeleteMode ? "Cancel" : "Delete Event"}
-          </button>
-        </div>
-      )}
       <div className="page-layout">
-        {isEditFormVisible && isEditMode && (
+        {isFormVisible && isEditMode && (
           <form onSubmit={handleAddEvent} className="event-form">
             <input type="text" className="inputField" name="driveLink" placeholder="Drive Link" value={newEvent.driveLink} onChange={handleInputChange} required />
             <input type="text" className="inputField" name="thumbnailImage" placeholder="Thumbnail Image URL" value={newEvent.thumbnailImage} onChange={handleInputChange} required />
