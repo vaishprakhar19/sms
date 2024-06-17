@@ -1,24 +1,20 @@
 .event-card-container {
-  /* width:100%;  */
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  
-  width: 90%;
-  /* margin: 0 auto; */
+  display: grid;
+  gap: 40px;
+  grid-template-columns: repeat(auto-fit, 300px);
+  /* Always 4 columns */
+  width: 95%;
+  margin: 0 auto;
 }
 
 .event-card {
-
-  /* height: auto; */
   background: white;
   padding: .4em;
   border-radius: 6px;
   box-shadow: 0 5px 15px 0 #00000026;
   position: relative;
   transition: 0.02s;
-  flex: 1 1 250px; /* Flex-grow: 1, Flex-shrink: 1, Flex-basis: 250px */
-  max-width: 250px;
+  /* width:250px; */
 }
 
 .event-card:active {
@@ -32,7 +28,7 @@
   border-radius: 6px 6px 0 0;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position-y: 50%;
+  background-position: 0% 60%;
   transition: 0.2s;
 }
 
@@ -65,7 +61,7 @@
 .event-card-date {
   color: gray;
   font-weight: 400;
-  font-size:x-small;
+  font-size: x-small;
   padding-top: 1vw;
 }
 
@@ -75,6 +71,15 @@
 
 .event-card-name:hover {
   cursor: pointer;
+}
+
+.event-card button {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width:fit-content;
+  padding: 7px;
+  z-index: 3;
 }
 
 .card__arrow {
@@ -100,25 +105,44 @@
   transform: translateX(2px);
 }
 
-.event-form{
+.event-form {
   display: flex;
   flex-direction: row;
   /* height:40px; */
   flex-wrap: wrap;
-  gap:30px;
-  margin-bottom:40px;
+  gap: 30px;
+  margin-bottom: 40px;
+  align-items: center;
 }
 
-.event-form input{
-  width:auto;
+.event-form input {
+  width: auto;
 }
-@media screen and (max-width:660px){
-  .event-card {
-    flex-basis: auto;
- width: 30vw;
- font-size: 3.2vw;
+.event-form input:not(:placeholder-shown):invalid{
+  border: none;
+  border-bottom: 2px solid rgb(173, 173, 173);
+}
 
+.event-form button {
+  height: 50%;
+}
 
+.password-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.password-form input{
+  background-color: white;
+  width:50%;
+}
+.password-form button{
+  height:80%;
+}
+
+@media screen and (max-width:660px) {
+  .event-card-container {
+    justify-content: center;
   }
-
 }
