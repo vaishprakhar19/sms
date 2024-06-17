@@ -8,6 +8,14 @@ const Holidays = () => {
   const [holidays, setHolidays] = useState([]);
   const { isAdmin } = useAppState(); // Destructure isAdmin from the app state
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleteMode, setIsDeleteMode] = useState(false);
+  const [isAdding, setIsAdding] = useState(false); // State for toggling add holiday form
+  const [newHoliday, setNewHoliday] = useState({
+    festival: '',
+    no_of_holidays: '',
+    date: '',
+    day: ''
+  });
 
   useEffect(() => {
     fetchHolidays();
@@ -35,6 +43,29 @@ const Holidays = () => {
     }
   };
 
+  const handleAddHoliday = async () => {
+    try {
+      const response = await axios.post("/api/add_holiday", newHoliday); // Adjust endpoint as per your backend
+      setHolidays([...holidays, { ...newHoliday, id: response.data.holidayId }]);
+      setNewHoliday({ festival: '', no_of_holidays: '', date: '', day: '' });
+      setIsAdding(false); // Hide form after adding holiday
+    } catch (error) {
+      console.error("Error adding holiday:", error);
+    }
+  };
+
+  const handleDeleteHoliday = (holidayId) => {
+    axios.delete(`/api/holidays/${holidayId}`)
+      .then(() => {
+        setHolidays(holidays.filter(holiday => holiday.id !== holidayId));
+        setIsDeleteMode(false);
+      })
+      .catch(error => {
+        console.error("Error deleting holiday:", error);
+      });
+  };
+
+
   return (
     <div>
       <div className="page-header">
@@ -42,15 +73,70 @@ const Holidays = () => {
           <h2>Holiday List</h2>
         </Link>
         {isAdmin && (
-          <button className="adminbtn" onClick={handleEdit}>
-            {isEditing ? "Cancel" : "Edit"}
-          </button>
-        )}
-        {isEditing && (
-          <button className="adminbtn" onClick={handleSave}>Save</button>
+          <>
+            <button className="adminbtn" onClick={handleEdit}>
+              {isEditing ? "Cancel" : "Edit"}
+            </button>
+            <button className="adminbtn" onClick={() => setIsAdding(!isAdding)}>
+              {isAdding ? "Cancel" : "Add Holiday"}
+            </button>
+            <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
+              {isDeleteMode ? "Cancel" : "Delete Holiday"}
+            </button>
+            {isEditing && (
+              <button className="adminbtn" onClick={handleSave}>Save</button>
+            )}
+          </>
         )}
       </div>
       <div className="page-layout">
+        {isAdmin && isAdding && (
+          <form className="add-holiday-form"
+
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleAddHoliday();
+            }}
+          >
+            <input
+              type="text"
+              className="inputField"
+              placeholder="Festival"
+              value={newHoliday.festival}
+              onChange={(e) =>
+                setNewHoliday({ ...newHoliday, festival: e.target.value })
+              }
+            />
+            <input
+              className="inputField"
+              placeholder="No. of Holidays"
+              type="text"
+              value={newHoliday.no_of_holidays}
+              onChange={(e) =>
+                setNewHoliday({ ...newHoliday, no_of_holidays: e.target.value })
+              }
+            />
+            <input
+              className="inputField"
+              placeholder="Date"
+              type="text"
+              value={newHoliday.date}
+              onChange={(e) =>
+                setNewHoliday({ ...newHoliday, date: e.target.value })
+              }
+            />
+            <input
+              className="inputField"
+              placeholder="Day"
+              type="text"
+              value={newHoliday.day}
+              onChange={(e) =>
+                setNewHoliday({ ...newHoliday, day: e.target.value })
+              }
+            />
+            <button className="adminbtn" type="submit">Add Holiday</button>
+          </form>
+        )}
         <div className="table-container">
           <table className="table">
             <thead>
@@ -60,6 +146,7 @@ const Holidays = () => {
                 <th>No. of Holidays</th>
                 <th>Date</th>
                 <th>Day</th>
+                {isDeleteMode && <th>Delete</th>}
               </tr>
             </thead>
             <tbody>
@@ -98,6 +185,31 @@ const Holidays = () => {
                   >
                     {holiday.day}
                   </td>
+                  {isDeleteMode && <td className="delete-column">
+                    {isDeleteMode && (
+                      <button className="delete-holiday-btn adminbtn" onClick={() => handleDeleteHoliday(holiday.id)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M4 7l16 0" />
+                          <path d="M10 11l0 6" />
+                          <path d="M14 11l0 6" />
+                          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                        </svg>
+                      </button>
+                    )}
+                  </td>}
                 </tr>
               ))}
             </tbody>
