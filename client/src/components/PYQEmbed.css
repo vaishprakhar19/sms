@@ -15,13 +15,13 @@
     width: calc(100% + 17px);
     height: 600px; /* Adjust height as needed */
     border: none; /* Remove border from iframe */
-    overflow: scroll;
+    overflow: hidden;
   }
 
   /* Responsive adjustments */
   @media screen and (max-width: 768px) {
     .drive-embed-container {
-      max-width: 95%; /* Adjust for smaller screens */
+      max-width: 100%; /* Adjust for smaller screens */
     }
   }
   
