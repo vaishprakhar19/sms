@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PYQEmbed from "../components/PYQembed";
 import "./PYQ.css";
+import { Link } from "react-router-dom"
+
 
 const PYQ = () => {
   const [selectedFolder, setSelectedFolder] = useState("");
@@ -21,7 +23,7 @@ const PYQ = () => {
   };
 
   const folderOptions = [
-    { id: "19ZvAX-DFfiUU6QhhT9MV1vWxup4-dBGK", name: "MCA" },
+    { id: "19ZvAX-DFfiUU6QhhT9MV1vWxup4-dBGK", name: "MCA I & II Year" },
     { id: "1G7jK1g86mjKc6FcheMbBdt0EtTjpGLjv", name: "BTech First Year" },
     { id: "1_SR-YoaDLyWCuzUmKWJEwN1EDBgMS-jy", name: "BTech II Year CSE" },
     { id: "1gwwnSh5NUCVz-L9T1Q6ueZg23U6R9uy9", name: "BTech II Year ECE" },
@@ -33,7 +35,12 @@ const PYQ = () => {
 
   return (
     <div className="pyq">
+      <div className="page-header">
+        <Link to="/dashboard">
       <h2>Select a folder to view:</h2>
+        </Link>
+        </div>
+        <div className="page-layout">
       <div className="radio-inputs radio-pyq">
         {folderOptions.map((folder) => (
           <label key={folder.id} className="radio">
@@ -48,12 +55,14 @@ const PYQ = () => {
           </label>
         ))}
       </div>
+
       {isLoading && loadingFolderId && (
         <div className="loader2"><div className="loaderin"></div></div>
       )}
       {selectedFolder && !isLoading && (
         <PYQEmbed folderId={selectedFolder} />
       )}
+      </div>
     </div>
   );
 };

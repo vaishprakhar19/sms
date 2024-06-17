@@ -1,5 +1,8 @@
-
+/* .pyq{
+  overflow-y: scroll;
+} */
 .radio-pyq{
+  /* margin-top: 1.2rem; */
     width: 80%;
     display: grid;
     margin: 0 auto;
@@ -12,7 +15,9 @@
     box-shadow: 0 0 0 1px rgb(190, 190, 190);
     border-radius: 10px;
     background-color: white ;
+
 }
+
 .loader2 {
     width: 100%;
     max-width: 800px; /* Adjust max-width as per your design */
@@ -58,5 +63,11 @@
    .radio-pyq{
     grid-template-columns: repeat(3, 1fr);
    }
+   .radio-pyq label span{
+    font-size: smaller !important;
+  }
+  .radio-pyq{
+    width: 95%;
+  }
   }
   
