@@ -4,17 +4,19 @@
   }
   
   .notice-form {
+    margin-top: 1em;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    max-width: 700px;
+    align-content: center;
+    max-width: 800px;
     border-radius: 10px;
     padding: 10px;
 background-color: var(--gray);
   }
   
   .input-container {
-    width: 100%;
+    width: 90%;
+
   }
   
 
@@ -31,18 +33,17 @@ background-color: var(--gray);
     margin: 10px 0;
     border-radius: 30px !important;
     background-color: white !important;
+    width: 90% !important;
   }
   .notice-radio .radio input:checked + .name {
  border-radius: 30px; 
 }
 
-.input-container select{
-    width: 300px;
-}
+
   
   @media screen and (max-width: 768px) {
     .notice-form {
-      grid-template-columns: 1fr; /* Change to single column layout on smaller screens */
+      grid-template-columns: 1fr; 
     }
   }
   
