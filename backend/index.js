@@ -92,29 +92,29 @@ app.get("/api/mess/timing", (req, res) => {
 });
 app.post("/api/mess/timing/update", (req, res) => {
   const updatedTimings = req.body.updatedTimings;
-  
+
   // Here you should add code to update your database with the new timings
   // For simplicity, let's assume you're using MySQL and the table name is 'mess_timing'
 
   updatedTimings.forEach((timing) => {
-      const query = "UPDATE mess_timing SET timing = ? WHERE day = ? AND meal_type = ? AND gender = ?";
-      db.query(query, [timing.timing, timing.day, timing.meal_type, timing.gender], (err, results) => {
-          if (err) {
-              console.error("Error updating mess timings:", err);
-              res.status(500).send("Internal Server Error");
-              return;
-          }
-      });
+    const query = "UPDATE mess_timing SET timing = ? WHERE day = ? AND meal_type = ? AND gender = ?";
+    db.query(query, [timing.timing, timing.day, timing.meal_type, timing.gender], (err, results) => {
+      if (err) {
+        console.error("Error updating mess timings:", err);
+        res.status(500).send("Internal Server Error");
+        return;
+      }
+    });
   });
 
   // After all updates, fetch the updated timings to return to the client
   db.query("SELECT * FROM mess_timing", (err, results) => {
-      if (err) {
-          console.error("Error fetching updated mess timings:", err);
-          res.status(500).send("Internal Server Error");
-          return;
-      }
-      res.json(results);
+    if (err) {
+      console.error("Error fetching updated mess timings:", err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+    res.json(results);
   });
 });
 
@@ -324,23 +324,23 @@ app.get("/timetable/:uid", (req, res) => {
 
 
 app.get("/timetable/:stream/:year", (req, res) => {
-  const {stream,year} = req.params;
-    // Construct the timetable table name based on the user's stream and semester
-    const timetableTable = `timetable${stream}${year}`;
+  const { stream, year } = req.params;
+  // Construct the timetable table name based on the user's stream and semester
+  const timetableTable = `timetable${stream}${year}`;
 
-    // Query to retrieve timetable based on the dynamically determined table name
-    const timetableQuery = `
+  // Query to retrieve timetable based on the dynamically determined table name
+  const timetableQuery = `
     SELECT DayOfWeek, StartTime, EndTime, SubjectName
     FROM ${timetableTable}
     `;
 
-    db.query(timetableQuery, (error, results) => {
-      if (error) {
-        console.error("Error retrieving timetable:", error);
-        return res.status(500).json({ error: "Internal server error" });
-      }
-      res.json(results);
-    });
+  db.query(timetableQuery, (error, results) => {
+    if (error) {
+      console.error("Error retrieving timetable:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    res.json(results);
+  });
 });
 
 app.post("/update-timetable", (req, res) => {
@@ -393,6 +393,80 @@ app.get("/api/holidays", (req, res) => {
       return;
     }
     res.json(results);
+  });
+});
+
+app.post("/api/update_holidays", (req, res) => {
+  const holidays = req.body;
+
+  if (!Array.isArray(holidays)) {
+    return res.status(400).json({ error: "Invalid data format" });
+  }
+
+  const updatePromises = holidays.map(holiday => {
+    const { id, festival, no_of_holidays, date, day } = holiday;
+
+    // Ensure all required fields are present
+    if (!id || !festival || !no_of_holidays || !date || !day) {
+      return Promise.reject(new Error("Missing required holiday fields"));
+    }
+
+    const query = `UPDATE holidays SET festival = ?, no_of_holidays = ?, date = ?, day = ? WHERE id = ?`;
+    const values = [festival, no_of_holidays, date, day, id]; // Date is already a string
+
+    return new Promise((resolve, reject) => {
+      db.query(query, values, (error, results) => {
+        if (error) {
+          console.error(`Error updating holiday with id ${id}:`, error);
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  });
+
+  Promise.all(updatePromises)
+    .then(results => {
+      res.json({ message: "Holidays updated successfully" });
+    })
+    .catch(error => {
+      res.status(500).json({ error: "Failed to update holidays" });
+    });
+});
+
+
+app.post("/api/add_holiday", (req, res) => {
+  const { festival, no_of_holidays, date, day } = req.body;
+
+  // Ensure all required fields are present
+  if (!festival || !no_of_holidays || !date || !day) {
+    return res.status(400).json({ error: "Missing required holiday fields" });
+  }
+
+  const query = `INSERT INTO holidays (festival, no_of_holidays, date, day) VALUES (?, ?, ?, ?)`;
+  const values = [festival, no_of_holidays, date, day];
+
+  db.query(query, values, (error, results) => {
+    if (error) {
+      console.error("Error adding new holiday:", error);
+      res.status(500).json({ error: "Internal server error" });
+      return;
+    }
+    res.json({ message: "Holiday added successfully", holidayId: results.insertId });
+  });
+});
+
+app.delete("/api/holidays/:id", (req, res) => {
+  const holidayId = req.params.id;
+  console.log("Deleting holiday with ID:", holidayId);
+  db.query("DELETE FROM holidays WHERE id = ?", [holidayId], (err, result) => {
+    if (err) {
+      console.error("Error deleting event:", err);
+      res.status(500).json({ error: "Error deleting event" });
+      return;
+    }
+    res.json({ message: "Event deleted successfully" });
   });
 });
 
