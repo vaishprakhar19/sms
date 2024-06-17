@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Holidays.css";
-
+import { Link } from "react-router-dom";
 const Holidays = () => {
   const [holidays, setHolidays] = useState([]);
 
@@ -23,7 +23,9 @@ console.log(holidays);
   return (
     <div>
       <div className="page-header">
+      <Link to="/dashboard">
         <h2>Holiday List</h2>
+        </Link>
       </div>
       <div className="page-layout">
         <div className="table-container">

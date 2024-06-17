@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAppState } from "../AppStateContext";
 import "./messmenu.css"
-
+import { Link } from "react-router-dom";
 const MessMenu = () => {
   const [menuData, setMenuData] = useState([]);
   const { isAdmin } = useAppState()
@@ -38,7 +38,9 @@ const MessMenu = () => {
   return (
     <div>
       <div className='page-header'>
+      <Link to="/dashboard">
         <h2>Mess Menu</h2>
+        </Link>
         {isAdmin && (
           <button className="adminbtn" onClick={handleEdit}>
             {isEditing ? 'Cancel' : 'Edit'}
