@@ -1,8 +1,3 @@
- .todo {
-   color: rgb(216, 216, 221);
-   /* font-family: "Poppins", sans-serif; */
-   /* min-height: 100vh; */
- }
 
  .Todo header {
    font-size: 2rem;
@@ -10,7 +5,6 @@
 
  .Todo header,
  .Todo form {
-   min-height: 20vh;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -19,17 +13,22 @@
  .Todo form input,
  .Todo form button {
    padding: 0.5rem;
-   font-size: 2rem;
-border: none;
-background-color: var(--gray);
+   font-size: 1.4rem;
+   border: none;
+   background-color: var(--gray);
    /* background: white; */
  }
+
  .Todo form button {
    color: var(--purple1);
    /* background: #f7fffe; */
+   
+   padding: 6px;
+   font-size: 1.6rem;
    cursor: pointer;
    transition: all 0.3s ease;
    border: none;
+   transform: translate(0px,1.5px);
  }
 
  .Todo form button:hover {
@@ -41,6 +40,7 @@ background-color: var(--gray);
    display: flex;
    justify-content: center;
    align-items: center;
+   gap:10px;
  }
 
  .todo-list {
@@ -51,7 +51,7 @@ background-color: var(--gray);
  .todo {
    margin: 0.5rem;
    background: white;
-   font-size: 1.5rem;
+   font-size: 1.4rem;
    color: black;
    display: flex;
    justify-content: space-between;
@@ -65,6 +65,7 @@ background-color: var(--gray);
 
 
  }
+
  .todo li {
    flex: 1;
  }
@@ -74,9 +75,9 @@ background-color: var(--gray);
    background: rgb(255, 50, 50);
    color: white;
    border: none;
-   padding: 1rem;
+   padding: 10px;
    cursor: pointer;
-   font-size: 1rem;
+   /* font-size: 3px; */
  }
 
  .complete-btn {
@@ -109,7 +110,7 @@ background-color: var(--gray);
    -ms-appearance: none;
    appearance: none;
    outline: 0;
-   box-shadow: none;  
+   box-shadow: none;
    border: 0 !important;
    background-image: none;
  }
@@ -124,7 +125,7 @@ background-color: var(--gray);
  .Todo select {
    color: var(--purple1);
    cursor: pointer;
-   width: 12rem;
+   width: 14rem;
  }
 
  /* Arrow */
@@ -138,15 +139,26 @@ background-color: var(--gray);
    cursor: pointer;
    pointer-events: none;
    color: #e3e3e3;
+   font-size: 0.7rem ;
  }
 
- .Todo{
-  background-color: rgb(255, 255, 255);
-  height: 100vh;
- }
+ .Todo {
+   background-color: rgb(255, 255, 255);
+   height: 100vh;
+  }
+  
+  .Todo select option{
+    font-size: 0.8em;
+  }
  /* Transition */
  /*
   .select:hover::after {
     transform: scale(1.5);
   }
   */
+  @media screen and (max-width:660px) {
+    .Todo form {
+      flex-direction:column-reverse;
+    }
+    
+  }
