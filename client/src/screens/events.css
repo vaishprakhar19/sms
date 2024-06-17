@@ -1,20 +1,24 @@
 .event-card-container {
   /* width:100%;  */
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  
   width: 90%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .event-card {
-  /* width: 190px; */
+
+  /* height: auto; */
   background: white;
   padding: .4em;
   border-radius: 6px;
   box-shadow: 0 5px 15px 0 #00000026;
   position: relative;
   transition: 0.02s;
+  flex: 1 1 250px; /* Flex-grow: 1, Flex-shrink: 1, Flex-basis: 250px */
+  max-width: 250px;
 }
 
 .event-card:active {
@@ -61,8 +65,8 @@
 .event-card-date {
   color: gray;
   font-weight: 400;
-  font-size: 11px;
-  padding-top: 20px;
+  font-size:x-small;
+  padding-top: 1vw;
 }
 
 .event-card-name {
@@ -107,4 +111,14 @@
 
 .event-form input{
   width:auto;
+}
+@media screen and (max-width:660px){
+  .event-card {
+    flex-basis: auto;
+ width: 30vw;
+ font-size: 3.2vw;
+
+
+  }
+
 }

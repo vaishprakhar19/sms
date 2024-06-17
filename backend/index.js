@@ -1,9 +1,11 @@
 const express = require("express");
 const mysql = require("mysql");
+const cors = require('cors');
 const bodyParser = require("body-parser");
 const app = express();
 // const server = require("./server.js");
 const port = process.env.PORT || 5000;
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -380,6 +382,36 @@ app.get("/userdata/:uid", (req, res) => {
     res.json({ batchYear, stream, currentSemester });
   });
 });
+
+app.get('/api/events', (req, res) => {
+  db.query('SELECT * FROM events', (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to fetch events' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+// Add a new event
+app.post('/api/events', (req, res) => {
+  const { thumbnailImage, category, heading, author, date, driveLink } = req.body;
+  const newEvent = { thumbnailImage, category, heading, author, date, driveLink };
+
+  db.query('INSERT INTO events SET ?', newEvent, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to add event' });
+    } else {
+      res.status(201).json({ id: results.insertId, ...newEvent });
+    }
+  });
+});
+
+
+
+
 
 
 app.get("/", (req, res) => {
