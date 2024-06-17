@@ -7,8 +7,11 @@ import { useAppState } from "../AppStateContext";
 const Events = () => {
   const { isAdmin } = useAppState();
   const [events, setEvents] = useState([]);
+  const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [password, setPassword] = useState('');
   const [newEvent, setNewEvent] = useState({
     thumbnailImage: '',
     category: '',
@@ -68,29 +71,59 @@ const Events = () => {
     axios.delete(`/api/events/${eventId}`)
       .then(() => {
         setEvents(events.filter(event => event.id !== eventId));
-        setIsDeleteMode(false)
+        setIsDeleteMode(false);
       })
       .catch(error => {
         console.error("Error deleting event:", error);
       });
   };
 
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    if (password === "123456") {
+      setIsEditMode(true);
+    } else {
+      alert("Incorrect password.");
+    }
+  };
+
   return (
     <div>
       <div className="page-header">
         <h2>Events</h2>
-        {isAdmin && (<>
+        <button className="adminbtn" onClick={() => setIsEditFormVisible(!isEditFormVisible)}>
+          Edit
+        </button>
+      </div>
+      {isEditFormVisible && (
+        <form onSubmit={handleEditSubmit} className="password-form">
+          <input 
+            type="password" 
+            className="inputField" 
+            placeholder="Enter password" 
+            value={password} 
+            onChange={handlePasswordChange} 
+            required 
+          />
+          <button type="submit" className="adminbtn">Submit</button>
+        </form>
+      )}
+      {isEditMode && (
+        <div>
           <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
             {isFormVisible ? "Cancel" : "Add Event"}
           </button>
           <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
             {isDeleteMode ? "Cancel" : "Delete Event"}
           </button>
-        </>
-        )}
-      </div>
+        </div>
+      )}
       <div className="page-layout">
-        {isFormVisible && isAdmin && (
+        {isEditFormVisible && isEditMode && (
           <form onSubmit={handleAddEvent} className="event-form">
             <input type="text" className="inputField" name="driveLink" placeholder="Drive Link" value={newEvent.driveLink} onChange={handleInputChange} required />
             <input type="text" className="inputField" name="thumbnailImage" placeholder="Thumbnail Image URL" value={newEvent.thumbnailImage} onChange={handleInputChange} required />
@@ -103,7 +136,7 @@ const Events = () => {
         <div className="event-card-container">
           {events.map(event => (
             <div key={event.id} className="event-card">
-              {isDeleteMode && isAdmin && (
+              {isDeleteMode && isEditMode && (
                 <button className="adminbtn" onClick={() => handleDeleteEvent(event.id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -127,9 +160,7 @@ const Events = () => {
                 </button>
               )}
               <a href={event.driveLink}>
-                <div className="event-card-image" style={{ backgroundImage: `url(${event.thumbnailImage})` }}>
-
-                </div>
+                <div className="event-card-image" style={{ backgroundImage: `url(${event.thumbnailImage})` }}></div>
                 <div className="event-card-category">{event.category}</div>
                 <div className="event-card-heading">
                   {event.heading}
