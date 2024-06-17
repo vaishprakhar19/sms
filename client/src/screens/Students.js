@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import "./Students.css"
-
+import { Link } from "react-router-dom";
 const Students = () => {
     const [users, setUsers] = useState([]);
     const [filters, setFilters] = useState({
@@ -47,8 +47,9 @@ const Students = () => {
     return (
       <div>
         <div className="page-header">
-
+        <Link to="/dashboard">
         <h2>User Data</h2>
+        </Link>
         </div>
         <div className="page-layout">
             <div className="form_main notice-form">
