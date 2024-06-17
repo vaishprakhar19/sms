@@ -1,0 +1,62 @@
+
+.radio-pyq{
+    width: 80%;
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    padding: 10px;
+
+}
+.radio-in-pyq{
+    box-shadow: 0 0 0 1px rgb(190, 190, 190);
+    border-radius: 10px;
+    background-color: white ;
+}
+.loader2 {
+    width: 100%;
+    max-width: 800px; /* Adjust max-width as per your design */
+    margin: 20px auto; /* Center align the iframe */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden; /* Hide overflow if necessary */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  /* HTML: <div class="loader"></div> */
+.loaderin {
+    width: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(farthest-side,#DB4437 94%,#0000),
+      radial-gradient(farthest-side,#4285F4 94%,#0000),
+      radial-gradient(farthest-side,#F4B400 94%,#0000),
+      radial-gradient(farthest-side,#0F9D58 94%,#0000),
+      #DB4437;
+    background-size: 105% 105%;
+    background-repeat: no-repeat;
+    animation: l5 1s infinite; 
+  }
+  @keyframes l5 {
+    0%  {background-position: 50% -50px,-40px 50%, 50% calc(100% + 50px),calc(100% + 50px) 50%}
+    20%,
+    25% {background-position: 50% -50px,-50px 50%, 50% calc(100% + 50px),50% 50%}
+    45%,
+    50% {background-position: 50% -50px,-50px 50%, 50% 50%              ,50% 50%}
+    75%,
+    75% {background-position: 50% -50px, 50%  50%, 50% 50%              ,50% 50%}
+    95%,
+    100%{background-position: 50%  50% , 50%  50%, 50% 50%              ,50% 50%}
+  }
+@media screen and (max-width: 768px) {
+   .radio-pyq{
+    grid-template-columns: repeat(3, 1fr);
+   }
+  }
+  
