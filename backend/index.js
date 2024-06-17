@@ -423,8 +423,8 @@ app.get('/api/events', (req, res) => {
 
 // Add a new event
 app.post('/api/events', (req, res) => {
-  const { thumbnailImage, category, heading, author, date, driveLink } = req.body;
-  const newEvent = { thumbnailImage, category, heading, author, date, driveLink };
+  const { thumbnailImage, category, heading, date, driveLink } = req.body;
+  const newEvent = { thumbnailImage, category, heading, date, driveLink };
 
   db.query('INSERT INTO events SET ?', newEvent, (error, results) => {
     if (error) {
@@ -436,6 +436,18 @@ app.post('/api/events', (req, res) => {
   });
 });
 
+app.delete("/api/events/:id", (req, res) => {
+  const eventId = req.params.id;
+  console.log("Deleting event with ID:", eventId);
+  db.query("DELETE FROM events WHERE id = ?", [eventId], (err, result) => {
+    if (err) {
+      console.error("Error deleting event:", err);
+      res.status(500).json({ error: "Error deleting event" });
+      return;
+    }
+    res.json({ message: "Event deleted successfully" });
+  });
+});
 
 
 

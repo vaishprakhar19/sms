@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useAppState } from '../AppStateContext';
 import Students from './Students';
 import { Link } from 'react-router-dom';
+const adminIcon = process.env.PUBLIC_URL+'assets/adminIcon.svg'
 
 
 function Dashboard() {
@@ -24,7 +25,7 @@ function Dashboard() {
   const [notices, setNotices] = useState([]);
 
   useEffect(() => {
-    const fetchNotices = async () => {
+    const fetchNotices = async () => {    
       try {
         // Make the API request with query parameters
         const response = await axios.get(`/api/notices/${stream}/${semester}/${isAdmin}`);
@@ -75,7 +76,7 @@ function Dashboard() {
     <div className='dashboard'>
       <header>
         <div className='user-profile page-header'>
-          {user.photoURL ? <img className='user-profile-image' src={user.photoURL} alt='profile' /> : <img className='user-profile-image' src='https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/profilepic.jpg?alt=media&token=e3de41ad-6340-4e18-99a3-5990e435fb1b' alt='profile' />}
+          {user.photoURL ? <img className='user-profile-image' src={user.photoURL} alt='profile' /> : <img className='user-profile-image' src={adminIcon} alt='profile' />}
           {user.displayName ? <p>{user.displayName}</p> : <p>ADMIN</p>}
           <button className="Logout-Btn" onClick={handleSignOut}>
             <div className="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
