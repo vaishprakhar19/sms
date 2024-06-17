@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./syllabus.css"
-
+import { Link } from "react-router-dom";
 import syllabusData from '../components/syllabusData.json'
 const Syllabus = () => {
   const [query, setQuery] = useState('');
@@ -32,7 +32,9 @@ const Syllabus = () => {
   return (
     <div>
       <div className='page-header'>
+      <Link to="/dashboard">
         <h2>Syllabus Viewer</h2>
+        </Link>
       </div>
       <div className='page-layout syllabus'>
 
@@ -45,7 +47,7 @@ const Syllabus = () => {
         />
         {results.map(semester => (
           <div className='syllabusView' key={semester.semester}>
-            <h2>{semester.semester}</h2>
+            <h1>{semester.semester}</h1>
             {semester.subjects.map(subject => (
               <div  key={subject.code}>
                 <h3>{subject.name} ({subject.code})</h3>

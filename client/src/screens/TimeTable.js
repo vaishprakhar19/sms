@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Timetable.css";
 import axios from "axios";
 import { useAppState } from "../AppStateContext";
-
+import { Link } from "react-router-dom";
 const TimeTable = () => {
   const { user, isAdmin } = useAppState();
   const uid = user.uid;
@@ -117,8 +117,9 @@ const TimeTable = () => {
   return (
     <div>
       <div className="page-header">
+      <Link to="/dashboard">
         <h2>Time Table</h2>
-
+</Link>
         {isAdmin && (
           <>
             <div className="radio-inputs">

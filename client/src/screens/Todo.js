@@ -3,7 +3,7 @@ import "./todo.css";
 import Forms from "./todo/Form";
 import TodoList from "./todo/TodoList";
 import Navbar from "../components/Navbar";
-
+import { Link } from "react-router-dom";
 function Todo() {
   //For input texts
   const [inputText, setInputText] = useState("");
@@ -47,7 +47,12 @@ function Todo() {
   return (
     <div className="Todo">
 
-      <div className="Todo-header page-header"><h2>Todo List</h2></div>
+      <div className="Todo-header page-header">
+      <Link to="/dashboard">
+        <h2>Todo List</h2>
+        </Link>
+        
+        </div>
 
       <div className="page-layout">
         <Forms

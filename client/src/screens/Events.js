@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import "./events.css";
 import { useAppState } from "../AppStateContext";
+import { Link } from "react-router-dom";
 
 const Events = () => {
   const { isAdmin } = useAppState();
@@ -68,7 +69,9 @@ const Events = () => {
   return (
     <div>
       <div className="page-header">
+        <Link to="/dashboard">
         <h2>Events</h2>
+        </Link>
         {isAdmin && (
           <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
             {isFormVisible ? "Hide Form" : "Add Event"}
