@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PYQEmbed from "../components/PYQembed";
 import "./PYQ.css";
+import { Link } from "react-router-dom"
+
 
 const PYQ = () => {
   const [selectedFolder, setSelectedFolder] = useState("");
@@ -34,7 +36,9 @@ const PYQ = () => {
   return (
     <div className="pyq">
       <div className="page-header">
+        <Link to="/dashboard">
       <h2>Select a folder to view:</h2>
+        </Link>
         </div>
         <div className="page-layout">
       <div className="radio-inputs radio-pyq">
