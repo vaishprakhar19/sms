@@ -14,18 +14,18 @@ function Todo() {
   //For filtering todos on UI
   const [status, setStatus] = useState("all");
   const [filteredTodos, setFilteredTodos] = useState([]);
- 
+
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem('todos'));
     if (storedTodos && storedTodos.length > 0) {
-        setTodos(storedTodos);
+      setTodos(storedTodos);
     }
-}, []);
+  }, []);
 
-useEffect(() => {
+  useEffect(() => {
     filterHandler(); // Filter todos based on status
     localStorage.setItem('todos', JSON.stringify(todos)); // Update local storage with filtered todos
-}, [todos, status]);
+  }, [todos, status]);
 
 
 
@@ -48,23 +48,23 @@ useEffect(() => {
     <div className="Todo">
 
       <div className="Todo-header page-header"><h2>Todo List</h2></div>
-     
-     <div className="page-layout">
-      <Forms
-        inputText={inputText}
-        setInputText={setInputText}
-        todos={todos}
-        setTodos={setTodos}
-        setStatus={setStatus}
+
+      <div className="page-layout">
+        <Forms
+          inputText={inputText}
+          setInputText={setInputText}
+          todos={todos}
+          setTodos={setTodos}
+          setStatus={setStatus}
         />
-      <TodoList
-       
-        filteredTodos={filteredTodos}
-        todos={todos}
-        setTodos={setTodos}
-      />
-        </div> 
-      <Navbar></Navbar>
+        <TodoList
+
+          filteredTodos={filteredTodos}
+          todos={todos}
+          setTodos={setTodos}
+        />
+      </div>
+      <Navbar />
     </div>
   );
 }
