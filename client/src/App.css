@@ -7,17 +7,6 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.page-layout{
-  background-color: white;
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
-  padding: 50px 30px 80px 30px;
-  margin-top:-35px;
-  width: 100vw;
-  overflow: hidden;
-}
-
-
 .page-header{
   color:white;
   display: flex;
@@ -34,8 +23,19 @@
   user-select: none;
   font-size: 1.2rem;
   height: 175px;
-  width: 100vw;
+  width: 100%;
 }
-h2{
+.page-header h2{
   color: white;
 }
+
+.page-layout{
+  background-color: white;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  padding: 50px 30px 80px 30px;
+  margin-top:-35px;
+  width: 100%;
+  overflow: hidden;
+}
+

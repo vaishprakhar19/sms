@@ -35,7 +35,7 @@ export default function Login({
         console.log(error);
       });
   };
-
+const adminLoginIcon = process.env.PUBLIC_URL+"assets/adminLogin.svg";
   return (
     <>
       <main className="login-page">
@@ -68,7 +68,7 @@ export default function Login({
             Continue with Google
           </button>
           <button className="adminbtn" onClick={handleAdminLoginButton}>
-            <img src="https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/icons8-user-shield-64.png?alt=media&token=036d77e9-0cfa-4bb9-81b7-7a2a40ad8eb1" alt="" />
+            <img src={adminLoginIcon} alt="" />
             Admin Login
           </button>
         </form>

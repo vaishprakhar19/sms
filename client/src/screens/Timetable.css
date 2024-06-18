@@ -13,7 +13,8 @@ td {
   height: 3rem;
   width: 1rem;
   min-width: fit-content;
-  padding: 5px;
+  padding: 8px 20px !important;
+  /* text-wrap: nowrap; */
   /* border-radius:10px ; */
 }
 
@@ -23,8 +24,11 @@ td {
 
 }
 
-.table tr:nth-child(even){background-color: var(--gray)}
-.radio input[type="radio"]:disabled + .name {
+.table tr:nth-child(even) {
+  background-color: var(--gray)
+}
+
+.radio input[type="radio"]:disabled+.name {
   color: var(--gray);
 }
 
@@ -33,12 +37,15 @@ td {
   background-color: var(--gray)
 }
 
-.table-container{
+.table-container {
   overflow: scroll;
 }
 
 
-.table-container::-webkit-scrollbar { 
-  display: none; 
+.table-container::-webkit-scrollbar {
+  display: none;
 }
 
+.time-slot-cell {
+  text-wrap: nowrap;
+}
