@@ -228,7 +228,7 @@ const TimeTable = () => {
             <tbody>
               {editableTimetable.map((item, index) => (
                 <tr key={index}>
-                  <td
+                  <td className="time-slot-cell"
                     contentEditable={isEditing}
                     suppressContentEditableWarning={true}
                     onBlur={(e) => handleTimeSlotChange(e, index)}
