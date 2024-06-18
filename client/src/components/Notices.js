@@ -26,7 +26,7 @@ const Notices = ({ notices, onDeleteNotice }) => {
             <div className="notibody">{notice.body}</div>
 
             {isAdmin && <>
-              <div className="notibody right">{notice.stream} {notice.semester}{notice.semester === 1 ? "st" : notice.semester === 2 ? "nd" : notice.semester === 3 ? "rd" : "th"} semester</div>
+              <div className="notibody right">{notice.stream} {notice.semester}{notice.semester === null? "ALL":notice.semester === 1 ? "st" : notice.semester === 2 ? "nd" : notice.semester === 3 ? "rd" : "th"} semester</div>
               <button className='adminbtn' onClick={() => handleDelete(notice.id)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -56,4 +56,4 @@ const Notices = ({ notices, onDeleteNotice }) => {
   )
 }
 
-export default Notices  
+export default Notices
