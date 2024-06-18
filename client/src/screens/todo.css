@@ -10,25 +10,27 @@
    align-items: center;
  }
 
- .Todo form input,
- .Todo form button {
+ .Todo form input{
    padding: 0.5rem;
    font-size: 1.4rem;
    border: none;
    background-color: var(--gray);
+   width: 30vw;
+   height:2.7rem;
    /* background: white; */
- }
+  }
 
  .Todo form button {
    color: var(--purple1);
    /* background: #f7fffe; */
-   
+   background-color: var(--gray);
+   height:2.7rem;
    padding: 6px;
    font-size: 1.6rem;
    cursor: pointer;
    transition: all 0.3s ease;
    border: none;
-   transform: translate(0px,1.5px);
+   transform: translate(0px,1px);
  }
 
  .Todo form button:hover {
@@ -49,7 +51,7 @@
  }
 
  .todo {
-   margin: 0.5rem;
+   margin: 2rem 0px;
    background: white;
    font-size: 1.4rem;
    color: black;
@@ -68,6 +70,9 @@
 
  .todo li {
    flex: 1;
+   overflow: auto;
+   overflow-wrap: break-word;
+
  }
 
  .trash-btn,
@@ -126,6 +131,7 @@
    color: var(--purple1);
    cursor: pointer;
    width: 14rem;
+   padding: 10px 10px;
  }
 
  /* Arrow */
@@ -148,7 +154,9 @@
   }
   
   .Todo select option{
-    font-size: 0.8em;
+    font-size: 0.7em;
+    width:100%;
+    overflow: auto;
   }
  /* Transition */
  /*
@@ -156,9 +164,11 @@
     transform: scale(1.5);
   }
   */
-  @media screen and (max-width:660px) {
+  @media screen and (max-width:765px) {
     .Todo form {
       flex-direction:column-reverse;
     }
-    
+    .Todo form input{
+      width:52.5vw;
+    }
   }
