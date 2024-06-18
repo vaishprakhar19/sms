@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "./notice.css"
+import { useAppState } from '../AppStateContext';
 
 const Notice = ({ onAddNotice }) => {
+  const { isAdmin } = useAppState();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [noticeStream, setNoticeStream] = useState(''); // Add state for stream
   const [noticeSemester, setNoticeSemester] = useState(''); // Add state for semester
+  const [showAddNoticeForm, setShowAddNoticeForm] = useState(false); // Add state to control form visibility
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the form from submitting automatically
@@ -133,7 +136,8 @@ const Notice = ({ onAddNotice }) => {
   </form>
 </div>
 
-  );
+
+);
 };
 
 export default Notice;
