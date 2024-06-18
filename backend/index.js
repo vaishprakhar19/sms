@@ -241,7 +241,20 @@ app.post("/api/notices/:stream?/:semester?", (req, res) => {
     );
   });
 });
-
+// DELETE route to delete a notice by ID
+// DELETE route to delete a notice by ID
+app.delete("/api/notices/:id", (req, res) => {
+  const noticeId = req.params.id;
+  console.log("Deleting notice with ID:", noticeId);
+  db.query("DELETE FROM notices WHERE id = ?", [noticeId], (err, result) => {
+    if (err) {
+      console.error("Error deleting notice:", err);
+      res.status(500).json({ error: "Error deleting notice" });
+      return;
+    }
+    res.json({ message: "Notice deleted successfully" });
+  });
+});
 
 
 

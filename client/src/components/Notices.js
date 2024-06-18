@@ -56,4 +56,4 @@ const Notices = ({ notices, onDeleteNotice }) => {
   )
 }
 
-export default Notices  
+export default Notices

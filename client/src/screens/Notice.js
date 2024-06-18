@@ -30,7 +30,9 @@ const Notice = ({ onAddNotice }) => {
       console.error('Error adding notice:', error);
     }
   };
-  
+  const clearSelection = () => {
+    setNoticeStream('');
+  };
   return (
 <div className='notice'>
   <h3>Add New Notice</h3>
@@ -99,6 +101,7 @@ const Notice = ({ onAddNotice }) => {
           <span className="name">MCA</span>
         </label>
       </div>
+        <button className='btn' onClick={clearSelection}> reset</button>
       <div className="input-container">
       <select
   className="inputField"
