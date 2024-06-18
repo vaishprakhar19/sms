@@ -13,20 +13,25 @@ const Notice = ({ onAddNotice }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the form from submitting automatically
-
+  
     try {
-      // Make sure to include stream and semester in the request
-      await axios.post(`/api/notices/${noticeStream}/${noticeSemester}`, { title, body });
+      // Construct the URL based on whether stream and semester are selected
+      const streamSegment = noticeStream ? `/${noticeStream}` : '';
+      const semesterSegment = noticeSemester ? `/${noticeSemester}` : '';
+      const url = `/api/notices${streamSegment}${semesterSegment}`;
+  
+      await axios.post(url, { title, body });
       onAddNotice({ title, body });
       setTitle('');
       setBody('');
       setNoticeStream(''); // Reset stream
       setNoticeSemester(''); // Reset semester
-      setShowAddNoticeForm(false); // Hide form after submission
     } catch (error) {
       console.error('Error adding notice:', error);
     }
   };
+
+
 
   return (
     <div className='notice'>
@@ -57,6 +62,7 @@ const Notice = ({ onAddNotice }) => {
             </div>
           </div>
           <div className="form-column">
+
             <div className="radio-inputs notice-radio">
               <label className='radio'>
                 <input
@@ -103,7 +109,7 @@ const Notice = ({ onAddNotice }) => {
                 className="inputField"
                 value={noticeSemester}
                 onChange={(e) => setNoticeSemester(e.target.value)}
-                required
+                required={!!noticeStream} // Only required if a stream is selected
               >
                 <option value="">Select Semester</option>
                 {noticeStream === "MCA" ? (
@@ -126,6 +132,7 @@ const Notice = ({ onAddNotice }) => {
                   </>
                 )}
               </select>
+
             </div>
           </div>
           <div className="input-container">
