@@ -1,4 +1,4 @@
-import React ,{useState,useEffect}from 'react'
+import React, { useState, useEffect } from 'react'
 import './dashboard.css';
 import Card from '../components/Card';
 import dashdata from '../components/dashdata';
@@ -11,21 +11,21 @@ import axios from 'axios';
 import { useAppState } from '../AppStateContext';
 import Students from './Students';
 import { Link } from 'react-router-dom';
-const adminIcon = process.env.PUBLIC_URL+'assets/adminIcon.svg'
+const adminIcon = process.env.PUBLIC_URL + 'assets/adminIcon.svg'
 
 
 function Dashboard() {
-    const {
-      user,
-      isAdmin,
-      stream,
-      semester,
-    } = useAppState();
-  
+  const {
+    user,
+    isAdmin,
+    stream,
+    semester,
+  } = useAppState();
+
   const [notices, setNotices] = useState([]);
 
   useEffect(() => {
-    const fetchNotices = async () => {    
+    const fetchNotices = async () => {
       try {
         // Make the API request with query parameters
         const response = await axios.get(`/api/notices/${stream}/${semester}/${isAdmin}`);
@@ -34,13 +34,13 @@ function Dashboard() {
         console.error('Error fetching notices:', error);
       }
     };
-  
+
     // Only call fetchNotices if semester and stream are defined
-    if (semester && stream||isAdmin) {
+    if (semester && stream || isAdmin) {
       fetchNotices();
     }
   }, [semester, stream]); // Added semester and stream as dependencies
-  
+
   console.log(notices)
 
   const deleteNotice = async (id) => {
@@ -90,13 +90,13 @@ function Dashboard() {
 
         </div>
       </main>
-{isAdmin && <Link to='/students'>
-<button id='button'>Student Data</button></Link>}
+      {/* {isAdmin && <Link to='/students'>
+        <button id='button'>Student Data</button></Link>} */}
       {isAdmin && <Notice onAddNotice={handleAddNotice} />}
       <div>
-      <Notices notices={notices} onDeleteNotice={deleteNotice} />
-      </div> 
-      
+        <Notices notices={notices} onDeleteNotice={deleteNotice} />
+      </div>
+
       <footer>
         <Navbar />
       </footer>
