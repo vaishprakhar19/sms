@@ -13,7 +13,8 @@ td {
   height: 3rem;
   width: 1rem;
   min-width: fit-content;
-  padding: 5px;
+  padding: 8px 20px !important;
+  /* text-wrap: nowrap; */
   /* border-radius:10px ; */
 }
 
@@ -42,3 +43,6 @@ td {
   display: none; 
 }
 
+.time-slot-cell{
+  
+}
