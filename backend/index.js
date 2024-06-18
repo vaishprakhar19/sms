@@ -212,10 +212,9 @@ app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
 
 
 // Add a new notice
-// POST route to add a new notice
-app.post("/api/notices/:stream/:semester", (req, res) => {
+app.post("/api/notices/:stream?/:semester?", (req, res) => {
   const { title, body } = req.body;
-  const { semester, stream } = req.params; // Extract semester and stream from URL parameters
+  const { stream, semester } = req.params; // Extract semester and stream from URL parameters
 
   // Get the ID of the last inserted notice
   db.query("SELECT MAX(id) AS maxId FROM notices", (err, result) => {
@@ -230,7 +229,7 @@ app.post("/api/notices/:stream/:semester", (req, res) => {
     // Insert the new notice with the generated ID, semester, stream, and batch
     db.query(
       "INSERT INTO notices (id, title, body, stream, semester) VALUES (?, ?, ?, ?, ?)",
-      [newId, title, body, stream, semester],
+      [newId, title, body, stream || null, semester || null],
       (err, result) => {
         if (err) {
           console.error("Error adding notice:", err);
@@ -243,21 +242,6 @@ app.post("/api/notices/:stream/:semester", (req, res) => {
   });
 });
 
-
-
-// DELETE route to delete a notice by ID
-app.delete("/api/notices/:id", (req, res) => {
-  const noticeId = req.params.id;
-  console.log("Deleting notice with ID:", noticeId);
-  db.query("DELETE FROM notices WHERE id = ?", [noticeId], (err, result) => {
-    if (err) {
-      console.error("Error deleting notice:", err);
-      res.status(500).json({ error: "Error deleting notice" });
-      return;
-    }
-    res.json({ message: "Notice deleted successfully" });
-  });
-});
 
 
 

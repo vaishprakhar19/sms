@@ -10,10 +10,14 @@ const Notice = ({ onAddNotice }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the form from submitting automatically
-
+  
     try {
-      // Make sure to include stream and semester in the request
-      await axios.post(`/api/notices/${noticeStream}/${noticeSemester}`, {title, body});
+      // Construct the URL based on whether stream and semester are selected
+      const streamSegment = noticeStream ? `/${noticeStream}` : '';
+      const semesterSegment = noticeSemester ? `/${noticeSemester}` : '';
+      const url = `/api/notices${streamSegment}${semesterSegment}`;
+  
+      await axios.post(url, { title, body });
       onAddNotice({ title, body });
       setTitle('');
       setBody('');
@@ -23,7 +27,7 @@ const Notice = ({ onAddNotice }) => {
       console.error('Error adding notice:', error);
     }
   };
-
+  
   return (
 <div className='notice'>
   <h3>Add New Notice</h3>
@@ -93,33 +97,34 @@ const Notice = ({ onAddNotice }) => {
         </label>
       </div>
       <div className="input-container">
-        <select
-          className="inputField"
-          value={noticeSemester}
-          onChange={(e) => setNoticeSemester(e.target.value)}
-          required
-        >
-          <option value="">Select Semester</option>
-          {noticeStream === "MCA" ? (
-            <>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </>
-          ) : (
-            <>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-            </>
-          )}
-        </select>
+      <select
+  className="inputField"
+  value={noticeSemester}
+  onChange={(e) => setNoticeSemester(e.target.value)}
+  required={!!noticeStream} // Only required if a stream is selected
+>
+  <option value="">Select Semester</option>
+  {noticeStream === "MCA" ? (
+    <>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </>
+  ) : (
+    <>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </>
+  )}
+</select>
+
       </div>
     </div>
     <div className="input-container">
