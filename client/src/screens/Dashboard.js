@@ -85,17 +85,16 @@ function Dashboard() {
         </div>
       </header>
       <main>
-        <div className='dash-item-container page-layout'>
-          {cards}
-
+        <div className='page-layout'>
+          <div className='dash-item-container'>
+            {cards}
+          </div>
+          {isAdmin && <Notice onAddNotice={handleAddNotice} />}
+          <div>
+            <Notices notices={notices} onDeleteNotice={deleteNotice} />
+          </div>
         </div>
       </main>
-      {/* {isAdmin && <Link to='/students'>
-        <button id='button'>Student Data</button></Link>} */}
-      {isAdmin && <Notice onAddNotice={handleAddNotice} />}
-      <div>
-        <Notices notices={notices} onDeleteNotice={deleteNotice} />
-      </div>
 
       <footer>
         <Navbar />

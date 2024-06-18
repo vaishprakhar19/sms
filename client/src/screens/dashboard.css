@@ -116,7 +116,7 @@
 
   @media screen and (max-width:768px){
     .user-profile p{
-        font-size: 2rem;
+        font-size: 1rem;
     }
 
     .user-profile-image{
