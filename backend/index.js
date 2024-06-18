@@ -122,7 +122,7 @@ app.post("/api/mess/timing/update", (req, res) => {
 
 //messmenu
 app.get("/api/mess_menu", (req, res) => {
-  const query = `SELECT * FROM mess_menu`;
+  const query = SELECT * FROM mess_menu;
   db.query(query, (error, results) => {
     if (error) {
       console.error("Error fetching mess menu:", error);
@@ -212,10 +212,9 @@ app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
 
 
 // Add a new notice
-// POST route to add a new notice
-app.post("/api/notices/:stream/:semester", (req, res) => {
+app.post("/api/notices/:stream?/:semester?", (req, res) => {
   const { title, body } = req.body;
-  const { semester, stream } = req.params; // Extract semester and stream from URL parameters
+  const { stream, semester } = req.params; // Extract semester and stream from URL parameters
 
   // Get the ID of the last inserted notice
   db.query("SELECT MAX(id) AS maxId FROM notices", (err, result) => {
@@ -230,7 +229,7 @@ app.post("/api/notices/:stream/:semester", (req, res) => {
     // Insert the new notice with the generated ID, semester, stream, and batch
     db.query(
       "INSERT INTO notices (id, title, body, stream, semester) VALUES (?, ?, ?, ?, ?)",
-      [newId, title, body, stream, semester],
+      [newId, title, body, stream || null, semester || null],
       (err, result) => {
         if (err) {
           console.error("Error adding notice:", err);
@@ -242,9 +241,7 @@ app.post("/api/notices/:stream/:semester", (req, res) => {
     );
   });
 });
-
-
-
+// DELETE route to delete a notice by ID
 // DELETE route to delete a notice by ID
 app.delete("/api/notices/:id", (req, res) => {
   const noticeId = req.params.id;
@@ -287,7 +284,7 @@ function getUserDetails(uid, callback) {
       const batchYear = userResults[0].batch;
       const stream = userResults[0].department;
       const currentSemester = calculateSemester(batchYear);
-      // console.log(`Calculated semester: ${currentSemester} for batch year: ${batchYear}`);
+      // console.log(Calculated semester: ${currentSemester} for batch year: ${batchYear});
       callback(null, { batchYear, stream, currentSemester });
     }
   });
@@ -304,7 +301,7 @@ app.get("/timetable/:uid", (req, res) => {
     const { currentSemester, stream } = userDetails;
 
     // Construct the timetable table name based on the user's stream and semester
-    const timetableTable = `timetable${stream}${currentSemester}`;
+    const timetableTable = timetable${stream}${currentSemester};
 
     // Query to retrieve timetable based on the dynamically determined table name
     const timetableQuery = `
@@ -326,7 +323,7 @@ app.get("/timetable/:uid", (req, res) => {
 app.get("/timetable/:stream/:year", (req, res) => {
   const { stream, year } = req.params;
   // Construct the timetable table name based on the user's stream and semester
-  const timetableTable = `timetable${stream}${year}`;
+  const timetableTable = timetable${stream}${year};
 
   // Query to retrieve timetable based on the dynamically determined table name
   const timetableQuery = `
@@ -345,7 +342,7 @@ app.get("/timetable/:stream/:year", (req, res) => {
 
 app.post("/update-timetable", (req, res) => {
   const { timetable, stream, year } = req.body;
-  const timetableTable = `timetable${stream}${year}`;
+  const timetableTable = timetable${stream}${year};
 
   const updateQueries = timetable.map((item) => {
     const times = item.time.split(" - ");
@@ -385,7 +382,7 @@ app.post("/update-timetable", (req, res) => {
 });
 
 app.get("/api/holidays", (req, res) => {
-  const query = `SELECT * FROM holidays`;
+  const query = SELECT * FROM holidays;
   db.query(query, (error, results) => {
     if (error) {
       console.error("Error fetching holidays:", error);
@@ -411,13 +408,13 @@ app.post("/api/update_holidays", (req, res) => {
       return Promise.reject(new Error("Missing required holiday fields"));
     }
 
-    const query = `UPDATE holidays SET festival = ?, no_of_holidays = ?, date = ?, day = ? WHERE id = ?`;
+    const query = UPDATE holidays SET festival = ?, no_of_holidays = ?, date = ?, day = ? WHERE id = ?;
     const values = [festival, no_of_holidays, date, day, id]; // Date is already a string
 
     return new Promise((resolve, reject) => {
       db.query(query, values, (error, results) => {
         if (error) {
-          console.error(`Error updating holiday with id ${id}:`, error);
+          console.error(Error updating holiday with id ${id}:, error);
           reject(error);
           return;
         }
@@ -444,7 +441,7 @@ app.post("/api/add_holiday", (req, res) => {
     return res.status(400).json({ error: "Missing required holiday fields" });
   }
 
-  const query = `INSERT INTO holidays (festival, no_of_holidays, date, day) VALUES (?, ?, ?, ?)`;
+  const query = INSERT INTO holidays (festival, no_of_holidays, date, day) VALUES (?, ?, ?, ?);
   const values = [festival, no_of_holidays, date, day];
 
   db.query(query, values, (error, results) => {
