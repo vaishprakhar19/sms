@@ -140,7 +140,9 @@
 .password-form button{
   height:80%;
 }
-
+.event-error{
+  display: flex;
+}
 @media screen and (max-width:660px) {
   .event-card-container {
     justify-content: center;
