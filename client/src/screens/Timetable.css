@@ -49,3 +49,20 @@ td {
 .time-slot-cell {
   text-wrap: nowrap;
 }
+
+.timetable-form{
+  width:100%;
+  padding:20px;
+  display:flex;
+  background-color: var(--gray);
+  gap:20px;
+  border-radius: 20px;
+  margin-bottom:20px;
+}
+
+@media screen and (max-width: 768px) {
+  .timetable-form {
+    align-items: center;
+    flex-direction: column;
+  }
+}

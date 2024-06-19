@@ -99,34 +99,33 @@ const Events = () => {
       <div className="page-header">
         <h2>Events</h2>
         <div className="add-holiday-btn">
-
-        <button className="adminbtn" onClick={() => setIsEditFormVisible(!isEditFormVisible)}>
-          Edit
-        </button>
-        {isEditFormVisible && (
-          <form onSubmit={handleEditSubmit} className="password-form">
-            <input
-              type="password"
-              className="inputField"
-              placeholder="Enter password"
-              value={password}
-              onChange={handlePasswordChange}
-              required
+          <button className="adminbtn" onClick={() => setIsEditFormVisible(!isEditFormVisible)}>
+            Edit
+          </button>
+          {isEditFormVisible && (
+            <form onSubmit={handleEditSubmit} className="password-form">
+              <input
+                type="password"
+                className="inputField"
+                placeholder="Enter password"
+                value={password}
+                onChange={handlePasswordChange}
+                required
               />
-            <button type="submit" className="adminbtn">Submit</button>
-          </form>
-        )}
-         {error && <p className="event-error">{error}</p>}
-        {isEditMode && (
-          <>
-            <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
-              {isFormVisible ? "Cancel" : "Add Event"}
-            </button>
-            <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
-              {isDeleteMode ? "Cancel" : "Delete Event"}
-            </button>
-          </>
-        )}
+              <button type="submit" className="adminbtn">Submit</button>
+            </form>
+          )}
+          {error && <p className="event-error">{error}</p>}
+          {isEditMode && (
+            <>
+              <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
+                {isFormVisible ? "Cancel" : "Add Event"}
+              </button>
+              <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
+                {isDeleteMode ? "Cancel" : "Delete Event"}
+              </button>
+            </>
+          )}
         </div>
       </div>
       <div className="page-layout">

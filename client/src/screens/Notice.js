@@ -13,13 +13,13 @@ const Notice = ({ onAddNotice }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the form from submitting automatically
-  
+
     try {
       // Construct the URL based on whether stream and semester are selected
       const streamSegment = noticeStream ? `/${noticeStream}` : '';
       const semesterSegment = noticeSemester ? `/${noticeSemester}` : '';
       const url = `/api/notices${streamSegment}${semesterSegment}`;
-  
+
       await axios.post(url, { title, body });
       onAddNotice({ title, body });
       setTitle('');

@@ -1,0 +1,10 @@
+@media screen and (max-width:660px){
+    .add-holiday-btn .adminbtn{
+        font-size: 2.5vw;
+        padding: 2vw;
+    }
+    .page-header{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
