@@ -14,7 +14,11 @@
     flex-wrap: wrap;
     flex-shrink: 1;
     gap: 1vw;
+    align-items: baseline;
 
+}
+.add-holiday-btn .inputField{
+/* font-size: .4rem; */
 }
 .add-holiday-form input {
     width: auto;
@@ -29,5 +33,9 @@ top:2px;
     .add-holiday-btn .adminbtn{
         font-size: 2.5vw;
         padding: 2vw;
+    }
+    .page-header{
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
