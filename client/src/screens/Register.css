@@ -165,7 +165,7 @@ input:invalid:not(:placeholder-shown):focus~label {
   justify-content: center;
   border-radius: 0.5rem;
   border: none;
-  padding: .5rem 0;
+  padding: .5rem 0.5rem;
   color: rgba(51, 65, 85, 1);
   transition: all .15s ease-in-out;
 }
