@@ -5,28 +5,28 @@ import "./syllabus.css";
 import { Link } from "react-router-dom";
 
 const Syllabus = ({fileId}) => {
-  const [selectedFolder, setSelectedFolder] = useState("");
+  const [selectedfile, setSelectedfile] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingfileId, setLoadingfileId] = useState("");
 
-  const handleFolderChange = (e) => {
+  const handlefileChange = (e) => {
     const fileId = e.target.value;
-    setSelectedFolder("");
+    setSelectedfile("");
     setIsLoading(true);
     setLoadingfileId(fileId);
 
     // Simulate API call or delay (Replace with actual API call)
     setTimeout(() => {
-      setSelectedFolder(fileId);
+      setSelectedfile(fileId);
       setIsLoading(false);
     }, 1000); // Adjust delay time as needed
   };
 
-  const folderOptions = [
+  const fileOptions = [
     { id: "1mqX-jL8w-lrPFqnb2wwesUEjt2o6omRe", name: "MCA New" },
     { id: "1mqX-jL8w-lrPFqnb2wwesUEjt2o6omR", name: "MCA Old" },
     { id: "1mqX-jL8w-lrPFqnb2wwesUEjt2o6oRe", name: "BTech CSE New" },
-    { id: "1mqX-jL8w-lrPFqnb2wwesUEjt2o6omRe", name: "BTech CSE Old" },
+    { id: "1mqX-jL8w-lrPFqnb2wwesUEjt2o6odsmRe", name: "BTech CSE Old" },
     { id: "1mqX-jL8w-lrPFqnb2wwesEjt2omRe", name: "BTech ECE Old" },
     { id: "1mqX-jL8w-lrPFqnb2wwesUEjt2omRe", name: "BTech CSE New" },
 
@@ -36,21 +36,21 @@ const Syllabus = ({fileId}) => {
     <div className="pyq">
       <div className="page-header">
         <Link to="/dashboard">
-      <h2>Select a folder to view:</h2>
+      <h2>Select a file to view:</h2>
         </Link>
         </div>
         <div className="page-layout">
       <div className="radio-inputs radio-pyq">
-        {folderOptions.map((folder) => (
-          <label key={folder.id} className="radio">
+        {fileOptions.map((file) => (
+          <label key={file.id} className="radio">
             <input
               type="radio"
-              name="folder"
-              value={folder.id}
-              checked={selectedFolder === folder.id}
-              onChange={handleFolderChange}
+              name="file"
+              value={file.id}
+              checked={selectedfile === file.id}
+              onChange={handlefileChange}
             />
-            <span className="name radio-in-pyq">{folder.name}</span>
+            <span className="name radio-in-pyq">{file.name}</span>
           </label>
         ))}
       </div>
@@ -58,8 +58,8 @@ const Syllabus = ({fileId}) => {
       {isLoading && loadingfileId && (
         <div className="loader2"><div className="loaderin"></div></div>
       )}
-      {selectedFolder && !isLoading && (
-        <SyllabusEmbed fileId={selectedFolder} />
+      {selectedfile && !isLoading && (
+        <SyllabusEmbed fileId={selectedfile} />
       )}
       </div>
     </div>
