@@ -77,15 +77,15 @@ const Holidays = () => {
             <button className="adminbtn" onClick={handleEdit}>
               {isEditing ? "Cancel" : "Edit"}
             </button>
+            {isEditing && (
+              <button className="adminbtn" onClick={handleSave}>Save</button>
+            )}
             <button className="adminbtn" onClick={() => setIsAdding(!isAdding)}>
               {isAdding ? "Cancel" : "Add Holiday"}
             </button>
             <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
               {isDeleteMode ? "Cancel" : "Delete Holiday"}
             </button>
-            {isEditing && (
-              <button className="adminbtn" onClick={handleSave}>Save</button>
-            )}
           </div>
         )}
       </div>

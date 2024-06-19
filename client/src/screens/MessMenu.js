@@ -38,16 +38,18 @@ const MessMenu = () => {
   return (
     <div>
       <div className='page-header'>
-      <Link to="/dashboard">
-        <h2>Mess Menu</h2>
+        <Link to="/dashboard">
+          <h2>Mess Menu</h2>
         </Link>
         {isAdmin && (
-          <button className="adminbtn" onClick={handleEdit}>
-            {isEditing ? 'Cancel' : 'Edit'}
-          </button>
-        )}
-        {isEditing && (
-          <button className="adminbtn" onClick={handleSave}>Save</button>
+          <div className='add-holiday-btn'>
+            <button className="adminbtn" onClick={handleEdit}>
+              {isEditing ? 'Cancel' : 'Edit'}
+            </button>
+            {isEditing && (
+              <button className="adminbtn" onClick={handleSave}>Save</button>
+            )}
+          </div>
         )}
       </div>
       <div className='page-layout'>
