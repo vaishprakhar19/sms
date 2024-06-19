@@ -5,12 +5,13 @@ const Syllabusembed = ({ fileId }) => {
 
   return (
     <div className="drive-embed-container">
-    <iframe
+    <iframe className='iframeSyllabus'
       src={embedUrl}
       title="Google Drive"
-      width="100%"
-      height="100%"
+      // width="100%"
+      // height="100%"
       allow="autoplay"
+      seamless="seamless"
     ></iframe>
   </div>
   )
