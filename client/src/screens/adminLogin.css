@@ -46,7 +46,7 @@
     border-radius: 30px;
     margin: 10px 0;
     color: black;
-    font-size: .8em;
+    /* font-size: .8em; */
     font-weight: 500;
     box-sizing: border-box;
     padding-left: 30px;
@@ -128,5 +128,9 @@
     padding: 8px 15px;
     border-radius: 20px;
   }
-  
+  .error-message {
+    color: #dc3545; /* Red color for error messages */
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
   

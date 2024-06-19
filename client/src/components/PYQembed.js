@@ -5,7 +5,7 @@ const PYQEmbed = ({ folderId }) => {
 
   return (
     <div className="drive-embed-container">
-      <iframe
+      <iframe className="iframePYQ"
         src={embedUrl}
         title="Google Drive Folder"
         width="100%"

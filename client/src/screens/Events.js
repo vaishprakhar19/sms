@@ -12,6 +12,7 @@ const Events = () => {
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [newEvent, setNewEvent] = useState({
     thumbnailImage: '',
     category: '',
@@ -87,8 +88,9 @@ const Events = () => {
     if (password === "123456") {
       setIsEditMode(true);
       setIsEditFormVisible(false);
+      setError('')
     } else {
-      alert("Incorrect password.");
+      setError('Invalid Credentials.');
     }
   };
 
@@ -96,6 +98,8 @@ const Events = () => {
     <div>
       <div className="page-header">
         <h2>Events</h2>
+        <div className="add-holiday-btn">
+
         <button className="adminbtn" onClick={() => setIsEditFormVisible(!isEditFormVisible)}>
           Edit
         </button>
@@ -108,10 +112,11 @@ const Events = () => {
               value={password}
               onChange={handlePasswordChange}
               required
-            />
+              />
             <button type="submit" className="adminbtn">Submit</button>
           </form>
         )}
+         {error && <p className="event-error">{error}</p>}
         {isEditMode && (
           <>
             <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
@@ -122,6 +127,7 @@ const Events = () => {
             </button>
           </>
         )}
+        </div>
       </div>
       <div className="page-layout">
         {isFormVisible && isEditMode && (

@@ -8,7 +8,7 @@ import "./App.css";
 import Dashboard from "./screens/Dashboard";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
-import React, { useEffect } from "react";
+import React, { useEffect ,useState} from "react";
 import Result from "./screens/Result";
 import TimeTable from "./screens/TimeTable";
 import MessMenu from "./screens/MessMenu";
@@ -45,7 +45,7 @@ function App() {
     stream,
     semester
   } = useAppState();
-
+  const [pdfUrl, setPdfUrl] = useState(''); 
   // console.log("user", user);
   // console.log("isAdmin", isAdmin);
   // console.log("isRegistered", isRegistered);
@@ -122,7 +122,7 @@ function App() {
             <Route path="/result" element={<Result />} />
             <Route path="/messmenu" element={<MessMenu />} />
             <Route path="/messtiming" element={<MessTiming />} />
-            <Route path="/syllabus" element={<Syllabus />} />
+            <Route path="/syllabus" element={ <Syllabus pdfUrl="https://drive.google.com/file/d/1mqX-jL8w-lrPFqnb2wwesUEjt2o6omRe/view?usp=sharing" />} />
             <Route path="/timetable" element={<TimeTable />} />
             <Route path="/holidays" element={<Holidays />} />
             <Route path="/pyq" element={<PYQ />} />

@@ -6,16 +6,23 @@
     margin: 20px auto; /* Center align the iframe */
     border: 1px solid #ccc;
     border-radius: 8px;
-    overflow: hidden; /* Hide overflow if necessary */
+    overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
   }
   
-  .drive-embed-container iframe {
+  .drive-embed-container .iframePYQ {
     display: block;
     width: calc(100% + 17px);
     height: 600px; /* Adjust height as needed */
     border: none; /* Remove border from iframe */
     overflow: hidden;
+  }
+  .drive-embed-container .iframeSyllabus{
+    display: block;
+    height: 600px; /* Adjust height as needed */
+    border: none; 
+    width: 100%;/* Remove border from iframe */
+    /* overflow: hidden; */
   }
 
   /* Responsive adjustments */

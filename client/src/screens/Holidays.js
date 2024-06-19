@@ -73,7 +73,7 @@ const Holidays = () => {
           <h2>Holiday List</h2>
         </Link>
         {isAdmin && (
-          <>
+          <div className="add-holiday-btn">
             <button className="adminbtn" onClick={handleEdit}>
               {isEditing ? "Cancel" : "Edit"}
             </button>
@@ -86,7 +86,7 @@ const Holidays = () => {
             {isEditing && (
               <button className="adminbtn" onClick={handleSave}>Save</button>
             )}
-          </>
+          </div>
         )}
       </div>
       <div className="page-layout">
