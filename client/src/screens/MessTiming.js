@@ -60,7 +60,7 @@ const MessTiming = () => {
             <h2>Mess Timings</h2>
           </Link>
           {isAdmin && (
-            <>
+            <div className="add-holiday-btn">
               <button className="adminbtn" onClick={handleEditToggle}>
                 {editMode ? "Cancel" : "Edit"}
               </button>
@@ -69,7 +69,7 @@ const MessTiming = () => {
                   Save
                 </button>
               )}
-            </>
+            </div>
           )}
         </div>
       </header>
@@ -135,4 +135,3 @@ const MessTiming = () => {
 };
 
 export default MessTiming;
-    
