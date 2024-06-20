@@ -59,6 +59,11 @@ const Students = () => {
         <Link to="/dashboard">
           <h2>User Data</h2>
         </Link>
+        <div className="add-holiday-btn">
+          <button className="adminbtn" onClick={exportToExcel}>
+            Export to Excel
+          </button>
+        </div>
       </div>
       <div className="page-layout">
         <div className="user-form">
@@ -136,37 +141,34 @@ const Students = () => {
             Clear Selection
           </button>
         </div>
-      </div>
-      <div className="table-container">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Mobile</th>
-              <th>Roll No</th>
-              <th>Batch</th>
-              <th>Gender</th>
-              <th>Department</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user.uid}>
-                <td>{user.name}</td>
-                <td>{user.mobile}</td>
-                <td>{user.rollNo}</td>
-                <td>{user.batch}</td>
-                <td>{user.gender}</td>
-                <td>{user.department}</td>
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Roll No</th>
+                <th>Batch</th>
+                <th>Gender</th>
+                <th>Department</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.uid}>
+                  <td>{user.name}</td>
+                  <td>{user.mobile}</td>
+                  <td>{user.rollNo}</td>
+                  <td>{user.batch}</td>
+                  <td>{user.gender}</td>
+                  <td>{user.department}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <button id="button" onClick={exportToExcel}>
-        Export to Excel
-      </button>
-    </div>
+    </div >
   );
 };
 
