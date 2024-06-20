@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const TimeTable = () => {
   const { user, isAdmin } = useAppState();
   const uid = user.uid;
-  const [timetable, setTimetable] = useState([]);
+  const [, setTimetable] = useState([]);
   const [timetableYear, setTimetableYear] = useState(1);
   const [timetableStream, setTimetableStream] = useState("CSE");
   const [editableTimetable, setEditableTimetable] = useState([]);
