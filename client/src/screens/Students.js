@@ -136,36 +136,36 @@ const Students = () => {
             Clear Selection
           </button>
         </div>
-      </div>
-      <div className="table-container">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Mobile</th>
-              <th>Roll No</th>
-              <th>Batch</th>
-              <th>Gender</th>
-              <th>Department</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user.uid}>
-                <td>{user.name}</td>
-                <td>{user.mobile}</td>
-                <td>{user.rollNo}</td>
-                <td>{user.batch}</td>
-                <td>{user.gender}</td>
-                <td>{user.department}</td>
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Roll No</th>
+                <th>Batch</th>
+                <th>Gender</th>
+                <th>Department</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.uid}>
+                  <td>{user.name}</td>
+                  <td>{user.mobile}</td>
+                  <td>{user.rollNo}</td>
+                  <td>{user.batch}</td>
+                  <td>{user.gender}</td>
+                  <td>{user.department}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <button id="button" onClick={exportToExcel}>
+          Export to Excel
+        </button>
       </div>
-      <button id="button" onClick={exportToExcel}>
-        Export to Excel
-      </button>
     </div>
   );
 };
