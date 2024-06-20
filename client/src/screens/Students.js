@@ -59,6 +59,11 @@ const Students = () => {
         <Link to="/dashboard">
           <h2>User Data</h2>
         </Link>
+        <div className="add-holiday-btn">
+          <button className="adminbtn" onClick={exportToExcel}>
+            Export to Excel
+          </button>
+        </div>
       </div>
       <div className="page-layout">
         <div className="user-form">
@@ -162,11 +167,8 @@ const Students = () => {
             </tbody>
           </table>
         </div>
-        <button id="button" onClick={exportToExcel}>
-          Export to Excel
-        </button>
       </div>
-    </div>
+    </div >
   );
 };
 
