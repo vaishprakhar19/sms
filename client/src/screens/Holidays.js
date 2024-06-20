@@ -81,10 +81,10 @@ const Holidays = () => {
               <button className="adminbtn" onClick={handleSave}>Save</button>
             )}
             <button className="adminbtn" onClick={() => setIsAdding(!isAdding)}>
-              {isAdding ? "Cancel" : "Add Holiday"}
+              {isAdding ? "Cancel" : "Add"}
             </button>
             <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
-              {isDeleteMode ? "Cancel" : "Delete Holiday"}
+              {isDeleteMode ? "Cancel" : "Delete"}
             </button>
           </div>
         )}
