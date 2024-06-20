@@ -185,17 +185,16 @@ function updateMenuDataInDatabase(updatedMenuData) {
 // Routes
 // Get all notices
 app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
-  const { semester, stream, isAdmin } = req.params; // Extract batch and stream from query parameters
-  // Assuming 'req.user' contains the authenticated user's info
+  const { semester, stream, isAdmin } = req.params; // Extract semester, stream, and isAdmin from request parameters
 
   let query;
   let queryParams;
-  // console.log(stream,semester,isAdmin)
+
   if (isAdmin === "true") {
-    query = "SELECT * FROM notices";
+    query = "SELECT * FROM notices ORDER BY id DESC"; // Order notices by created_at descending for admins
     queryParams = [];
   } else {
-    query = "SELECT * FROM notices WHERE semester = ? AND stream = ?";
+    query = "SELECT * FROM notices WHERE semester = ? AND stream = ? ORDER BY id DESC"; // Order notices by created_at descending for non-admins
     queryParams = [semester, stream];
   }
 
@@ -208,8 +207,6 @@ app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
     res.json(results);
   });
 });
-
-
 
 // Add a new notice
 app.post("/api/notices/:stream?/:semester?", (req, res) => {
