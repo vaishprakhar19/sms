@@ -9,10 +9,18 @@ const Notices = ({ onDeleteNotice, notices }) => {
   const [shownNotifications, setShownNotifications] = useState([]);
 
   useEffect(() => {
-    const socket = io(); // Replace with your WebSocket server URL
+    const socket = io(); // Ensure this URL is correct
 
     socket.on('connect', () => {
       console.log('Connected to server');
+    });
+
+    socket.on('disconnect', (reason) => {
+      console.log('Disconnected from server:', reason);
+      if (reason === 'io server disconnect') {
+        // The disconnection was initiated by the server, reconnect manually
+        socket.connect();
+      }
     });
 
     socket.on('newNotice', (newNotice) => {
@@ -24,12 +32,15 @@ const Notices = ({ onDeleteNotice, notices }) => {
       }
     });
 
+    socket.on('connect_error', (error) => {
+      console.error('Connection error:', error);
+    });
+
     return () => {
       socket.disconnect();
     };
   }, [shownNotifications]);
 
-  // Function to handle delete notice
   const handleDelete = async (id) => {
     try {
       await axios.delete(`/api/notices/${id}`);
@@ -39,7 +50,6 @@ const Notices = ({ onDeleteNotice, notices }) => {
     }
   };
 
-  // Function to show a notification
   const showNotification = (title, options) => {
     if (!("Notification" in window)) {
       console.log("This browser does not support desktop notification");
