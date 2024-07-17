@@ -70,7 +70,7 @@ const Students = () => {
           <input
             type="text"
             placeholder="Batch"
-            className="inputField"
+            className="inputField2 inputField"
             name="semester"
             value={filters.semester}
             onChange={handleFilterChange}

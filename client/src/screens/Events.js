@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import "./events.css";
-import { useAppState } from "../AppStateContext";
+// import { useAppState } from "../AppStateContext";
 
 const Events = () => {
-  const { isAdmin } = useAppState();
+  // const { isAdmin } = useAppState();
   const [events, setEvents] = useState([]);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);

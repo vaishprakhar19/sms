@@ -9,8 +9,8 @@ import Navbar from '../components/Navbar';
 import Notice from "./Notice"
 import axios from 'axios';
 import { useAppState } from '../AppStateContext';
-import Students from './Students';
-import { Link } from 'react-router-dom';
+// import Students from './Students';
+// import { Link } from 'react-router-dom';
 const adminIcon = process.env.PUBLIC_URL + 'assets/adminIcon.svg'
 
 
@@ -36,10 +36,10 @@ function Dashboard() {
     };
 
     // Only call fetchNotices if semester and stream are defined
-    if (semester && stream || isAdmin) {
+    if ((semester && stream) || isAdmin) {
       fetchNotices();
     }
-  }, [semester, stream]); // Added semester and stream as dependencies
+  }, [semester, stream,isAdmin]); // Added semester and stream as dependencies
 
   console.log(notices)
 

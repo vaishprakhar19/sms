@@ -2,7 +2,11 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require('cors');
 const bodyParser = require("body-parser");
+const http = require('http');
+const socketIo = require('socket.io');
+
 const app = express();
+const server = http.createServer(app);
 // const server = require("./server.js");
 const port = process.env.PORT || 5000;
 app.use(cors());
@@ -23,6 +27,15 @@ db.connect((err) => {
     return;
   }
   console.log("Connected to MySQL database");
+});
+// WebSocket connection
+const io = socketIo(server)
+io.on('connection', socket=> {
+  console.log('Client connected');
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
 });
 
 app.post("/api/register", (req, res) => {
@@ -185,17 +198,16 @@ function updateMenuDataInDatabase(updatedMenuData) {
 // Routes
 // Get all notices
 app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
-  const { semester, stream, isAdmin } = req.params; // Extract batch and stream from query parameters
-  // Assuming 'req.user' contains the authenticated user's info
+  const { semester, stream, isAdmin } = req.params; // Extract semester, stream, and isAdmin from request parameters
 
   let query;
   let queryParams;
-  // console.log(stream,semester,isAdmin)
+
   if (isAdmin === "true") {
-    query = "SELECT * FROM notices";
+    query = "SELECT * FROM notices ORDER BY id DESC"; // Order notices by created_at descending for admins
     queryParams = [];
   } else {
-    query = "SELECT * FROM notices WHERE semester = ? AND stream = ?";
+    query = "SELECT * FROM notices WHERE semester = ? AND stream = ? ORDER BY id DESC"; // Order notices by created_at descending for non-admins
     queryParams = [semester, stream];
   }
 
@@ -208,8 +220,6 @@ app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
     res.json(results);
   });
 });
-
-
 
 // Add a new notice
 app.post("/api/notices/:stream?/:semester?", (req, res) => {
@@ -236,6 +246,10 @@ app.post("/api/notices/:stream?/:semester?", (req, res) => {
           res.status(500).json({ error: "Error adding notice" });
           return;
         }
+        const newNotice = { id: newId, title, body, stream, semester };
+
+        // Broadcast the new notice to all connected clients
+        io.emit('newNotice', newNotice);
         res.json({ message: "Notice added successfully" });
       }
     );
@@ -528,7 +542,7 @@ app.get("/", (req, res) => {
   res.send("Backend API is working");
 });
 
-app.listen(port, (err) => {
+server.listen(port, (err) => {
   if (err) {
     console.error("Error starting server:", err);
   } else {
