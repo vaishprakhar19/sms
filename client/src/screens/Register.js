@@ -5,8 +5,10 @@ import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase'
+import BackHandler from "../components/BackHandler";
 
 const Register = ({ user, setIsRegistered }) => {
+  BackHandler();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",

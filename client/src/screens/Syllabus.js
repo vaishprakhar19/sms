@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import SyllabusEmbed from "../components/Syllabusembed";
 import "./syllabus.css";
 import { Link } from "react-router-dom";
+import BackHandler from "../components/BackHandler";
 
 const Syllabus = ({fileId}) => {
+  BackHandler();
   const [selectedfile, setSelectedfile] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingfileId, setLoadingfileId] = useState("");

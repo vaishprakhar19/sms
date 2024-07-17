@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import "./events.css";
+import BackHandler from "../components/BackHandler";
 // import { useAppState } from "../AppStateContext";
-
 const Events = () => {
+  BackHandler();
   // const { isAdmin } = useAppState();
   const [events, setEvents] = useState([]);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);

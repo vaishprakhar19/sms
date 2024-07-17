@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './dashboard.css';
 import Card from '../components/Card';
 import dashdata from '../components/dashdata';
@@ -20,9 +20,11 @@ function Dashboard() {
     isAdmin,
     stream,
     semester,
+    notices,
+    setNotices
   } = useAppState();
 
-  const [notices, setNotices] = useState([]);
+  
 
   useEffect(() => {
     const fetchNotices = async () => {
@@ -39,7 +41,7 @@ function Dashboard() {
     if ((semester && stream) || isAdmin) {
       fetchNotices();
     }
-  }, [semester, stream,isAdmin]); // Added semester and stream as dependencies
+  }, [semester, stream, isAdmin, setNotices]); // Added semester and stream as dependencies
 
   console.log(notices)
 

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import "./Students.css";
 import { Link } from "react-router-dom";
+import BackHandler from "../components/BackHandler";
 
 const Students = () => {
+  BackHandler();
   const [users, setUsers] = useState([]);
   const [filters, setFilters] = useState({
     semester: "",
@@ -12,7 +14,7 @@ const Students = () => {
     gender: "",
   });
 
-  const fetchUsers = () => {
+  const fetchUsers = useCallback(() => {
     const params = {
       semester: filters.semester,
       department: filters.department,
@@ -27,11 +29,11 @@ const Students = () => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  };
+  },[filters.semester,filters.department,filters.gender]);
 
   useEffect(() => {
     fetchUsers();
-  }, [filters]);
+  }, [filters, fetchUsers]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
