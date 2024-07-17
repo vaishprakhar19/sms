@@ -1,19 +1,59 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 import axios from 'axios';
-import "./notices.css"
+import "./notices.css";
 import { useAppState } from '../AppStateContext';
 
-const Notices = ({ notices, onDeleteNotice }) => {
+const Notices = ({ onDeleteNotice, notices }) => {
+  const { isAdmin } = useAppState();
+  const [shownNotifications, setShownNotifications] = useState([]);
+
+  useEffect(() => {
+    const socket = io(); // Replace with your WebSocket server URL
+
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+
+    socket.on('newNotice', (newNotice) => {
+      if (!shownNotifications.includes(newNotice.id)) {
+        showNotification("New Notice Added", {
+          body: `${newNotice.title}`,
+        });
+        setShownNotifications(prev => [...prev, newNotice.id]);
+      }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [shownNotifications]);
+
+  // Function to handle delete notice
   const handleDelete = async (id) => {
     try {
-      console.log('Deleting notice with ID:', id);
       await axios.delete(`/api/notices/${id}`);
       onDeleteNotice(id);
     } catch (error) {
       console.error('Error deleting notice:', error);
     }
   };
-  const { isAdmin } = useAppState()
+
+  // Function to show a notification
+  const showNotification = (title, options) => {
+    if (!("Notification" in window)) {
+      console.log("This browser does not support desktop notification");
+    } else if (Notification.permission === "granted") {
+      new Notification(title, options);
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          new Notification(title, options);
+        }
+      });
+    }
+  };
+
   return (
     <div className="notices">
       <h2>Notices</h2>
