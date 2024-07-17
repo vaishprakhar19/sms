@@ -13,7 +13,7 @@
     gap: 15px;
   }
   
-  .inputField {
+  .inputField2 {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -31,7 +31,7 @@
         flex-direction: column;
         margin: auto;
       }
-      .inputField,.radio-inputs {
+      .inputField2,.radio-inputs {
         max-width: 200px;
       }
       .user-radios{
