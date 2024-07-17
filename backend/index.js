@@ -207,7 +207,12 @@ app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
     query = "SELECT * FROM notices ORDER BY id DESC"; // Order notices by created_at descending for admins
     queryParams = [];
   } else {
-    query = "SELECT * FROM notices WHERE semester = ? AND stream = ? ORDER BY id DESC"; // Order notices by created_at descending for non-admins
+    query = `
+      SELECT * FROM notices 
+      WHERE (semester = ? OR semester IS NULL) 
+      AND (stream = ? OR stream IS NULL) 
+      ORDER BY id DESC
+    `; // Order notices by created_at descending for non-admins
     queryParams = [semester, stream];
   }
 
@@ -220,6 +225,7 @@ app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
     res.json(results);
   });
 });
+
 
 // Add a new notice
 app.post("/api/notices/:stream?/:semester?", (req, res) => {
