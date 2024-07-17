@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import "./events.css";
+import BackHandler from "../components/BackHandler";
 // import { useAppState } from "../AppStateContext";
-
 const Events = () => {
+  BackHandler();
   // const { isAdmin } = useAppState();
   const [events, setEvents] = useState([]);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
@@ -119,10 +120,10 @@ const Events = () => {
           {isEditMode && (
             <>
               <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
-                {isFormVisible ? "Cancel" : "Add Event"}
+                {isFormVisible ? "Cancel" : "Add"}
               </button>
               <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
-                {isDeleteMode ? "Cancel" : "Delete Event"}
+                {isDeleteMode ? "Cancel" : "Delete"}
               </button>
             </>
           )}

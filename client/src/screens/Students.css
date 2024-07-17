@@ -11,6 +11,7 @@
     /* flex-wrap: wrap; */
     align-items: center;
     gap: 15px;
+    margin: 20px 0px;
   }
   
   .inputField2 {
@@ -24,16 +25,19 @@
     display: flex;
     align-items: baseline; 
     gap: 30px;
+    width:100%
   }
   
   @media (max-width: 600px) {
     .user-form {
         flex-direction: column;
-        margin: auto;
+        margin: 20px auto;
       }
-      .inputField2,.radio-inputs {
-        max-width: 200px;
+
+      .user-form .radio-inputs{
+        width:100%;
       }
+
       .user-radios{
         flex-direction: column;
       }

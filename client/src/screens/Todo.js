@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./todo.css";
 import Forms from "./todo/Form";
 import TodoList from "./todo/TodoList";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import BackHandler from "../components/BackHandler";
+
 function Todo() {
+  BackHandler();
   //For input texts
   const [inputText, setInputText] = useState("");
 
@@ -22,15 +25,8 @@ function Todo() {
     }
   }, []);
 
-  useEffect(() => {
-    filterHandler(); // Filter todos based on status
-    localStorage.setItem('todos', JSON.stringify(todos)); // Update local storage with filtered todos
-  }, [todos, status]);
-
-
-
   //filterHandler
-  const filterHandler = () => {
+  const filterHandler = useCallback(() => {
     switch (status) {
       case "completed":
         setFilteredTodos(todos.filter((todo) => todo.completed === true));
@@ -42,7 +38,12 @@ function Todo() {
         setFilteredTodos(todos);
         break;
     }
-  };
+  },[status,todos]);
+
+  useEffect(() => {
+    filterHandler(); // Filter todos based on status
+    localStorage.setItem('todos', JSON.stringify(todos)); // Update local storage with filtered todos
+  }, [todos, status, filterHandler]);
 
   return (
     <div className="Todo">
