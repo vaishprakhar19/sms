@@ -119,10 +119,10 @@ const Events = () => {
           {isEditMode && (
             <>
               <button className="adminbtn" onClick={() => setIsFormVisible(!isFormVisible)}>
-                {isFormVisible ? "Cancel" : "Add Event"}
+                {isFormVisible ? "Cancel" : "Add"}
               </button>
               <button className="adminbtn" onClick={() => setIsDeleteMode(!isDeleteMode)}>
-                {isDeleteMode ? "Cancel" : "Delete Event"}
+                {isDeleteMode ? "Cancel" : "Delete"}
               </button>
             </>
           )}
