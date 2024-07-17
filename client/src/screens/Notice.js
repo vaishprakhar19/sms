@@ -2,26 +2,40 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import "./notice.css"
 import { useAppState } from '../AppStateContext';
+import BackHandler from '../components/BackHandler';
 
 const Notice = ({ onAddNotice }) => {
-  const { isAdmin } = useAppState();
+  BackHandler();
+  const { isAdmin, notices } = useAppState();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [noticeStream, setNoticeStream] = useState(''); // Add state for stream
-  const [noticeSemester, setNoticeSemester] = useState(''); // Add state for semester
+  const [noticeStream, setNoticeStream] = useState(null); // Add state for stream
+  const [noticeSemester, setNoticeSemester] = useState(null); // Add state for semester
   const [showAddNoticeForm, setShowAddNoticeForm] = useState(false); // Add state to control form visibility
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the form from submitting automatically
 
     try {
+      // Find the maximum ID from existing notices
+      const maxId = notices.reduce((max, notice) => (notice.id > max ? notice.id : max), 0);
+
+      // Generate new ID by incrementing the maximum ID
+      const newId = maxId + 1;
+      console.log(maxId)
       // Construct the URL based on whether stream and semester are selected
       const streamSegment = noticeStream ? `/${noticeStream}` : '';
       const semesterSegment = noticeSemester ? `/${noticeSemester}` : '';
       const url = `/api/notices${streamSegment}${semesterSegment}`;
 
-      await axios.post(url, { title, body });
-      onAddNotice({ title, body });
+      await axios.post(url, { title, body, newId });
+    //   onAddNotice({  
+    //     id: newId, 
+    //     title, 
+    //     body, 
+    //     stream: noticeStream || null, 
+    //     semester: noticeSemester || null 
+    // });       
       setTitle('');
       setBody('');
       setNoticeStream(''); // Reset stream

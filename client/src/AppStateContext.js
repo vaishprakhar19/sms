@@ -14,9 +14,10 @@ export const AppStateProvider = ({ children }) => {
   const [statesSet, setStatesSet] = useState(false);
   const [stream, setStream] = useState("");
   const [semester, setSemester] = useState(0);
+  const [notices, setNotices] = useState([]);
 
   return (
-    <AppStateContext.Provider value={{ loading, setLoading, user, setUser, isRegistered, setIsRegistered, isAdmin, setIsAdmin, statesSet, setStatesSet, stream, setStream, semester, setSemester }}>
+    <AppStateContext.Provider value={{ notices, setNotices, loading, setLoading, user, setUser, isRegistered, setIsRegistered, isAdmin, setIsAdmin, statesSet, setStatesSet, stream, setStream, semester, setSemester }}>
       {children}
     </AppStateContext.Provider>
   );

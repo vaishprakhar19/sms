@@ -3,7 +3,9 @@ import "./Timetable.css";
 import axios from "axios";
 import { useAppState } from "../AppStateContext";
 import { Link } from "react-router-dom";
+import BackHandler from "../components/BackHandler";
 const TimeTable = () => {
+  BackHandler();
   const { user, isAdmin } = useAppState();
   const uid = user.uid;
   const [, setTimetable] = useState([]);
@@ -11,11 +13,27 @@ const TimeTable = () => {
   const [timetableStream, setTimetableStream] = useState("CSE");
   const [editableTimetable, setEditableTimetable] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-
+  
   useEffect(() => {
-    axios
-      .get(`/timetable/${timetableStream}/${timetableYear}`)
-      .then((response) => {
+    const fetchTimetable = async () => {
+      try {
+        let response;
+        if (isAdmin) {
+          response = await axios.get(`/timetable`, {
+            params: {
+              stream: timetableStream,
+              year: timetableYear,
+              isAdmin: true
+            }
+          });
+        } else {
+          response = await axios.get(`/timetable`, {
+            params: {
+              uid: uid,
+              isAdmin: false
+            }
+          });
+        }
         const data = response.data;
         const groupedData = data.reduce((acc, curr) => {
           const timeSlot =
@@ -41,11 +59,13 @@ const TimeTable = () => {
         const groupedArray = Object.values(groupedData);
         setTimetable(groupedArray);
         setEditableTimetable(groupedArray);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching timetable:", error);
-      });
-  }, [uid, timetableStream, timetableYear]);
+      }
+    };
+
+    fetchTimetable();
+  }, [uid, timetableStream, timetableYear, isAdmin]);
 
   const days = [
     "Monday",
@@ -113,7 +133,7 @@ const TimeTable = () => {
     setIsEditing(!isEditing);
   };
 
-  const tableName = `Timetable ${timetableStream}${timetableYear}`;
+  const tableName = isAdmin ? `Timetable ${timetableStream}${timetableYear}` : 'Timetable';
   return (
     <div>
       <div className="page-header">

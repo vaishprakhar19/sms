@@ -30,7 +30,7 @@ db.connect((err) => {
 });
 // WebSocket connection
 const io = socketIo(server)
-io.on('connection', (socket)=> {
+io.on('connection', (socket) => {
   console.log('Client connected');
 
   socket.on('disconnect', () => {
@@ -223,43 +223,43 @@ app.get("/api/notices/:stream/:semester/:isAdmin", (req, res) => {
 
 // Add a new notice
 app.post("/api/notices/:stream?/:semester?", (req, res) => {
-  const { title, body } = req.body;
+  const { title, body, newId } = req.body;
   const { stream, semester } = req.params; // Extract semester and stream from URL parameters
 
-  // Get the ID of the last inserted notice
-  db.query("SELECT MAX(id) AS maxId FROM notices", (err, result) => {
-    if (err) {
-      console.error("Error fetching last inserted ID:", err);
-      res.status(500).json({ error: "Error adding notice" });
-      return;
-    }
-    // Generate ID for the new notice (increment last inserted ID by 1)
-    const newId = result[0].maxId ? result[0].maxId + 1 : 1;
+  // // Get the ID of the last inserted notice
+  // db.query("SELECT MAX(id) AS maxId FROM notices", (err, result) => {
+  //   if (err) {
+  //     console.error("Error fetching last inserted ID:", err);
+  //     res.status(500).json({ error: "Error adding notice" });
+  //     return;
+  //   }
+  // Generate ID for the new notice (increment last inserted ID by 1)
+  // const newId = result[0].maxId ? result[0].maxId + 1 : 1;
 
-    // Insert the new notice with the generated ID, semester, stream, and batch
-    db.query(
-      "INSERT INTO notices (id, title, body, stream, semester) VALUES (?, ?, ?, ?, ?)",
-      [newId, title, body, stream || null, semester || null],
-      (err, result) => {
-        if (err) {
-          console.error("Error adding notice:", err);
-          res.status(500).json({ error: "Error adding notice" });
-          return;
-        }
-        const newNotice = { id: newId, title, body, stream, semester };
-
-        // Broadcast the new notice to all connected clients
-        io.emit('newNotice', newNotice);
-        res.json({ message: "Notice added successfully" });
+  // Insert the new notice with the generated ID, semester, stream, and batch
+  db.query(
+    "INSERT INTO notices (id, title, body, stream, semester) VALUES (?, ?, ?, ?, ?)",
+    [newId, title, body, stream || null, semester || null],
+    (err, result) => {
+      if (err) {
+        console.error("Error adding notice:", err);
+        res.status(500).json({ error: "Error adding notice" });
+        return;
       }
-    );
-  });
+      const newNotice = { id: newId, title, body, stream: stream || null, semester: semester || null };
+
+      // Broadcast the new notice to all connected clients
+      io.emit('newNotice', newNotice);
+      res.json({ message: "Notice added successfully" });
+    }
+  );
 });
-// DELETE route to delete a notice by ID
+
 // DELETE route to delete a notice by ID
 app.delete("/api/notices/:id", (req, res) => {
   const noticeId = req.params.id;
   console.log("Deleting notice with ID:", noticeId);
+  io.emit('deleteNotice', noticeId);
   db.query("DELETE FROM notices WHERE id = ?", [noticeId], (err, result) => {
     if (err) {
       console.error("Error deleting notice:", err);
@@ -275,14 +275,50 @@ app.delete("/api/notices/:id", (req, res) => {
 function calculateSemester(batchYear) {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed
+
+  // Calculate the years difference
   const yearsDifference = currentYear - batchYear;
-  let semester = yearsDifference * 2 + 1; // Default to the first semester of the current year
-  if (currentMonth > 6) {
-    // Assume semester changes mid-year (e.g., July)
-    semester++;
+
+  // Calculate the base semester assuming July as the start for odd semesters
+  let semester = yearsDifference * 2 + 1;
+
+  // Adjust semester based on current month
+  if (currentMonth < 7) {
+    // Before July, it's the first semester of the current academic year
+    semester--;
   }
   return semester;
 }
+
+
+function getCurrentAcademicYear(batchYear) {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; // getMonth() returns month index from 0-11
+
+  let academicYear;
+
+  // Calculate the academic year
+  if (currentMonth >= 1 && currentMonth < 7) { // January to June
+    academicYear = currentYear - batchYear;
+  } else { // July to December
+    academicYear = currentYear - batchYear + 1;
+  }
+
+  // Ensure academic year is between 1 and 4
+  if (academicYear < 1) {
+    academicYear = 1;
+  } else if (academicYear > 4) {
+    academicYear = 4;
+  }
+
+  return academicYear;
+}
+
+// Example usage:
+const batchYear = 2022;
+const currentYear = getCurrentAcademicYear(batchYear);
+console.log(`Current academic year for batch ${batchYear}: ${currentYear}`);
 
 
 //THIS IS A GENERIC FUNCTION TO GET SEMESTER AND STREAM FROM THE DATABASE
@@ -297,31 +333,24 @@ function getUserDetails(uid, callback) {
     } else {
       const batchYear = userResults[0].batch;
       const stream = userResults[0].department;
+      const currentYear = getCurrentAcademicYear(batchYear);
       const currentSemester = calculateSemester(batchYear);
       // console.log(`Calculated semester: ${currentSemester} for batch year: ${batchYear}`);
-      callback(null, { batchYear, stream, currentSemester });
+      callback(null, { batchYear, stream, currentSemester, currentYear });
     }
   });
 }
 
-app.get("/timetable/:uid", (req, res) => {
-  const uid = req.params.uid;
+// Combined route for timetable
+app.get("/timetable", (req, res) => {
+  const { uid, stream, year, isAdmin } = req.query;
 
-  getUserDetails(uid, (error, userDetails) => {
-    if (error) {
-      return res.status(500).json({ error: "Error retrieving user details" });
-    }
-
-    const { currentSemester, stream } = userDetails;
-
+  if (isAdmin === "true") {
     // Construct the timetable table name based on the user's stream and semester
-    const timetableTable = `timetable${stream}${currentSemester}`;
+    const timetableTable = `timetable${stream}${year}`;
 
     // Query to retrieve timetable based on the dynamically determined table name
-    const timetableQuery = `
-    SELECT DayOfWeek, StartTime, EndTime, SubjectName
-    FROM ${timetableTable}
-    `;
+    const timetableQuery = `SELECT DayOfWeek, StartTime, EndTime, SubjectName FROM ${timetableTable}`;
 
     db.query(timetableQuery, (error, results) => {
       if (error) {
@@ -330,29 +359,32 @@ app.get("/timetable/:uid", (req, res) => {
       }
       res.json(results);
     });
-  });
+  } else {
+    getUserDetails(uid, (error, userDetails) => {
+      if (error) {
+        return res.status(500).json({ error: "Error retrieving user details" });
+      }
+
+      const { currentYear, stream } = userDetails;
+
+      // Construct the timetable table name based on the user's stream and semester
+      const timetableTable = `timetable${stream}${currentYear}`;
+
+      // Query to retrieve timetable based on the dynamically determined table name
+      const timetableQuery = `
+      SELECT DayOfWeek, StartTime, EndTime, SubjectName FROM ${timetableTable}`;
+
+      db.query(timetableQuery, (error, results) => {
+        if (error) {
+          console.error("Error retrieving timetable:", error);
+          return res.status(500).json({ error: "Internal server error" });
+        }
+        res.json(results);
+      });
+    });
+  }
 });
 
-
-app.get("/timetable/:stream/:year", (req, res) => {
-  const { stream, year } = req.params;
-  // Construct the timetable table name based on the user's stream and semester
-  const timetableTable = `timetable${stream}${year}`;
-
-  // Query to retrieve timetable based on the dynamically determined table name
-  const timetableQuery = `
-    SELECT DayOfWeek, StartTime, EndTime, SubjectName
-    FROM ${timetableTable}
-    `;
-
-  db.query(timetableQuery, (error, results) => {
-    if (error) {
-      console.error("Error retrieving timetable:", error);
-      return res.status(500).json({ error: "Internal server error" });
-    }
-    res.json(results);
-  });
-});
 
 app.post("/update-timetable", (req, res) => {
   const { timetable, stream, year } = req.body;

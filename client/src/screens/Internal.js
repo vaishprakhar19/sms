@@ -1,7 +1,9 @@
 // src/App.js
 import React, { useState } from 'react';
+import BackHandler from '../components/BackHandler';
 
 function Internal() {
+  BackHandler();
   const [studentId, setStudentId] = useState('');
   const [marksResult, setMarksResult] = useState('');
 

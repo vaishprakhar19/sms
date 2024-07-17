@@ -3,8 +3,10 @@ import axios from "axios";
 import "./Holidays.css";
 import { Link } from "react-router-dom";
 import { useAppState } from "../AppStateContext"; // Import the useAppState hook
+import BackHandler from "../components/BackHandler";
 
 const Holidays = () => {
+  BackHandler()
   const [holidays, setHolidays] = useState([]);
   const { isAdmin } = useAppState(); // Destructure isAdmin from the app state
   const [isEditing, setIsEditing] = useState(false);

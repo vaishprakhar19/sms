@@ -3,7 +3,9 @@ import axios from 'axios';
 import { useAppState } from "../AppStateContext";
 import "./messmenu.css"
 import { Link } from "react-router-dom";
+import BackHandler from '../components/BackHandler';
 const MessMenu = () => {
+  BackHandler();
   const [menuData, setMenuData] = useState([]);
   const { isAdmin } = useAppState()
   const [isEditing, setIsEditing] = useState(false);

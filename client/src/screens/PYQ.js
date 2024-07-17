@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import PYQEmbed from "../components/PYQembed";
 import "./PYQ.css";
 import { Link } from "react-router-dom"
+import BackHandler from "../components/BackHandler";
 
 
 const PYQ = () => {
+  BackHandler();
   const [selectedFolder, setSelectedFolder] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingFolderId, setLoadingFolderId] = useState("");
@@ -41,7 +43,7 @@ const PYQ = () => {
         </Link>
         </div>
         <div className="page-layout">
-      <div className="radio-inputs radio-pyq">
+      <div className="radio-pyq radio-inputs">
         {folderOptions.map((folder) => (
           <label key={folder.id} className="radio">
             <input

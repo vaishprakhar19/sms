@@ -3,8 +3,10 @@ import axios from "axios";
 import "./MessTiming.css";
 import { useAppState } from "../AppStateContext";
 import { Link } from "react-router-dom";
+import BackHandler from "../components/BackHandler";
 
 const MessTiming = () => {
+  BackHandler();
   const [messTimings, setMessTimings] = useState([]);
   const [genderFilter, setGenderFilter] = useState("Boys");
   const [editMode, setEditMode] = useState(false);

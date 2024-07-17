@@ -4,8 +4,8 @@ import axios from 'axios';
 import "./notices.css";
 import { useAppState } from '../AppStateContext';
 
-const Notices = ({ onDeleteNotice, notices }) => {
-  const { isAdmin } = useAppState();
+const Notices = ({ onDeleteNotice }) => {
+  const { isAdmin, notices, setNotices } = useAppState();
   const [shownNotifications, setShownNotifications] = useState([]);
 
   useEffect(() => {
@@ -24,6 +24,9 @@ const Notices = ({ onDeleteNotice, notices }) => {
     });
 
     socket.on('newNotice', (newNotice) => {
+      setNotices((prevNotices) => [newNotice, ...prevNotices]);
+
+
       if (!shownNotifications.includes(newNotice.id)) {
         showNotification("New Notice Added", {
           body: `${newNotice.title}`,
@@ -32,9 +35,15 @@ const Notices = ({ onDeleteNotice, notices }) => {
       }
     });
 
+    socket.on('deleteNotice', (noticeId) => {
+      console.log("socketon", noticeId)
+      setNotices((prevNotices) => prevNotices.filter(notice => notice.id !== noticeId));
+    });
+
     socket.on('connect_error', (error) => {
       console.error('Connection error:', error);
     });
+
 
     return () => {
       socket.disconnect();
@@ -76,7 +85,7 @@ const Notices = ({ onDeleteNotice, notices }) => {
             <div className="notibody">{notice.body}</div>
 
             {isAdmin && <>
-              <div className="right">{notice.stream} {notice.semester}{notice.semester === null? "ALL":notice.semester === 1 ? "st" : notice.semester === 2 ? "nd" : notice.semester === 3 ? "rd" : "th"} semester</div>
+              <div className="right">{notice.stream} {notice.semester}{notice.semester === null ? "ALL" : notice.semester === 1 ? "st" : notice.semester === 2 ? "nd" : notice.semester === 3 ? "rd" : "th"} semester</div>
               <button className='adminbtn' onClick={() => handleDelete(notice.id)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import './adminLogin.css';
+import BackHandler from '../components/BackHandler';
 
 const AdminLogin = ({ setIsRegistered, setIsAdmin }) => {
+  BackHandler();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
