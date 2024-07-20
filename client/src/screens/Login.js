@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./login.css";
 import { auth, provider } from "../firebase";
-// import "firebase/compat/auth";
+import "firebase/compat/auth";
 import { signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 export default function Login({ isRegistered, setLoading }) {
@@ -26,8 +26,8 @@ export default function Login({ isRegistered, setLoading }) {
     e.preventDefault();
     setLoading(true);
     localStorage.setItem("loading", "true");
-    signInWithPopup(auth, provider)
-    // signInWithRedirect(auth, provider)
+    // signInWithPopup(auth, provider)
+    signInWithRedirect(auth, provider)
       .then((result) => {
         setLoading(false);
       })
