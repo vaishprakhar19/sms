@@ -20,7 +20,7 @@ import Todo from "./screens/Todo";
 import { auth, db } from "./firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import Students from "./screens/Students";
-
+import axios from "axios";
 function App() {
   const {
     loading,
@@ -42,12 +42,12 @@ function App() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showInstallButton, setShowInstallButton] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
-
+  axios.defaults.withCredentials= true;
   const [pdfUrl, setPdfUrl] = useState('');
 
   const fetchUserDetails = async (uid) => {
     try {
-      const response = await fetch(`/userdata/${uid}`);
+      const response = await fetch(`https://biasportalback.vercel.app/userdata/${uid}`);
       const data = await response.json();
       await setStream(data.stream);
       await setSemester(data.currentSemester);

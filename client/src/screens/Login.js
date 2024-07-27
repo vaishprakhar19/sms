@@ -26,8 +26,8 @@ export default function Login({ isRegistered, setLoading }) {
     e.preventDefault();
     setLoading(true);
     localStorage.setItem("loading", "true");
-    // signInWithPopup(auth, provider)
-    signInWithRedirect(auth, provider)
+    signInWithPopup(auth, provider)
+    // signInWithRedirect(auth, provider)
       .then((result) => {
         setLoading(false);
       })

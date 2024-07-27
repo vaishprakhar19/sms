@@ -52,7 +52,7 @@ const Notices = ({ onDeleteNotice }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/notices/${id}`);
+      await axios.delete(`https://biasportalback.vercel.app/api/notices/${id}`);
       onDeleteNotice(id);
     } catch (error) {
       console.error('Error deleting notice:', error);

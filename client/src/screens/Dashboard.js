@@ -30,7 +30,7 @@ function Dashboard() {
     const fetchNotices = async () => {
       try {
         // Make the API request with query parameters
-        const response = await axios.get(`/api/notices/${stream}/${semester}/${isAdmin}`);
+        const response = await axios.get(`https://biasportalback.vercel.app/api/notices/${stream}/${semester}/${isAdmin}`);
         setNotices(response.data);
       } catch (error) {
         console.error('Error fetching notices:', error);

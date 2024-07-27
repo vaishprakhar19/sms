@@ -9,7 +9,13 @@ const app = express();
 const server = http.createServer(app);
 // const server = require("./server.js");
 const port = process.env.PORT || 5000;
-app.use(cors());
+
+app.use(cors({
+  origin:["https://biasportal.vercel.app"],
+  methods:["POST","GET"],
+  credentials:true
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -572,11 +578,8 @@ app.delete("/api/events/:id", (req, res) => {
   });
 });
 
-
-
-
-
 app.get("/", (req, res) => {
+  //  res.render('index');
   res.send("Backend API is working");
 });
 

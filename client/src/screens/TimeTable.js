@@ -19,7 +19,7 @@ const TimeTable = () => {
       try {
         let response;
         if (isAdmin) {
-          response = await axios.get(`/timetable`, {
+          response = await axios.get(`https://biasportalback.vercel.app/timetable`, {
             params: {
               stream: timetableStream,
               year: timetableYear,
@@ -27,7 +27,7 @@ const TimeTable = () => {
             }
           });
         } else {
-          response = await axios.get(`/timetable`, {
+          response = await axios.get(`https://biasportalback.vercel.app/timetable`, {
             params: {
               uid: uid,
               isAdmin: false
