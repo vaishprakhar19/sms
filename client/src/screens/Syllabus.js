@@ -4,6 +4,7 @@ import SyllabusEmbed from "../components/Syllabusembed";
 import "./syllabus.css";
 import { Link } from "react-router-dom";
 import BackHandler from "../components/BackHandler";
+import Navbar from "../components/Navbar";
 
 const Syllabus = ({fileId}) => {
   BackHandler();
@@ -64,6 +65,7 @@ const Syllabus = ({fileId}) => {
         <SyllabusEmbed fileId={selectedfile} />
       )}
       </div>
+      <Navbar></Navbar>
     </div>
   );
 };

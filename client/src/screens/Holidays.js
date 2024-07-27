@@ -4,6 +4,7 @@ import "./Holidays.css";
 import { Link } from "react-router-dom";
 import { useAppState } from "../AppStateContext"; // Import the useAppState hook
 import BackHandler from "../components/BackHandler";
+import Navbar from "../components/Navbar";
 
 const Holidays = () => {
   BackHandler()
@@ -218,6 +219,7 @@ const Holidays = () => {
           </table>
         </div>
       </div>
+      <Navbar></Navbar>
     </div>
   );
 };

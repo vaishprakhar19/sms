@@ -4,6 +4,7 @@ import * as XLSX from "xlsx";
 import "./Students.css";
 import { Link } from "react-router-dom";
 import BackHandler from "../components/BackHandler";
+import Navbar from "../components/Navbar";
 
 const Students = () => {
   BackHandler();
@@ -170,6 +171,7 @@ const Students = () => {
           </table>
         </div>
       </div>
+      <Navbar></Navbar>
     </div >
   );
 };
