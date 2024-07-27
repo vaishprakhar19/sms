@@ -4,6 +4,7 @@ import { useAppState } from "../AppStateContext";
 import "./messmenu.css"
 import { Link } from "react-router-dom";
 import BackHandler from '../components/BackHandler';
+import Navbar from '../components/Navbar';
 const MessMenu = () => {
   BackHandler();
   const [menuData, setMenuData] = useState([]);
@@ -88,6 +89,7 @@ const MessMenu = () => {
           </table>
         </div>
       </div>
+      <Navbar></Navbar>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import "./MessTiming.css";
 import { useAppState } from "../AppStateContext";
 import { Link } from "react-router-dom";
 import BackHandler from "../components/BackHandler";
+import Navbar from "../components/Navbar";
 
 const MessTiming = () => {
   BackHandler();
@@ -132,6 +133,7 @@ const MessTiming = () => {
           </table>
         </div>
       </main>
+      <Navbar></Navbar>
     </div>
   );
 };

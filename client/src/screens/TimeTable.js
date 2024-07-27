@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAppState } from "../AppStateContext";
 import { Link } from "react-router-dom";
 import BackHandler from "../components/BackHandler";
+import Navbar from "../components/Navbar";
 const TimeTable = () => {
   BackHandler();
   const { user, isAdmin } = useAppState();
@@ -274,6 +275,7 @@ const TimeTable = () => {
           </table>
         </div>
       </div>
+      <Navbar></Navbar>
     </div>
   );
 };
