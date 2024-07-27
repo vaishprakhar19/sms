@@ -26,7 +26,7 @@ const Notice = ({ onAddNotice }) => {
       // Construct the URL based on whether stream and semester are selected
       const streamSegment = noticeStream ? `/${noticeStream}` : '';
       const semesterSegment = noticeSemester ? `/${noticeSemester}` : '';
-      const url = `/api/notices${streamSegment}${semesterSegment}`;
+      const url = `https://biasportalback.vercel.app/api/notices${streamSegment}${semesterSegment}`;
 
       await axios.post(url, { title, body, newId });
     //   onAddNotice({  

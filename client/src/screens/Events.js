@@ -21,9 +21,9 @@ const Events = () => {
     date: '',
     driveLink: ''
   });
-
+  axios.defaults.withCredentials= true;
   const fetchEvents = () => {
-    axios.get("/api/events")
+    axios.get("https://biasportalback.vercel.app/api/events")
       .then(response => {
         setEvents(response.data);
       })

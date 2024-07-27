@@ -13,7 +13,7 @@ const MessMenu = () => {
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
-        const response = await axios.get('/api/mess_menu'); // Adjust endpoint as per your backend
+        const response = await axios.get('https://biasportalback.vercel.app/api/mess_menu'); // Adjust endpoint as per your backend
         setMenuData(response.data);
       } catch (error) {
         console.error('Error fetching mess menu:', error);

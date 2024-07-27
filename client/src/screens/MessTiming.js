@@ -15,7 +15,7 @@ const MessTiming = () => {
 
   useEffect(() => {
     axios
-      .get("/api/mess/timing")
+      .get("https://biasportalback.vercel.app/api/mess/timing")
       .then((response) => {
         setMessTimings(response.data);
       })
