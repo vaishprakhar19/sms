@@ -11,9 +11,9 @@ const server = http.createServer(app);
 const port = process.env.PORT || 5000;
 
 app.use(cors({
-  origin:["https://biasportal.vercel.app"],
-  method:["POST","GET","DELETE"],
-  credentials:true
+  origin: ["https://biasportal.vercel.app"],
+  method: ["POST", "GET", "DELETE"],
+  credentials: true
 }));
 
 app.use(bodyParser.json());
@@ -35,7 +35,13 @@ db.connect((err) => {
   console.log("Connected to MySQL database");
 });
 // WebSocket connection
-const io = socketIo(server)
+const io = socketIo(server, {
+  cors: {
+    origin: 'https://biasportal.vercel.app', // Update with your frontend domain
+    methods: ['GET', 'POST', 'DELETE']
+  }
+})
+
 io.on('connection', (socket) => {
   console.log('Client connected');
 
