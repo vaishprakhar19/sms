@@ -23,7 +23,6 @@ import Students from "./screens/Students";
 import axios from "axios";
 function App() {
   const {
-    loading,
     setLoading,
     user,
     setUser,
@@ -43,7 +42,6 @@ function App() {
   const [showInstallButton, setShowInstallButton] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   axios.defaults.withCredentials= true;
-  const [pdfUrl, setPdfUrl] = useState('');
 
   const fetchUserDetails = async (uid) => {
     try {
@@ -124,7 +122,7 @@ function App() {
   let routes = null;
 
   if (statesSet) {
-    if (isInstalled) {
+    if (!isInstalled) {
       routes = (
         <>
           {user && isRegistered ? (

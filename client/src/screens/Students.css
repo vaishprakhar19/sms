@@ -25,7 +25,8 @@
     display: flex;
     align-items: baseline; 
     gap: 30px;
-    width:100%
+    width:100%;
+    justify-content: space-evenly;
   }
   
   @media (max-width: 600px) {
