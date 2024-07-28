@@ -9,7 +9,7 @@ const Notices = ({ onDeleteNotice }) => {
   const [shownNotifications, setShownNotifications] = useState([]);
 
   useEffect(() => {
-    const socket = io('https://biasportalback.vercel.app'); // Ensure this URL is correct
+    const socket = io('https://biasportalback.vercel.app:5000'); // Ensure this URL is correct
 
     socket.on('connect', () => {
       console.log('Connected to server');
