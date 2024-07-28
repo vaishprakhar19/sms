@@ -2,7 +2,7 @@
   "name": "sms",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://https://biasportalback.vercel.app/",
+  "proxy": "https://biasportalback.vercel.app/",
   "dependencies": {
     "@mantine/hooks": "^7.9.0",
     "@tabler/icons-react": "^3.3.0",
