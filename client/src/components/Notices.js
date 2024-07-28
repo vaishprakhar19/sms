@@ -9,7 +9,9 @@ const Notices = ({ onDeleteNotice }) => {
   const [shownNotifications, setShownNotifications] = useState([]);
 
   useEffect(() => {
-    const socket = io(); // Ensure this URL is correct
+    const socket = io('https://biasportalback.vercel.app', {
+      transports: ['websocket'], // Use websocket as the transport mechanism
+    });
 
     socket.on('connect', () => {
       console.log('Connected to server');
