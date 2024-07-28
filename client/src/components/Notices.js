@@ -10,7 +10,8 @@ const Notices = ({ onDeleteNotice }) => {
 
   useEffect(() => {
     const socket = io('https://biasportalback.vercel.app', {
-      transports: ['websocket'], // Use websocket as the transport mechanism
+      transports: ['websocket'],
+      withCredentials: true
     });
 
     socket.on('connect', () => {

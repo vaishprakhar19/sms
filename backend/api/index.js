@@ -35,12 +35,7 @@ db.connect((err) => {
   console.log("Connected to MySQL database");
 });
 // WebSocket connection
-const io = socketIo(server, {
-  cors: {
-    origin: 'https://biasportal.vercel.app', // Update with your frontend domain
-    methods: ['GET', 'POST', 'DELETE']
-  }
-})
+const io = socketIo(server);
 
 io.on('connection', (socket) => {
   console.log('Client connected');
