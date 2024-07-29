@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import "./Students.css";
@@ -30,24 +30,21 @@ const Students = () => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  },[filters.semester,filters.department,filters.gender]);
-
-  useEffect(() => {
-    fetchUsers();
-  }, [filters, fetchUsers]);
+  }, [filters]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
   };
 
-  const clearSelection = () => {
-    setFilters({
-      semester: "",
-      department: "",
-      gender: "",
-    });
-  };
+  // const clearSelection = () => {
+  //   setFilters({
+  //     semester: "",
+  //     department: "",
+  //     gender: "",
+  //   });
+  //   setUsers([]);
+  // };
 
   const exportToExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(users);
@@ -140,8 +137,8 @@ const Students = () => {
             </div>
           </div>
 
-          <button id="button" onClick={clearSelection}>
-            Clear Selection
+          <button id="button" onClick={fetchUsers}>
+            Apply Filters
           </button>
         </div>
         <div className="table-container">
@@ -172,7 +169,7 @@ const Students = () => {
         </div>
       </div>
       <Navbar></Navbar>
-    </div >
+    </div>
   );
 };
 
