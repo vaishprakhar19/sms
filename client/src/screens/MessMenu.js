@@ -31,7 +31,7 @@ const MessMenu = () => {
   const handleSave = async () => {
     try {
       // Send edited data to backend to store in database
-      await axios.post('/api/update_mess_menu', menuData); // Adjust endpoint as per your backend
+      await axios.post('https://biasportalback.vercel.app/api/update_mess_menu', menuData); // Adjust endpoint as per your backend
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating mess menu:', error);

@@ -52,7 +52,7 @@ const Events = () => {
       ...newEvent,
       thumbnailImage: transformDriveUrl(newEvent.thumbnailImage)
     };
-    axios.post("/api/events", transformedEvent)
+    axios.post("https://biasportalback.vercel.app/api/events", transformedEvent)
       .then(response => {
         setEvents([...events, response.data]);
         setNewEvent({
@@ -70,7 +70,7 @@ const Events = () => {
   };
 
   const handleDeleteEvent = (eventId) => {
-    axios.delete(`/api/events/${eventId}`)
+    axios.delete(`https://biasportalback.vercel.app/api/events/${eventId}`)
       .then(() => {
         setEvents(events.filter(event => event.id !== eventId));
         setIsDeleteMode(false);

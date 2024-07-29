@@ -40,7 +40,7 @@ const MessTiming = () => {
     }));
 
     axios
-      .post("/api/mess/timing/update", { updatedTimings })
+      .post("https://biasportalback.vercel.app/api/mess/timing/update", { updatedTimings })
       .then((response) => {
         setMessTimings(response.data);
         setEditMode(false);
