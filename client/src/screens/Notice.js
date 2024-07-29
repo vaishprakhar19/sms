@@ -55,7 +55,6 @@ const Notice = () => {
   }, [stream, semester, isAdmin]);
 
   const handleAddNotice = async (e) => {
-    e.preventDefault();
 
     try {
       const maxId = notices.reduce((max, notice) => (notice.id > max ? notice.id : max), 0);
