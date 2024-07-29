@@ -71,10 +71,10 @@ const Notice = () => {
       setNoticeStream(null);
       setNoticeSemester(null);
       setIsNoticeGeneral(false);
-      window.location.reload();
     } catch (error) {
       console.error('Error adding notice:', error);
     }
+    window.location.reload();
   };
 
   const handleDeleteNotice = async (id) => {
