@@ -3,6 +3,7 @@ import PYQEmbed from "../components/PYQembed";
 import "./PYQ.css";
 import { Link } from "react-router-dom"
 import BackHandler from "../components/BackHandler";
+import Navbar from "../components/Navbar";
 
 
 const PYQ = () => {
@@ -65,6 +66,7 @@ const PYQ = () => {
         <PYQEmbed folderId={selectedFolder} />
       )}
       </div>
+      <Navbar></Navbar>
     </div>
   );
 };

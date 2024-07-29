@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase'
 import BackHandler from "../components/BackHandler";
-
+import axios from "axios";
 const Register = ({ user, setIsRegistered }) => {
   BackHandler();
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Register = ({ user, setIsRegistered }) => {
     gender: "",
     department: "",
   });
-
+axios.defaults.withCredentials= true;
   const setReg = async () => {
     if (user) {
       await setDoc(doc(db, "user", user.uid), {
@@ -47,7 +47,7 @@ const Register = ({ user, setIsRegistered }) => {
     };
     // Send form data including UID to your SQL backend
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("https://biasportalback.vercel.app/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

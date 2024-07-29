@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAppState } from "../AppStateContext";
 import { Link } from "react-router-dom";
 import BackHandler from "../components/BackHandler";
+import Navbar from "../components/Navbar";
 const TimeTable = () => {
   BackHandler();
   const { user, isAdmin } = useAppState();
@@ -19,7 +20,7 @@ const TimeTable = () => {
       try {
         let response;
         if (isAdmin) {
-          response = await axios.get(`/timetable`, {
+          response = await axios.get(`https://biasportalback.vercel.app/timetable`, {
             params: {
               stream: timetableStream,
               year: timetableYear,
@@ -27,7 +28,7 @@ const TimeTable = () => {
             }
           });
         } else {
-          response = await axios.get(`/timetable`, {
+          response = await axios.get(`https://biasportalback.vercel.app/timetable`, {
             params: {
               uid: uid,
               isAdmin: false
@@ -114,7 +115,7 @@ const TimeTable = () => {
 
   const handleSaveChanges = () => {
     axios
-      .post("/update-timetable", {
+      .post("https://biasportalback.vercel.app/update-timetable", {
         timetable: editableTimetable,
         stream: timetableStream,
         year: timetableYear,
@@ -274,6 +275,7 @@ const TimeTable = () => {
           </table>
         </div>
       </div>
+      <Navbar></Navbar>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import "./MessTiming.css";
 import { useAppState } from "../AppStateContext";
 import { Link } from "react-router-dom";
 import BackHandler from "../components/BackHandler";
+import Navbar from "../components/Navbar";
 
 const MessTiming = () => {
   BackHandler();
@@ -15,7 +16,7 @@ const MessTiming = () => {
 
   useEffect(() => {
     axios
-      .get("/api/mess/timing")
+      .get("https://biasportalback.vercel.app/api/mess/timing")
       .then((response) => {
         setMessTimings(response.data);
       })
@@ -39,7 +40,7 @@ const MessTiming = () => {
     }));
 
     axios
-      .post("/api/mess/timing/update", { updatedTimings })
+      .post("https://biasportalback.vercel.app/api/mess/timing/update", { updatedTimings })
       .then((response) => {
         setMessTimings(response.data);
         setEditMode(false);
@@ -132,6 +133,7 @@ const MessTiming = () => {
           </table>
         </div>
       </main>
+      <Navbar></Navbar>
     </div>
   );
 };
