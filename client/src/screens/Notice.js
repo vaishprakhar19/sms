@@ -14,15 +14,16 @@ const Notice = () => {
   const [isNoticeGeneral, setIsNoticeGeneral] = useState(false);
   const [showAddNoticeForm, setShowAddNoticeForm] = useState(false);
 
+  const fetchNotices = async () => {
+    try {
+      const response = await axios.get(`https://biasportalback.vercel.app/api/notices/${stream}/${semester}/${isAdmin}`);
+      setNotices(response.data);
+    } catch (error) {
+      console.error('Error fetching notices:', error);
+    }
+  };
+  
   useEffect(() => {
-    const fetchNotices = async () => {
-      try {
-        const response = await axios.get(`https://biasportalback.vercel.app/api/notices/${stream}/${semester}/${isAdmin}`);
-        setNotices(response.data);
-      } catch (error) {
-        console.error('Error fetching notices:', error);
-      }
-    };
 
     if ((semester && stream) || isAdmin) {
       fetchNotices();
@@ -74,7 +75,7 @@ const Notice = () => {
     } catch (error) {
       console.error('Error adding notice:', error);
     }
-    window.location.reload();
+    fetchNotices();
   };
 
   const handleDeleteNotice = async (id) => {
