@@ -55,21 +55,18 @@ const Notice = () => {
   }, [stream, semester, isAdmin]);
 
   const handleAddNotice = async (e) => {
-    e.preventDefault(); // Prevent form submission
-  
+
     try {
+      const maxId = notices.reduce((max, notice) => (notice.id > max ? notice.id : max), 0);
+      const newId = maxId + 1;
+
       const streamSegment = noticeStream ? `/${noticeStream}` : '';
       const semesterSegment = noticeSemester ? `/${noticeSemester}` : '';
       const url = `https://biasportalback.vercel.app/api/notices${streamSegment}${semesterSegment}`;
-  
-      // Send the new notice to the server
-      const response = await axios.post(url, { title, body, stream: noticeStream, semester: noticeSemester });
-      const newNotice = response.data; // Assuming the server returns the newly created notice with a proper id
-  
-      // Update the notices state with the new notice
-      setNotices([...notices, newNotice]);
-  
-      // Reset the form fields
+
+      const response = await axios.post(url, { id: newId, title, body, stream: noticeStream, semester: noticeSemester });
+      setNotices([...notices, { id: newId, title, body, stream: noticeStream, semester: noticeSemester }]);
+
       setTitle('');
       setBody('');
       setNoticeStream(null);
@@ -79,7 +76,6 @@ const Notice = () => {
       console.error('Error adding notice:', error);
     }
   };
-  
 
   const handleDeleteNotice = async (id) => {
     try {
