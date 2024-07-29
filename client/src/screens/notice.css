@@ -124,6 +124,10 @@
   }
 }
 
+.notice .adminbtn{
+  margin: 10px 0;
+}
+
 .notices {
   display: flex;
   flex-direction: column;
