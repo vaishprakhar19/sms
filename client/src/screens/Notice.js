@@ -22,7 +22,7 @@ const Notice = () => {
       console.error('Error fetching notices:', error);
     }
   };
-  
+
   useEffect(() => {
 
     if ((semester && stream) || isAdmin) {
@@ -66,7 +66,7 @@ const Notice = () => {
       const url = `https://biasportalback.vercel.app/api/notices${streamSegment}${semesterSegment}`;
 
       const response = await axios.post(url, { id: newId, title, body, stream: noticeStream, semester: noticeSemester });
-      setNotices([...notices, { id: newId, title, body, stream: noticeStream, semester: noticeSemester }]);
+      setNotices([{ id: newId, title, body, stream: noticeStream, semester: noticeSemester }, ...notices]);
       setTitle('');
       setBody('');
       setNoticeStream(null);
