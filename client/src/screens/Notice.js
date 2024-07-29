@@ -66,12 +66,12 @@ const Notice = () => {
 
       const response = await axios.post(url, { id: newId, title, body, stream: noticeStream, semester: noticeSemester });
       setNotices([...notices, { id: newId, title, body, stream: noticeStream, semester: noticeSemester }]);
-
       setTitle('');
       setBody('');
       setNoticeStream(null);
       setNoticeSemester(null);
       setIsNoticeGeneral(false);
+      window.location.reload();
     } catch (error) {
       console.error('Error adding notice:', error);
     }
