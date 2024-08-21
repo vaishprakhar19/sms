@@ -37,14 +37,13 @@ const Students = () => {
     setFilters({ ...filters, [name]: value });
   };
 
-  // const clearSelection = () => {
-  //   setFilters({
-  //     semester: "",
-  //     department: "",
-  //     gender: "",
-  //   });
-  //   setUsers([]);
-  // };
+  const clearSelections = () => {
+    setFilters({
+      semester: "",
+      department: "",
+      gender: "",
+    });
+  };
 
   const exportToExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(users);
@@ -136,6 +135,10 @@ const Students = () => {
               </div>
             </div>
           </div>
+
+          <button id="clear-button"  className='adminbtn' onClick={clearSelections}>
+            Clear Selection
+          </button>
 
           <button id="button" onClick={fetchUsers}>
             Apply Filters
