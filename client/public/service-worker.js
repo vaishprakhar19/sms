@@ -38,23 +38,3 @@ self.addEventListener("activate", (event) => {
     )
   );
 });
-
-// Handle push notifications
-self.addEventListener("push", (event) => {
-  const title = "New Notification!";
-  const options = {
-    body: event.data ? event.data.text() : "No payload",
-    icon: "/assets/biasLogo192.png",
-    badge: "/assets/biasLogo192.png",
-  };
-
-  event.waitUntil(self.registration.showNotification(title, options));
-});
-
-// Handle notification click
-self.addEventListener("notificationclick", (event) => {
-  event.notification.close();
-  event.waitUntil(
-    clients.openWindow("/")
-  );
-});
