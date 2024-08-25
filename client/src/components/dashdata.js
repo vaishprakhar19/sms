@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 export default [
     {
         id: 1,
@@ -40,6 +41,13 @@ export default [
         href: "/students",
         img: "assets/studentData.svg",
         title: "Student Data",
+        isAdminCard: true
+    },
+    {
+        id: 8,
+        href: "/result",
+        img: "assets/score.svg",
+        title: "Result",
         isAdminCard: true
     }
 ]
