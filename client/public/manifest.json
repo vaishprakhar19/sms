@@ -8,9 +8,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "./assets/biasLogo.svg",
-      "type": "image/svg+xml",
-      "sizes": "any"
+      "src": "assets/biasLogo.svg",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/biasLogo.svg",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": ".",
