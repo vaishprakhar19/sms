@@ -15,13 +15,15 @@ const http = require('http');
 // const updateDataRoutes = require("./src/apis/update");
 
 const app = express();
-// app.use("/api", server);
-
-// const server = require("./server.js");
-// app.use("/api", server);
+const server = http.createServer(app);
 const port = process.env.PORT || 5000;
 
-// Parse incoming request bodies in a middleware before your handlers
+app.use(cors({
+    origin: ["https://biasportal.vercel.app"],
+    method: ["POST", "GET", "DELETE"],
+    credentials: true
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -43,13 +45,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Test
 
 app.get("/", (req, res) => {
+    //  res.render('index');
     res.send("Backend API is working");
-  });
-app.listen(port, (err) => {
+});
+
+server.listen(port, (err) => {
     if (err) {
-      console.error("Error starting server:", err);
+        console.error("Error starting server:", err);
     } else {
-      console.log("App listening on port:", port);
+        console.log("App listening on port:", port);
     }
 });
 
