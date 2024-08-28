@@ -3,16 +3,14 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const http = require('http');
 
-// const { initiateSocket } = require("./src/core/socket");
-
-// const coreRoutes = require("./src/apis/core");
-// const marksRoutes = require("./src/apis/marks");
-// const authRoutes =  require("./src/apis/auth");
-// const messRoutes = require("./src/apis/mess");
-// const noticeRoutes = require("./src/apis/notice");
-// const eventRoutes = require("./src/apis/events");
-// const holidayRoutes = require("./src/apis/holiday")
-// const updateDataRoutes = require("./src/apis/update");
+const coreRoutes = require("./src/apis/core");
+const marksRoutes = require("./src/apis/marks");
+const authRoutes =  require("./src/apis/auth");
+const messRoutes = require("./src/apis/mess");
+const noticeRoutes = require("./src/apis/notice");
+const eventRoutes = require("./src/apis/events");
+const holidayRoutes = require("./src/apis/holiday")
+const updateDataRoutes = require("./src/apis/update");
 
 const app = express();
 const server = http.createServer(app);
@@ -29,18 +27,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Adding Routes 
 
-// app.use("/", coreRoutes);
-// app.use("/marks", marksRoutes);
-// app.use("/auth", authRoutes);
-// app.use("/mess", messRoutes);
-// app.use("/notices", noticeRoutes);
-// app.use("/events", eventRoutes);
-// app.use("/holidays", holidayRoutes);
-// app.use("/update", updateDataRoutes);
-
-// Initialize WebSocket
-
-// initiateSocket(server);
+app.use("/", coreRoutes);
+app.use("/marks", marksRoutes);
+app.use("/auth", authRoutes);
+app.use("/mess", messRoutes);
+app.use("/notices", noticeRoutes);
+app.use("/events", eventRoutes);
+app.use("/holidays", holidayRoutes);
+app.use("/update", updateDataRoutes);
 
 // Test
 
@@ -56,5 +50,3 @@ server.listen(port, (err) => {
         console.log("App listening on port:", port);
     }
 });
-
-// module.exports = server;
