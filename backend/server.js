@@ -1,6 +1,18 @@
 const express = require("express");
-const mysql = require("mysql");
+const cors = require('cors');
+const bodyParser = require("body-parser");
+const http = require('http');
 
+// const { initiateSocket } = require("./src/core/socket");
+
+// const coreRoutes = require("./src/apis/core");
+// const marksRoutes = require("./src/apis/marks");
+// const authRoutes =  require("./src/apis/auth");
+// const messRoutes = require("./src/apis/mess");
+// const noticeRoutes = require("./src/apis/notice");
+// const eventRoutes = require("./src/apis/events");
+// const holidayRoutes = require("./src/apis/holiday")
+// const updateDataRoutes = require("./src/apis/update");
 
 const app = express();
 // app.use("/api", server);
@@ -13,32 +25,23 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// MySQL database connection configuration
-const db = mysql.createConnection({
-  host: 'mysql-3a77e907-smsbias.d.aivencloud.com',
-  port: '18571',
-  user: 'avnadmin',
-  password: 'AVNS_9Xh3a0omKoSO_qlzFC6',
-  database: 'students'
-});
+// Adding Routes 
 
-// Connect to MySQL database
+// app.use("/", coreRoutes);
+// app.use("/marks", marksRoutes);
+// app.use("/auth", authRoutes);
+// app.use("/mess", messRoutes);
+// app.use("/notices", noticeRoutes);
+// app.use("/events", eventRoutes);
+// app.use("/holidays", holidayRoutes);
+// app.use("/update", updateDataRoutes);
 
+// Initialize WebSocket
 
-// API endpoint to handle user registration
+// initiateSocket(server);
 
+// Test
 
-// Close the database connection when the server is shut down
-process.on('SIGINT', () => {
-  db.end((err) => {
-    if (err) {
-      console.error("Error closing database connection:", err);
-    } else {
-      console.log("Database connection closed");
-    }
-    process.exit();
-  });
-});
 app.get("/", (req, res) => {
     res.send("Backend API is working");
   });
@@ -48,5 +51,6 @@ app.listen(port, (err) => {
     } else {
       console.log("App listening on port:", port);
     }
-  });
-  
+});
+
+// module.exports = server;
