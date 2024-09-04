@@ -63,7 +63,7 @@ const Notice = () => {
 
       const streamSegment = noticeStream ? `/${noticeStream}` : '';
       const semesterSegment = noticeSemester ? `/${noticeSemester}` : '';
-      const url = `https://biasportalback.vercel.app/api/notices/${streamSegment}${semesterSegment}`;
+      const url = `https://biasportalback.vercel.app/api/notices${streamSegment}${semesterSegment}`;
 
       const response = await axios.post(url, { id: newId, title, body, stream: noticeStream, semester: noticeSemester });
       setNotices([{ id: newId, title, body, stream: noticeStream, semester: noticeSemester }, ...notices]);

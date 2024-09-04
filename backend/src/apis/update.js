@@ -84,7 +84,7 @@ router.post("/timetable", (req, res) => {
       });
   });
   
-  router.post("/mess/timimg", (req, res) => {
+  router.post("/mess/timing", (req, res) => {
     const updatedTimings = req.body.updatedTimings;
   
     // Here you should add code to update your database with the new timings
