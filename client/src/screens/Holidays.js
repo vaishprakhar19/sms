@@ -26,7 +26,7 @@ const Holidays = () => {
 
   const fetchHolidays = async () => {
     try {
-      const response = await axios.get("https://biasportalback.vercel.app/api/holidays");
+      const response = await axios.get("https://biasportalback.vercel.app/holidays");
       setHolidays(response.data);
     } catch (error) {
       console.error("Error fetching holiday data:", error);
@@ -39,7 +39,7 @@ const Holidays = () => {
 
   const handleSave = async () => {
     try {
-      await axios.post("https://biasportalback.vercel.app/api/update_holidays", holidays); // Adjust endpoint as per your backend
+      await axios.post("https://biasportalback.vercel.app/update/holidays/", holidays); // Adjust endpoint as per your backend
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating holidays:", error);
@@ -48,7 +48,7 @@ const Holidays = () => {
 
   const handleAddHoliday = async () => {
     try {
-      const response = await axios.post("https://biasportalback.vercel.app/api/add_holiday", newHoliday); // Adjust endpoint as per your backend
+      const response = await axios.post("https://biasportalback.vercel.app/holidays/add/", newHoliday); // Adjust endpoint as per your backend
       setHolidays([...holidays, { ...newHoliday, id: response.data.holidayId }]);
       setNewHoliday({ festival: '', no_of_holidays: '', date: '', day: '' });
       setIsAdding(false); // Hide form after adding holiday
@@ -58,7 +58,7 @@ const Holidays = () => {
   };
 
   const handleDeleteHoliday = (holidayId) => {
-    axios.delete(`https://biasportalback.vercel.app/api/holidays/${holidayId}`)
+    axios.delete(`https://biasportalback.vercel.app/holidays/${holidayId}`)
       .then(() => {
         setHolidays(holidays.filter(holiday => holiday.id !== holidayId));
         setIsDeleteMode(false);

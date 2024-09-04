@@ -137,7 +137,7 @@ function App() {
   let routes = null;
 
   if (statesSet) {
-    if (isInstalled) {
+    if (!isInstalled) {
       routes = (
         <>
           {user && isRegistered ? (

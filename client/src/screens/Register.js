@@ -47,7 +47,7 @@ axios.defaults.withCredentials= true;
     };
     // Send form data including UID to your SQL backend
     try {
-      const response = await fetch("https://biasportalback.vercel.app/api/register", {
+      const response = await fetch("https://biasportalback.vercel.app/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
