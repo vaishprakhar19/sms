@@ -1,6 +1,5 @@
 const express = require("express");
 const db = require("../core/db");
-const { getIo } = require("../core/socket");
 
 const router = express.Router();
 
@@ -62,8 +61,6 @@ router.get("/:stream/:semester/:isAdmin", (req, res) => {
         const newNotice = { id: newId, title, body, stream: stream || null, semester: semester || null };
   
         // Broadcast the new notice to all connected clients
-        const io = getIo();
-        io.emit('newNotice', newNotice);
         res.json({ message: "Notice added successfully" });
       }
     );
@@ -73,8 +70,6 @@ router.get("/:stream/:semester/:isAdmin", (req, res) => {
   router.delete("/:id", (req, res) => {
     const noticeId = req.params.id;
     console.log("Deleting notice with ID:", noticeId);
-    const io = getIo();
-    io.emit('deleteNotice', noticeId);
     db.query("DELETE FROM notices WHERE id = ?", [noticeId], (err, result) => {
       if (err) {
         console.error("Error deleting notice:", err);

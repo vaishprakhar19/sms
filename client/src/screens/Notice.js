@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAppState } from '../AppStateContext';
 import './notice.css';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 const Notice = () => {
   const { isAdmin, stream, semester } = useAppState();
@@ -16,7 +16,7 @@ const Notice = () => {
 
   const fetchNotices = async () => {
     try {
-      const response = await axios.get(`https://biasportalback.vercel.app/api/notices/${stream}/${semester}/${isAdmin}`);
+      const response = await axios.get(`https://biasportalback.vercel.app/notices/${stream}/${semester}/${isAdmin}`);
       setNotices(response.data);
     } catch (error) {
       console.error('Error fetching notices:', error);
@@ -29,30 +29,30 @@ const Notice = () => {
       fetchNotices();
     }
 
-    const socket = io('https://biasportalback.vercel.app', {
-      transports: ['websocket'],
-      withCredentials: true
-    });
+    // const socket = io('https://biasportalback.vercel.app', {
+    //   transports: ['websocket'],
+    //   withCredentials: true
+    // });
 
-    socket.on('connect', () => {
-      console.log('Connected to server');
-    });
+    // socket.on('connect', () => {
+    //   console.log('Connected to server');
+    // });
 
-    socket.on('newNotice', (newNotice) => {
-      setNotices((prevNotices) => [newNotice, ...prevNotices]);
-    });
+    // socket.on('newNotice', (newNotice) => {
+    //   setNotices((prevNotices) => [newNotice, ...prevNotices]);
+    // });
 
-    socket.on('deleteNotice', (noticeId) => {
-      setNotices((prevNotices) => prevNotices.filter((notice) => notice.id !== noticeId));
-    });
+    // socket.on('deleteNotice', (noticeId) => {
+    //   setNotices((prevNotices) => prevNotices.filter((notice) => notice.id !== noticeId));
+    // });
 
-    socket.on('connect_error', (error) => {
-      console.error('Connection error:', error);
-    });
+    // socket.on('connect_error', (error) => {
+    //   console.error('Connection error:', error);
+    // });
 
-    return () => {
-      socket.disconnect();
-    };
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, [stream, semester, isAdmin]);
 
   const handleAddNotice = async (e) => {
