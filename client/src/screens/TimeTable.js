@@ -115,7 +115,7 @@ const TimeTable = () => {
 
   const handleSaveChanges = () => {
     axios
-      .post("https://biasportalback.vercel.app/update-timetable", {
+      .post("https://biasportalback.vercel.app/update/timetable", {
         timetable: editableTimetable,
         stream: timetableStream,
         year: timetableYear,

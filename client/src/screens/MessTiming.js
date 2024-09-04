@@ -16,7 +16,7 @@ const MessTiming = () => {
 
   useEffect(() => {
     axios
-      .get("https://biasportalback.vercel.app/api/mess/timing")
+      .get("https://biasportalback.vercel.app/mess/timing/")
       .then((response) => {
         setMessTimings(response.data);
       })
@@ -40,7 +40,7 @@ const MessTiming = () => {
     }));
 
     axios
-      .post("https://biasportalback.vercel.app/api/mess/timing/update", { updatedTimings })
+      .post("https://biasportalback.vercel.app/update/mess/timing/", { updatedTimings })
       .then((response) => {
         setMessTimings(response.data);
         setEditMode(false);

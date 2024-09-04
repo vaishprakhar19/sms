@@ -14,7 +14,7 @@ const MessMenu = () => {
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
-        const response = await axios.get('https://biasportalback.vercel.app/api/mess_menu'); // Adjust endpoint as per your backend
+        const response = await axios.get('https://biasportalback.vercel.app/mess/menu/'); // Adjust endpoint as per your backend
         setMenuData(response.data);
       } catch (error) {
         console.error('Error fetching mess menu:', error);
@@ -31,7 +31,7 @@ const MessMenu = () => {
   const handleSave = async () => {
     try {
       // Send edited data to backend to store in database
-      await axios.post('https://biasportalback.vercel.app/api/update_mess_menu', menuData); // Adjust endpoint as per your backend
+      await axios.post('https://biasportalback.vercel.app/update/mess/menu/', menuData); // Adjust endpoint as per your backend
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating mess menu:', error);
