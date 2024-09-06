@@ -8,26 +8,26 @@ const Showresult = () => {
       const [studentData, setStudentData] = useState(null);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
-      const totalMaxMarks = studentData.marks.length * 15;
-
+      
       useEffect(() => {
-        const fetchResult = async () => {
-          try {
-            const response = await axios.get(`https://biasportalback.vercel.app/result/getResult/${resultId}`);
-            setStudentData(response.data);
-            console.log(response.data);
-            setLoading(false);
-          } catch (err) {
-            setError("Failed to fetch data");
-            setLoading(false);
-          }
-        };
-    
-        fetchResult();
-      }, [resultId]);
-    
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>{error}</p>;
+          const fetchResult = async () => {
+              try {
+                  const response = await axios.get(`https://biasportalback.vercel.app/result/getResult/${resultId}`);
+                  setStudentData(response.data);
+                  console.log(response.data);
+                  setLoading(false);
+                } catch (err) {
+                    setError("Failed to fetch data");
+                    setLoading(false);
+                }
+            };
+            
+            fetchResult();
+        }, [resultId]);
+        
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>{error}</p>;
+        const totalMaxMarks = studentData.marks.length * 15;
     
       return (
         <>
