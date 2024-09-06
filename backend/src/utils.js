@@ -93,4 +93,23 @@ function getUserDetails(uid, callback) {
     });
   }
 
-  module.exports = { updateMenuDataInDatabase, getUserDetails };
+  function getTotalMarks(marks){
+    total = 0
+    for(i = 0;i<marks.length;i++){
+      total+=marks[i].marks
+    }
+    return total
+  }
+
+  function format(str,...arr){
+
+      str = str.split("{}")
+      arr = [...arr,""]
+      var newStr = ""
+      for(i = 0; i<str.length; i++){
+          newStr += str[i]+arr[i]
+      }
+      return newStr
+  }
+
+  module.exports = { updateMenuDataInDatabase, getUserDetails, getTotalMarks, format, calculateSemester };
