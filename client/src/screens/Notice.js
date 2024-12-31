@@ -81,7 +81,7 @@ const Notice = () => {
       console.error('Error adding notice:', error);
     }
     fetchNotices();
-    showAddNoticeForm(false);
+    setShowAddNoticeForm(false);
   };
 
   const handleDeleteNotice = async (id) => {
