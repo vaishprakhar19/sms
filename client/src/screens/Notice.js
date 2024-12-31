@@ -68,7 +68,7 @@ const Notice = () => {
 
       const streamSegment = noticeStream ? `/${noticeStream}` : '';
       const semesterSegment = noticeSemester ? `/${noticeSemester}` : '';
-      const url = `https://biasportalback.vercel.app/api/notices${streamSegment}${semesterSegment}`;
+      const url = `https://biasportalback.vercel.app/notices${streamSegment}${semesterSegment}`;
 
       const response = await axios.post(url, { id: newId, title, body, stream: noticeStream, semester: noticeSemester });
       setNotices([{ id: newId, title, body, stream: noticeStream, semester: noticeSemester }, ...notices]);
@@ -86,7 +86,7 @@ const Notice = () => {
 
   const handleDeleteNotice = async (id) => {
     try {
-      await axios.delete(`https://biasportalback.vercel.app/api/notices/${id}`);
+      await axios.delete(`https://biasportalback.vercel.app/notices/${id}`);
       setNotices((prevNotices) => prevNotices.filter((notice) => notice.id !== id));
     } catch (error) {
       console.error('Error deleting notice:', error);
