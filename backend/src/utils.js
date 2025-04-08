@@ -54,8 +54,6 @@ function updateMenuDataInDatabase(updatedMenuData) {
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1; // getMonth() returns month index from 0-11
     
-    console.log(`Calculating academic year for batch: ${batchYear}, current year: ${currentYear}, current month: ${currentMonth}`);
-    
     let academicYear;
   
     // Calculate the academic year
@@ -64,8 +62,6 @@ function updateMenuDataInDatabase(updatedMenuData) {
     } else { // July to December
       academicYear = currentYear - batchYear + 1;
     }
-    
-    console.log(`Initial academic year calculation: ${academicYear}`);
   
     // Ensure academic year is between 1 and 4
     if (academicYear < 1) {
@@ -73,37 +69,27 @@ function updateMenuDataInDatabase(updatedMenuData) {
     } else if (academicYear > 4) {
       academicYear = 4;
     }
-    
-    console.log(`Final academic year after bounds check: ${academicYear}`);
   
     return academicYear;
   }
 
   //THIS IS A GENERIC FUNCTION TO GET SEMESTER AND STREAM FROM THE DATABASE
 function getUserDetails(uid, callback) {
-    console.log(`Getting user details for UID: ${uid}`);
     const userQuery = "SELECT batch, department FROM users WHERE uid = ?";
     
     db.query(userQuery, [uid], (error, userResults) => {
       if (error) {
-        console.error("Error retrieving user batch:", error);
         callback({ status: 500, error: "Internal server error" });
       } else if (userResults.length === 0) {
-        console.error(`User not found with UID: ${uid}`);
         callback({ status: 404, error: "User not found" });
       } else {
         const batchYear = userResults[0].batch;
         const stream = userResults[0].department;
-        console.log(`Found user with batch: ${batchYear}, department: ${stream}`);
-        
         const currentYear = getCurrentAcademicYear(batchYear);
         const currentSemester = calculateSemester(batchYear);
         
         // Ensure currentYear is a number between 1-4 for timetable table naming
-        // This is critical for the timetable query to work correctly
         const yearForTimetable = Math.min(Math.max(parseInt(currentYear), 1), 4);
-        
-        console.log(`Calculated academic year: ${currentYear}, semester: ${currentSemester}, year for timetable: ${yearForTimetable}`);
         
         callback(null, { 
           batchYear, 
