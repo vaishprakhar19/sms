@@ -5,7 +5,7 @@ const db = mysql.createConnection({
     port: '15190',
     user: 'avnadmin',
     password: 'AVNS_zNcBYCpZkhXT2mtKeCG',
-    database: 'students'
+    database: 'sms_db'
 });
 
 db.connect((err) => {
