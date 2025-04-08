@@ -1,10 +1,10 @@
 const mysql = require("mysql");
 
 const db = mysql.createConnection({
-    host: 'mysql-3a77e907-smsbias.d.aivencloud.com',
-    port: '18571',
+    host: 'mysql-2aca9b8f-bhatiag417-663d.k.aivencloud.com',
+    port: '15190',
     user: 'avnadmin',
-    password: 'AVNS_9Xh3a0omKoSO_qlzFC6',
+    password: 'AVNS_zNcBYCpZkhXT2mtKeCG',
     database: 'students'
 });
 
