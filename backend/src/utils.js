@@ -77,29 +77,36 @@ function updateMenuDataInDatabase(updatedMenuData) {
 function getUserDetails(uid, callback) {
     const userQuery = "SELECT batch, department FROM users WHERE uid = ?";
     
+    // Execute the SQL query with a timeout
+    const queryTimeout = setTimeout(() => {
+        callback({ status: 504, error: "Database operation timed out" });
+    }, 30000); // 30 second timeout
+    
     db.query(userQuery, [uid], (error, userResults) => {
-      if (error) {
-        callback({ status: 500, error: "Internal server error" });
-      } else if (userResults.length === 0) {
-        callback({ status: 404, error: "User not found" });
-      } else {
-        const batchYear = userResults[0].batch;
-        const stream = userResults[0].department;
-        const currentYear = getCurrentAcademicYear(batchYear);
-        const currentSemester = calculateSemester(batchYear);
+        clearTimeout(queryTimeout);
         
-        // Ensure currentYear is a number between 1-4 for timetable table naming
-        const yearForTimetable = Math.min(Math.max(parseInt(currentYear), 1), 4);
-        
-        callback(null, { 
-          batchYear, 
-          stream, 
-          currentSemester, 
-          currentYear: yearForTimetable 
-        });
-      }
+        if (error) {
+            callback({ status: 500, error: "Internal server error" });
+        } else if (userResults.length === 0) {
+            callback({ status: 404, error: "User not found" });
+        } else {
+            const batchYear = userResults[0].batch;
+            const stream = userResults[0].department;
+            const currentYear = getCurrentAcademicYear(batchYear);
+            const currentSemester = calculateSemester(batchYear);
+            
+            // Ensure currentYear is a number between 1-4 for timetable table naming
+            const yearForTimetable = Math.min(Math.max(parseInt(currentYear), 1), 4);
+            
+            callback(null, { 
+                batchYear, 
+                stream, 
+                currentSemester, 
+                currentYear: yearForTimetable 
+            });
+        }
     });
-  }
+}
 
   function getTotalMarks(marks){
     total = 0

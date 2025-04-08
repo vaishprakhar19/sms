@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 
-// Create a connection pool instead of a single connection
+// Create a connection pool with more reliable settings
 const pool = mysql.createPool({
     host: 'mysql-2aca9b8f-bhatiag417-663d.k.aivencloud.com',
     port: '15190',
@@ -8,9 +8,11 @@ const pool = mysql.createPool({
     password: 'AVNS_zNcBYCpZkhXT2mtKeCG',
     database: 'sms_db',
     connectionLimit: 10,
-    connectTimeout: 10000,
-    acquireTimeout: 10000,
-    timeout: 10000
+    connectTimeout: 60000,
+    acquireTimeout: 60000,
+    timeout: 60000,
+    waitForConnections: true,
+    queueLimit: 0
 });
 
 // Test the connection
