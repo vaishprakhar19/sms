@@ -44,6 +44,7 @@ router.get("/timetable", (req, res) => {
   if (isAdmin === "true") {
     // Construct the timetable table name based on the user's stream and semester
     const timetableTable = `timetable${stream}${year}`;
+    console.log(`Admin requesting timetable for table: ${timetableTable}`);
 
     // Query to retrieve timetable based on the dynamically determined table name
     const timetableQuery = `SELECT DayOfWeek, StartTime, EndTime, SubjectName FROM ${timetableTable}`;
@@ -53,28 +54,33 @@ router.get("/timetable", (req, res) => {
         console.error("Error retrieving timetable:", error);
         return res.status(500).json({ error: "Internal server error" });
       }
+      console.log(`Retrieved ${results.length} timetable entries for admin`);
       res.json(results);
     });
   } else {
     getUserDetails(uid, (error, userDetails) => {
       if (error) {
+        console.error("Error retrieving user details:", error);
         return res.status(500).json({ error: "Error retrieving user details" });
       }
 
       const { currentYear, stream } = userDetails;
+      console.log(`User ${uid} requesting timetable with details:`, userDetails);
 
       // Construct the timetable table name based on the user's stream and semester
+      // Make sure to use the correct format: timetableCSE1, timetableECE2, etc.
       const timetableTable = `timetable${stream}${currentYear}`;
+      console.log(`User timetable table: ${timetableTable}`);
 
       // Query to retrieve timetable based on the dynamically determined table name
-      const timetableQuery = `
-      SELECT DayOfWeek, StartTime, EndTime, SubjectName FROM ${timetableTable}`;
+      const timetableQuery = `SELECT DayOfWeek, StartTime, EndTime, SubjectName FROM ${timetableTable}`;
 
       db.query(timetableQuery, (error, results) => {
         if (error) {
           console.error("Error retrieving timetable:", error);
           return res.status(500).json({ error: "Internal server error" });
         }
+        console.log(`Retrieved ${results.length} timetable entries for user ${uid}`);
         res.json(results);
       });
     });

@@ -87,8 +87,17 @@ function getUserDetails(uid, callback) {
         const stream = userResults[0].department;
         const currentYear = getCurrentAcademicYear(batchYear);
         const currentSemester = calculateSemester(batchYear);
-        // console.log(`Calculated semester: ${currentSemester} for batch year: ${batchYear}`);
-        callback(null, { batchYear, stream, currentSemester, currentYear });
+        
+        // Ensure currentYear is a number between 1-4 for timetable table naming
+        // This is critical for the timetable query to work correctly
+        const yearForTimetable = Math.min(Math.max(parseInt(currentYear), 1), 4);
+        
+        callback(null, { 
+          batchYear, 
+          stream, 
+          currentSemester, 
+          currentYear: yearForTimetable 
+        });
       }
     });
   }
