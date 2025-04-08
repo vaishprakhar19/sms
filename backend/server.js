@@ -17,8 +17,8 @@ const server = http.createServer(app);
 const port = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: ["https://biasportal.vercel.app"],
-    method: ["POST", "GET", "DELETE"],
+    origin: ["https://biasportal.vercel.app", "http://localhost:3000", "http://localhost:5173"],
+    method: ["POST", "GET", "DELETE", "PUT", "PATCH"],
     credentials: true
 }));
 

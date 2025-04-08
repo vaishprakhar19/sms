@@ -83,6 +83,7 @@ function updateMenuDataInDatabase(updatedMenuData) {
 function getUserDetails(uid, callback) {
     console.log(`Getting user details for UID: ${uid}`);
     const userQuery = "SELECT batch, department FROM users WHERE uid = ?";
+    
     db.query(userQuery, [uid], (error, userResults) => {
       if (error) {
         console.error("Error retrieving user batch:", error);
