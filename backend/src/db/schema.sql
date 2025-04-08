@@ -95,4 +95,4 @@ CREATE INDEX idx_notices_stream_semester ON notices(stream, semester);
 CREATE INDEX idx_students_stream_semester ON students(stream, semester);
 CREATE INDEX idx_results_student_semester ON results(student_id, semester);
 CREATE INDEX idx_events_date ON events(event_date);
-CREATE INDEX idx_holidays_date ON holidays(date); 
+CREATE INDEX idx_holidays_date ON holidays(date);
