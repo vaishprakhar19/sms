@@ -12,7 +12,7 @@ const sendWhatsApp = async (to, body) => {
         body: body,
         from: `whatsapp:${twilioNumber}`,
         to: `whatsapp:${to}`
-      }).then(message => console.log(message.sid))
+      })
   
 }
 module.exports = { sendWhatsApp }

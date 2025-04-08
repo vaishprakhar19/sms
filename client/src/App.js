@@ -21,6 +21,7 @@ import { auth, db } from "./firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import Students from "./screens/Students";
 import axios from "axios";
+import Showresult from "./screens/Showresult";
 function App() {
   const {
     setLoading,
@@ -60,12 +61,15 @@ function App() {
 
   const fetchUserDetails = async (uid) => {
     try {
-      const response = await fetch(`https://biasportalback.vercel.app/userdata/${uid}`);
-      const data = await response.json();
-      await setStream(data.stream);
-      await setSemester(data.currentSemester);
-      console.log(stream, "stream");
-      console.log(semester, "sem");
+      if(user){
+
+        const response = await fetch(`https://biasportalback.vercel.app/userdata/${uid}`);
+        const data = await response.json();
+        await setStream(data.stream);
+        await setSemester(data.currentSemester);
+        console.log(stream, "stream");
+        console.log(semester, "sem");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -100,46 +104,12 @@ function App() {
     return () => unsubscribe();
   }, [stream, semester]);
 
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setShowInstallButton(true);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-      setIsInstalled(true);
-    }
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
-  }, []);
-
-  const handleInstallClick = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the install prompt');
-          setIsInstalled(true);
-        } else {
-          console.log('User dismissed the install prompt');
-        }
-        setDeferredPrompt(null);
-        setShowInstallButton(false);
-      });
-    }
-  };
-
   let routes = null;
 
   if (statesSet) {
-    if (isInstalled) {
       routes = (
         <>
+      <Route path="/result/:resultId" element={<Showresult />} />
           {user && isRegistered ? (
             <>
               <Route path="/dashboard" element={<Dashboard />} />
@@ -167,33 +137,10 @@ function App() {
           )}
         </>
       );
-    } else {
-      routes = (
-        <>
-        </>
-      );
-    }
   }
 
   return (
     <div className="App">
-      {showInstallButton && (
-        <div className="install-prompt">
-          <div>
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/student-portal-46087.appspot.com/o/image.png?alt=media&token=32fc5bc2-462d-4499-b664-e27bf2f724fa"
-              alt="birla"
-            />
-            <h2>Welcome To<br/>Student Portal BIAS</h2>
-          </div>
-          <div className='install-desc'>
-            <p>Please install the app to continue.</p>
-            <button onClick={handleInstallClick} className="adminbtn">
-              Install App
-            </button>
-          </div>
-        </div>
-      )}
       <Router>
         {statesSet ? <Routes>{routes}</Routes> : <Loader loading={true} />}
       </Router>

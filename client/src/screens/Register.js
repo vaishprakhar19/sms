@@ -39,13 +39,11 @@ axios.defaults.withCredentials= true;
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsRegistered(true);
-    // const uid = user?.uid || '';
-    // Include UID in form data
     const userData = {
       uid: user.uid,
       ...formData,
     };
-    // Send form data including UID to your SQL backend
+    // Send form data including UID to SQL backend
     try {
       const response = await fetch("https://biasportalback.vercel.app/auth/register", {
         method: "POST",

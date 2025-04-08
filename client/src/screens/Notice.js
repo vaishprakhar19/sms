@@ -14,9 +14,14 @@ const Notice = () => {
   const [isNoticeGeneral, setIsNoticeGeneral] = useState(false);
   const [showAddNoticeForm, setShowAddNoticeForm] = useState(false);
 
+ 
   const fetchNotices = async () => {
     try {
-      const response = await axios.get(`https://biasportalback.vercel.app/notices/${stream}/${semester}/${isAdmin}`);
+      const url = isAdmin
+        ? `https://biasportalback.vercel.app/notices/admin/true`
+        : `https://biasportalback.vercel.app/notices/${stream || 'null'}/${semester || 'null'}/false`;
+
+      const response = await axios.get(url);
       setNotices(response.data);
     } catch (error) {
       console.error('Error fetching notices:', error);
@@ -25,9 +30,9 @@ const Notice = () => {
 
   useEffect(() => {
 
-    if ((semester && stream) || isAdmin) {
+    
       fetchNotices();
-    }
+    
 
     // const socket = io('https://biasportalback.vercel.app', {
     //   transports: ['websocket'],
@@ -63,7 +68,7 @@ const Notice = () => {
 
       const streamSegment = noticeStream ? `/${noticeStream}` : '';
       const semesterSegment = noticeSemester ? `/${noticeSemester}` : '';
-      const url = `https://biasportalback.vercel.app/api/notices${streamSegment}${semesterSegment}`;
+      const url = `https://biasportalback.vercel.app/notices${streamSegment}${semesterSegment}`;
 
       const response = await axios.post(url, { id: newId, title, body, stream: noticeStream, semester: noticeSemester });
       setNotices([{ id: newId, title, body, stream: noticeStream, semester: noticeSemester }, ...notices]);
@@ -76,12 +81,12 @@ const Notice = () => {
       console.error('Error adding notice:', error);
     }
     fetchNotices();
-    showAddNoticeForm(false);
+    setShowAddNoticeForm(false);
   };
 
   const handleDeleteNotice = async (id) => {
     try {
-      await axios.delete(`https://biasportalback.vercel.app/api/notices/${id}`);
+      await axios.delete(`https://biasportalback.vercel.app/notices/${id}`);
       setNotices((prevNotices) => prevNotices.filter((notice) => notice.id !== id));
     } catch (error) {
       console.error('Error deleting notice:', error);

@@ -61,7 +61,7 @@ router.post("/timetable", (req, res) => {
       }
   
       const query = `UPDATE holidays SET festival = ?, no_of_holidays = ?, date = ?, day = ? WHERE id = ?`;
-      const values = [festival, no_of_holidays, date, day, id]; // Date is already a string
+      const values = [festival, no_of_holidays, date, day, id]; 
   
       return new Promise((resolve, reject) => {
         db.query(query, values, (error, results) => {
@@ -87,8 +87,6 @@ router.post("/timetable", (req, res) => {
   router.post("/mess/timing", (req, res) => {
     const updatedTimings = req.body.updatedTimings;
   
-    // Here you should add code to update your database with the new timings
-    // For simplicity, let's assume you're using MySQL and the table name is 'mess_timing'
   
     updatedTimings.forEach((timing) => {
       const query = "UPDATE mess_timing SET timing = ? WHERE day = ? AND meal_type = ? AND gender = ?";

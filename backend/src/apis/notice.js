@@ -3,34 +3,45 @@ const db = require("../core/db");
 
 const router = express.Router();
 
-router.get("/:stream/:semester/:isAdmin", (req, res) => {
-    const { semester, stream, isAdmin } = req.params; // Extract semester, stream, and isAdmin from request parameters
-  
-    let query;
-    let queryParams;
-  
-    if (isAdmin === "true") {
-      query = "SELECT * FROM notices ORDER BY id DESC"; // Order notices by created_at descending for admins
-      queryParams = [];
-    } else {
-      query = `
-        SELECT * FROM notices 
-        WHERE (semester = ? OR semester IS NULL) 
-        AND (stream = ? OR stream IS NULL) 
-        ORDER BY id DESC
-      `; // Order notices by created_at descending for non-admins
-      queryParams = [semester, stream];
+router.get("/:stream?/:semester?/:isAdmin", (req, res) => {
+  const { semester, stream, isAdmin } = req.params;
+
+  console.log("Received parameters:", { semester, stream, isAdmin });
+
+  let query;
+  let queryParams;
+
+  if (isAdmin === "true") {
+    console.log("Admin user detected");
+    query = "SELECT * FROM notices ORDER BY id DESC";
+    queryParams = [];
+  } else {
+    console.log("Non-admin user detected");
+    query = `
+      SELECT * FROM notices 
+      WHERE (semester = ? OR semester IS NULL) 
+      AND (stream = ? OR stream IS NULL) 
+      ORDER BY id DESC
+    `;
+    queryParams = [semester, stream];
+  }
+
+  console.log("Executing query:", query, "with parameters:", queryParams);
+
+  db.query(query, queryParams, (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "Error fetching notices" });
+      return;
     }
-  
-    db.query(query, queryParams, (err, results) => {
-      if (err) {
-        console.error("Error fetching notices:", err);
-        res.status(500).json({ error: "Error fetching notices" });
-        return;
-      }
-      res.json(results);
-    });
+    if (results.length === 0) {
+      res.status(404).json({ message: "No notices found" });
+      return;
+    }
+    res.json(results);
   });
+});
+
   
   
   // Add a new notice

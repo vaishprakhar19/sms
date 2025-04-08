@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const http = require('http');
 
 const coreRoutes = require("./src/apis/core");
-const marksRoutes = require("./src/apis/marks");
+const resultRoutes = require("./src/apis/result");
 const authRoutes =  require("./src/apis/auth");
 const messRoutes = require("./src/apis/mess");
 const noticeRoutes = require("./src/apis/notice");
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Adding Routes 
 
 app.use("/", coreRoutes);
-app.use("/marks", marksRoutes);
+app.use("/result", resultRoutes);
 app.use("/auth", authRoutes);
 app.use("/mess", messRoutes);
 app.use("/notices", noticeRoutes);
