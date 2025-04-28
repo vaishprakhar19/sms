@@ -27,6 +27,7 @@ const Holidays = () => {
   const fetchHolidays = async () => {
     try {
       const response = await axios.get("https://biasportalback.vercel.app/holidays");
+      // const response = await axios.get("http://localhost:5000/holidays");
       setHolidays(response.data);
     } catch (error) {
       console.error("Error fetching holiday data:", error);
