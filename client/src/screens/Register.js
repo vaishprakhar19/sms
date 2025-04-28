@@ -52,18 +52,23 @@ axios.defaults.withCredentials= true;
         },
         body: JSON.stringify(userData),
       });
+      
+      const data = await response.json();
+      
       if (!response.ok) {
         await setDoc(doc(db, "user", user.uid), {
           isRegistered: false,
           isAdmin: false
         });
-        throw new Error("Failed to register user");
+        throw new Error(data.error || "Failed to register user");
       }
+      
       // Update Firestore to mark user as registered
       await setReg();
       navigate("/dashboard");
     } catch (error) {
       console.error("Error registering user:", error);
+      setIsRegistered(false);
       await setDoc(doc(db, "user", user.uid), {
         isRegistered: false,
         isAdmin: false

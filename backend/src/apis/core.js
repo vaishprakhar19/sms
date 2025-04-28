@@ -48,9 +48,15 @@ router.get("/timetable", (req, res) => {
     // Query to retrieve timetable based on the dynamically determined table name
     const timetableQuery = `SELECT DayOfWeek, StartTime, EndTime, SubjectName FROM ${timetableTable}`;
 
+    // Execute the SQL query with a timeout
+    const queryTimeout = setTimeout(() => {
+      res.status(504).json({ error: "Database operation timed out" });
+    }, 30000); // 30 second timeout
+
     db.query(timetableQuery, (error, results) => {
+      clearTimeout(queryTimeout);
+      
       if (error) {
-        console.error("Error retrieving timetable:", error);
         return res.status(500).json({ error: "Internal server error" });
       }
       res.json(results);
@@ -67,12 +73,17 @@ router.get("/timetable", (req, res) => {
       const timetableTable = `timetable${stream}${currentYear}`;
 
       // Query to retrieve timetable based on the dynamically determined table name
-      const timetableQuery = `
-      SELECT DayOfWeek, StartTime, EndTime, SubjectName FROM ${timetableTable}`;
+      const timetableQuery = `SELECT DayOfWeek, StartTime, EndTime, SubjectName FROM ${timetableTable}`;
+
+      // Execute the SQL query with a timeout
+      const queryTimeout = setTimeout(() => {
+        res.status(504).json({ error: "Database operation timed out" });
+      }, 30000); // 30 second timeout
 
       db.query(timetableQuery, (error, results) => {
+        clearTimeout(queryTimeout);
+        
         if (error) {
-          console.error("Error retrieving timetable:", error);
           return res.status(500).json({ error: "Internal server error" });
         }
         res.json(results);
