@@ -19,10 +19,11 @@ const Notice = () => {
     try {
       const url = isAdmin
         ? `https://biasportalback.vercel.app/notices/admin/true`
-        : `https://biasportalback.vercel.app/notices/${stream || ''}/${semester || ''}/false`;
-
+        : `https://biasportalback.vercel.app/notices/${stream || 'null'}/${semester || 'null'}/false`;
+console.log("inside",semester, stream, isAdmin)
       const response = await axios.get(url);
       setNotices(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error('Error fetching notices:', error);
     }

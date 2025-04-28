@@ -4,11 +4,7 @@ const db = require("../core/db");
 const router = express.Router();
 
 router.get("/:stream?/:semester?/:isAdmin", (req, res) => {
-  let { semester, stream, isAdmin } = req.params;
-
-  // Convert empty strings and 'null' strings to actual null values
-  semester = (!semester || semester === 'null' || semester === '') ? null : semester;
-  stream = (!stream || stream === 'null' || stream === '') ? null : stream;
+  const { semester, stream, isAdmin } = req.params;
 
   console.log("Received parameters:", { semester, stream, isAdmin });
 
