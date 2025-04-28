@@ -14,7 +14,7 @@ const updateDataRoutes = require("./src/apis/update");
 
 const app = express();
 // const server = http.createServer(app);
-// const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors({
     origin: ["https://biasportal.vercel.app"],
@@ -51,4 +51,4 @@ app.get("/", (req, res) => {
 //     }
 // });
 
-module.exports = server;
+module.exports = app;
