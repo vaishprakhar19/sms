@@ -87,6 +87,14 @@ function App() {
     console.log("Current values - Stream:", stream, "Semester:", semester);
   }, [stream, semester]);
 
+  // Add this new useEffect before the auth listener useEffect
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
