@@ -30,9 +30,9 @@ const Notice = () => {
 
   useEffect(() => {
 
-    
+    if (isAdmin || (stream !== null && semester !== null)) {
       fetchNotices();
-    
+    }
 
     // const socket = io('https://biasportalback.vercel.app', {
     //   transports: ['websocket'],
