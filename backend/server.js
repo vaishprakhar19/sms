@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require('cors');
 const bodyParser = require("body-parser");
-const http = require('http');
+// const http = require('http');
+const https = require('https');
 
 const coreRoutes = require("./src/apis/core");
 const resultRoutes = require("./src/apis/result");
@@ -13,7 +14,7 @@ const holidayRoutes = require("./src/apis/holiday")
 const updateDataRoutes = require("./src/apis/update");
 
 const app = express();
-const server = http.createServer(app);
+const server = https.createServer(app);
 const port = process.env.PORT || 5000;
 
 app.use(cors({
