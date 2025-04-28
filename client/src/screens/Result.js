@@ -23,7 +23,7 @@ const Result = () => {
     };
 
     axios
-      .get("https://biasportalback.vercel.app/api/users", { params })
+      .get("https://biasportalback.vercel.app/users", { params })
       .then((response) => {
         setUsers(response.data);
       })

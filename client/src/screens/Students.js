@@ -161,7 +161,7 @@ const Students = () => {
                 <tr key={user.uid}>
                   <td>{user.name}</td>
                   <td>{user.mobile}</td>
-                  <td>{user.rollNo}</td>
+                  <td>{user.roll_no}</td>
                   <td>{user.batch}</td>
                   <td>{user.gender}</td>
                   <td>{user.department}</td>
