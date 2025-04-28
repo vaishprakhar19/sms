@@ -30,7 +30,7 @@ const Notice = () => {
 
   useEffect(() => {
 
-    if (isAdmin || (stream !== null && semester !== null)) {
+    if (isAdmin || (stream !== "" && semester !== 0)) {
       fetchNotices();
     }
 
