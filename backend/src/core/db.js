@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
+    connectionLimit: 10,
     host: 'mysql-3a77e907-smsbias.d.aivencloud.com',
     port: '18571',
     user: 'avnadmin',
@@ -8,13 +9,13 @@ const db = mysql.createConnection({
     database: 'students'
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL database:", err);
-    return;
-  }
-  console.log("Connected to MySQL database ");
-});
+// db.connect((err) => {
+//   if (err) {
+//     console.error("Error connecting to MySQL database:", err);
+//     return;
+//   }
+//   console.log("Connected to MySQL database ");
+// });
 
 
 module.exports = db;
