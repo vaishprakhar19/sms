@@ -20,9 +20,10 @@ const Notice = () => {
       const url = isAdmin
         ? `https://biasportalback.vercel.app/notices/admin/true`
         : `https://biasportalback.vercel.app/notices/${stream || 'null'}/${semester || 'null'}/false`;
-
+console.log("inside",semester, stream, isAdmin)
       const response = await axios.get(url);
       setNotices(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error('Error fetching notices:', error);
     }
@@ -55,6 +56,7 @@ const Notice = () => {
     //   socket.disconnect();
     // };
   }, [stream, semester, isAdmin]);
+  console.log("out",semester, stream, isAdmin)
 
   const handleAddNotice = async (e) => {
     e.preventDefault();
