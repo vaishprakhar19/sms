@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     db.query(query, (error, results) => {
       if (error) {
         console.error("Error fetching holidays:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({error});
         return;
       }
       res.json(results);
