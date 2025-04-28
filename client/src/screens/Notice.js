@@ -29,11 +29,7 @@ const Notice = () => {
   };
 
   useEffect(() => {
-
-    if (isAdmin || (stream !== "" && semester !== 0)) {
       fetchNotices();
-    }
-
     // const socket = io('https://biasportalback.vercel.app', {
     //   transports: ['websocket'],
     //   withCredentials: true
