@@ -63,7 +63,7 @@ function App() {
     try {
       if(user){
 
-        const response = await fetch(`https://biasportalback.vercel.app/users/${uid}`);
+        const response = await fetch(`https://biasportalback.vercel.app/userdata/${uid}`);
         const data = await response.json();
         await setStream(data.stream);
         await setSemester(data.currentSemester);
