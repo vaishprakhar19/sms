@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/register", (req, res) => {
     const { uid, name, mobile, rollNo, batch, gender, department } = req.body;
     const sql =
-      "INSERT INTO users (uid, name, mobile, rollNo, batch, gender, department) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO users (uid, name, mobile, roll_no, batch, gender, department) VALUES (?, ?, ?, ?, ?, ?, ?)";
     const values = [uid, name, mobile, rollNo, batch, gender, department];
   
     // Execute the SQL query
